@@ -16,9 +16,10 @@
   <a href="README.md">English</a>
 </p>
 
+[![smithery badge](https://smithery.ai/badge/sergiu/vendwiser)](https://smithery.ai/servers/sergiu/vendwiser)
+
 <!-- Insigne directoare: decomentează după ce listările există și înlocuiește valorile de rezervă.
 [![Vendwiser on Glama](https://glama.ai/mcp/connectors/GLAMA_CONNECTOR_ID/badge)](https://glama.ai/mcp/connectors/GLAMA_CONNECTOR_ID)
-[![smithery badge](https://smithery.ai/badge/SMITHERY_NAMESPACE/vendwiser)](https://smithery.ai/server/SMITHERY_NAMESPACE/vendwiser)
 -->
 
 > **Acest depozit conține doar documentație și fișiere de configurare pentru clienți.** Serverul Vendwiser este un serviciu găzduit, proprietar, operat de VOLTIVO POWER TRADING SRL. Nu ai nimic de compilat sau de rulat local: îți conectezi clientul AI la adresa de mai jos.

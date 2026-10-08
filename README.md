@@ -16,9 +16,10 @@
   <a href="README.ro.md">Română</a>
 </p>
 
+[![smithery badge](https://smithery.ai/badge/sergiu/vendwiser)](https://smithery.ai/servers/sergiu/vendwiser)
+
 <!-- Directory badges: uncomment once the listings exist and replace the placeholders.
 [![Vendwiser on Glama](https://glama.ai/mcp/connectors/GLAMA_CONNECTOR_ID/badge)](https://glama.ai/mcp/connectors/GLAMA_CONNECTOR_ID)
-[![smithery badge](https://smithery.ai/badge/SMITHERY_NAMESPACE/vendwiser)](https://smithery.ai/server/SMITHERY_NAMESPACE/vendwiser)
 -->
 
 > **This repository contains documentation and client configuration files only.** The Vendwiser server is a hosted, proprietary service operated by VOLTIVO POWER TRADING SRL. There is nothing to build or run locally: you connect your AI client to the remote endpoint below.
