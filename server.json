@@ -1,0 +1,30 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.vendwiser/vendwiser",
+  "title": "Vendwiser",
+  "description": "Run your eMAG Romania shop and Oblio invoices from AI; every change waits for your approval.",
+  "version": "1.0.0",
+  "websiteUrl": "https://vendwiser.ai/docs/",
+  "icons": [
+    {
+      "src": "https://vendwiser.ai/icon-512.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "512x512"
+      ]
+    },
+    {
+      "src": "https://vendwiser.ai/icon-1024.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "1024x1024"
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://app.vendwiser.ai/mcp"
+    }
+  ]
+}

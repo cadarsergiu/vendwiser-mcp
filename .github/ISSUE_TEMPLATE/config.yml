@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Vendwiser support (account, billing, data)
+    url: https://vendwiser.ai
+    about: Email hello@vendwiser.ai for questions about your account, plan or data. Please do not open a public issue for these.
+  - name: Documentation
+    url: https://vendwiser.ai/docs/
+    about: Setup steps for eMAG, Oblio, Claude, ChatGPT and other clients.
+  - name: Report a security problem
+    url: https://github.com/cadarsergiu/vendwiser-mcp/blob/main/SECURITY.md
+    about: Please report vulnerabilities privately by email to hello@vendwiser.ai, as described in SECURITY.md.

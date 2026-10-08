@@ -1,0 +1,39 @@
+{
+  "name": "vendwiser",
+  "displayName": "Vendwiser",
+  "description": "Run your eMAG marketplace shop from Cursor: offers, prices, stock, orders, returns, campaigns, AWB shipping labels and Oblio invoices. Every change is a preview that waits for your approval.",
+  "version": "1.0.0",
+  "author": {
+    "name": "VOLTIVO POWER TRADING SRL",
+    "email": "hello@vendwiser.ai"
+  },
+  "publisher": "VOLTIVO POWER TRADING SRL",
+  "homepage": "https://vendwiser.ai",
+  "repository": "https://github.com/cadarsergiu/vendwiser-mcp",
+  "license": "MIT",
+  "logo": "assets/icon-512.png",
+  "keywords": [
+    "emag",
+    "marketplace",
+    "ecommerce",
+    "seller",
+    "orders",
+    "offers",
+    "invoices",
+    "oblio",
+    "awb",
+    "romania",
+    "mcp"
+  ],
+  "category": "productivity",
+  "tags": [
+    "mcp",
+    "ecommerce",
+    "marketplace"
+  ],
+  "mcpServers": {
+    "vendwiser": {
+      "url": "https://app.vendwiser.ai/mcp"
+    }
+  }
+}

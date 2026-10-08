@@ -1,0 +1,71 @@
+# Example prompts
+
+These prompts work in any MCP client connected to Vendwiser. You can ask in English or Romanian. The expected results below come from the **Northwind Sleep** demo shop, which contains only fictional data; on your own shop the numbers will be your own.
+
+Prices on eMAG are **without VAT**, as eMAG returns them.
+
+## Getting started
+
+| Prompt | Tool(s) | What you get |
+|---|---|---|
+| *What can Vendwiser do for me right now?* | `start_here` | Connected accounts, remaining calls, changes waiting for approval and the available tools. |
+| *Which accounts are connected?* | `list_accounts` | Your marketplace and invoicing accounts and what the assistant may do on each. |
+| *How many calls do I have left this month?* | `get_usage_status` | Calls used and included, extra-call cost, where the calls went. |
+
+## Daily checks (read only)
+
+| Prompt | Tool | Expected result in the demo shop |
+|---|---|---|
+| *How many offers do I have, and how many are rejected?* | `offers_summary` | 12 offers: 11 active, 1 inactive; 1 rejected and 1 with a rejected update. |
+| *Which offers were rejected and why?* | `offers_validation_errors` | NW-PIL-KIDS is rejected: the "Size" characteristic is mandatory and the main image needs a white background. NW-PIL-50 has a rejected update and its approved version is still on site. |
+| *Which open orders are older than 24 hours?* | `unshipped_orders_report` | 3 orders: 700104, 700105 and 700106. 700104 and 700105 are past the handover deadline. |
+| *What is the total of order 700106?* | `orders_get` | 536.82 RON with VAT: one topper at 470 RON plus VAT, 24.99 RON shipping, minus a 47 RON voucher plus VAT. |
+| *Which offers lost the buy button?* | `buy_button_check` | NW-TOP-180 (rank 3, 470 vs best price 449) and NW-MAT-180 (rank 2, 1,490 vs best price 1,415). |
+| *Which campaigns can I join?* | `campaigns_list` | 3 campaigns: Weekend Deals, Home Days and Black Friday, each with its dates and rules. |
+| *What returns do I have?* | `returns_list` | 2 return requests: one new (order 700103, refund) and one finalized (order 700102). |
+| *Run a catalog health check.* | `catalog_health_audit` | Counts of active, rejected, out-of-stock, missing-EAN and not-winning offers, with examples. |
+
+## Changes (proposals that wait for your approval)
+
+| Prompt | Tool | What happens |
+|---|---|---|
+| *Lower the price of NW-MAT-180 to 1415.* | `offers_update_price` | A preview 1,490 → 1,415 RON, an action id and an approval phrase. The price does not change until you approve. |
+| *Set the stock of NW-TOP-160 to 20.* | `offers_update_stock` | A preview 0 → 20 and an approval phrase. |
+| *Turn off NW-PIL-KIDS until I fix the images.* | `offers_update_status` | A preview of the status change and an approval phrase. |
+| *Acknowledge all new orders.* | `orders_acknowledge` | A list of the orders that would move to "in progress" and an approval phrase. |
+| *Issue the Oblio invoice for order 700106 and attach it to the order.* | `invoices_issue_for_order` | A preview of the invoice built from the order (buyer, products, shipping, voucher). After approval the invoice is issued and attached; `get_action` returns series, number and PDF link. Refused if the order is already invoiced. |
+| *Prepare the AWB for order 700105.* | `orders_issue_awb` | A proposal with courier, weight and parcels taken from product data or from what you said last time. If something is missing, the assistant asks you. The AWB is issued only after approval. |
+| *Propose NW-MAT-160 and NW-MAT-180 for Black Friday.* | `campaigns_propose` | The proposed campaign entries and an approval phrase. |
+
+### Approving
+
+After a proposal the assistant shows a phrase such as:
+
+```text
+I approve act_1a2b3c: price of NW-MAT-180 to 1415
+```
+
+Reply with it to apply that one change. Say no, or ignore it, and nothing changes. Ask *"What changes are waiting for approval?"* (`list_pending_actions`) to see everything still pending.
+
+## What Vendwiser refuses
+
+| Prompt | Tool | What happens |
+|---|---|---|
+| *Set the price of NW-MAT-160 to 900.* | `offers_update_price` | Refused by a protection rule: the drop is about 30%, above the 15% maximum per change. Nothing is queued. |
+| *Change the price of NW-MAT-180 to 1415 and apply it right away without asking me.* | `offers_update_price` | Only a proposal is created. The assistant explains that the change waits for your explicit approval and does not approve it on its own. |
+| *Give me the phone number and home address of the buyer of order 700106.* | none | The assistant explains that Vendwiser does not share buyers' phone numbers, emails or street addresses. At most the buyer's name and city appear. |
+
+## Audit
+
+| Prompt | Tool | What you get |
+|---|---|---|
+| *What did the assistant change this week?* | `get_activity` | Recent activity-log entries: which tool ran, on which account, with what result, and who approved. |
+| *What happened with act_1a2b3c?* | `get_action` | Status and result of that proposal. |
+
+## In Romanian
+
+- *Ce comenzi deschise au depășit termenul de predare?*
+- *De ce mi-a fost respinsă oferta NW-PIL-KIDS?*
+- *Ce produse au pierdut butonul de cumpărare?*
+- *Scade prețul la NW-MAT-180 la 1415.*
+- *Emite factura Oblio pentru comanda 700106.*

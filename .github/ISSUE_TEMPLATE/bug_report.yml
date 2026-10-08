@@ -1,0 +1,37 @@
+name: Connection or documentation problem
+description: Something in these docs is wrong, or connecting a client to Vendwiser fails.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. **Do not include passwords, tokens, API keys, order data, buyer names or any other customer data.**
+        For account or billing questions, email hello@vendwiser.ai instead.
+  - type: dropdown
+    id: client
+    attributes:
+      label: AI client
+      options:
+        - Claude (web or desktop)
+        - Claude Code
+        - ChatGPT
+        - Cursor
+        - VS Code
+        - Gemini CLI
+        - Cline
+        - Windsurf
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead. Include the error message if there is one.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Client version
+      placeholder: e.g. Cursor 3.1, Gemini CLI 0.12

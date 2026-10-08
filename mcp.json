@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "vendwiser": {
+      "type": "streamable-http",
+      "url": "https://app.vendwiser.ai/mcp"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+name: Documentation fix or feature request
+description: Suggest a correction to the docs, a new client guide, or a new Vendwiser capability.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: This issue is public. Do not include customer data, passwords or tokens.
+  - type: textarea
+    id: request
+    attributes:
+      label: What would you like?
+    validations:
+      required: true

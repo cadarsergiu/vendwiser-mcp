@@ -1,0 +1,53 @@
+Vendwiser MCP documentation and configuration repository
+Copyright (c) 2026 VOLTIVO POWER TRADING SRL
+
+This repository contains only documentation and client configuration files for
+the hosted Vendwiser MCP server. It is licensed in two parts:
+
+1. Documentation (all Markdown files, including README.md, README.ro.md,
+   GEMINI.md, llms-install.md, PUBLISHING.md, CHANGELOG.md, SECURITY.md,
+   the docs/ and rules/ folders) is licensed under the Creative Commons
+   Attribution 4.0 International License (CC BY 4.0). The full text is in
+   LICENSES/CC-BY-4.0.txt and at https://creativecommons.org/licenses/by/4.0/.
+
+2. Configuration files (server.json, mcp.json, gemini-extension.json,
+   lhm.plugin.json, .cursor-plugin/plugin.json, the hosting/ folder and the
+   .github/ folder) are licensed under the MIT License below.
+
+NOT COVERED BY THESE LICENSES
+
+- The Vendwiser server, its source code, the hosted service at
+  https://app.vendwiser.ai and the website https://vendwiser.ai are
+  proprietary and are not licensed under this repository. Use of the service
+  is governed by the Terms of Service at https://vendwiser.ai/terms/ and the
+  Privacy Policy at https://vendwiser.ai/privacy/.
+- The Vendwiser name, logos, icons and banner in the assets/ folder are
+  trademarks and brand assets of VOLTIVO POWER TRADING SRL. They may be used
+  only to refer to or link to Vendwiser (for example in MCP directories and
+  client integrations), not to suggest endorsement or for other products.
+- eMAG, Oblio and other third-party names are trademarks of their respective
+  owners and are used only to describe compatibility.
+
+-------------------------------------------------------------------------------
+
+MIT License
+
+Copyright (c) 2026 VOLTIVO POWER TRADING SRL
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

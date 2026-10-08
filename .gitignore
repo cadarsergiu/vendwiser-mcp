@@ -1,0 +1,6 @@
+# Never commit registry signing keys or publisher tokens
+key.pem
+*.pem
+.mcpregistry_*
+.env
+.DS_Store

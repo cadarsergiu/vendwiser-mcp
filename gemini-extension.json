@@ -1,0 +1,11 @@
+{
+  "name": "vendwiser",
+  "version": "1.0.0",
+  "description": "Run your eMAG Marketplace Romania shop and Oblio invoicing from Gemini CLI. Reads are immediate; every change is a preview that waits for your approval.",
+  "mcpServers": {
+    "vendwiser": {
+      "httpUrl": "https://app.vendwiser.ai/mcp"
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}
