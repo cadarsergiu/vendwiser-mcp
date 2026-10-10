@@ -1,17 +1,17 @@
 <p align="center">
-  <img src="assets/banner-1200x200.png" alt="Vendwiser: magazinele tale eMAG și Trendyol, conduse din asistentul AI" width="100%">
+  <img src="assets/banner-1200x200.png" alt="Vendwiser: magazinele tale eMAG, Trendyol și Kaufland, conduse din asistentul AI" width="100%">
 </p>
 
 <h1 align="center">Serverul MCP Vendwiser</h1>
 
 <p align="center">
-  <strong>Conduci magazinele de pe eMAG și Trendyol întrebând: oferte, pagini de produs, comenzi, retururi, întrebările clienților, facturi, plus AWB-uri și campanii pe eMAG, cu aprobarea ta la fiecare schimbare.</strong>
+  <strong>Conduci magazinele de pe eMAG, Trendyol și Kaufland întrebând: oferte, pagini de produs, comenzi, retururi, întrebările clienților, facturi, AWB-uri și campanii pe eMAG, vouchere pe Kaufland, cu aprobarea ta la fiecare schimbare.</strong>
 </p>
 
 <p align="center">
   <a href="https://vendwiser.ai">Site</a> ·
   <a href="https://vendwiser.ai/docs/">Documentație</a> ·
-  <a href="docs/tools.md">Toate cele 52 de unelte (EN)</a> ·
+  <a href="docs/tools.md">Toate cele 79 de unelte (EN)</a> ·
   <a href="docs/security.md">Securitate (EN)</a> ·
   <a href="README.md">English</a>
 </p>
@@ -29,46 +29,50 @@
 | **Adresa serverului** | `https://app.vendwiser.ai/mcp` |
 | **Transport** | Streamable HTTP (fără stare) |
 | **Autentificare** | OAuth 2.1 cu înregistrare dinamică a clientului și PKCE (S256). Te autentifici în Vendwiser într-o fereastră de browser; nu copiezi nicio cheie API. |
-| **Unelte** | 52 (33 doar de citire, 17 care doar *propun* schimbări, 1 router, 1 care aplică schimbările aprobate) |
-| **Marketplace-uri** | eMAG Marketplace România. Trendyol România, Bulgaria, Grecia, Cehia, Slovacia și Germania (fiecare magazin conectat separat). Oblio pentru facturare (opțional). |
+| **Unelte** | 79 (44 doar de citire, 33 care doar *propun* schimbări, 1 router, 1 care aplică schimbările aprobate) |
+| **Marketplace-uri** | eMAG Marketplace România. Trendyol România, Bulgaria, Grecia, Cehia, Slovacia și Germania (fiecare magazin conectat separat). Kaufland Germania, Austria, Polonia, Cehia, Slovacia, Franța, Italia, Spania și Olanda (fiecare țară conectată separat; citirea și schimbarea stocului verificate pe un cont real, celelalte schimbări Kaufland în curs de verificare). Oblio pentru facturare (opțional). |
 | **Nume în registru** | `ai.vendwiser/vendwiser` |
 
 ## Ce este
 
-Vendwiser îți conectează conturile de vânzător **eMAG** și **Trendyol** și **contul de facturare Oblio** la asistentul AI pe care îl folosești deja (Claude, ChatGPT, Cursor, VS Code, Gemini CLI și orice alt client MCP), ca să faci munca zilnică de marketplace în limbaj obișnuit.
+Vendwiser îți conectează conturile de vânzător **eMAG**, **Trendyol** și **Kaufland** și **contul de facturare Oblio** la asistentul AI pe care îl folosești deja (Claude, ChatGPT, Cursor, VS Code, Gemini CLI și orice alt client MCP), ca să faci munca zilnică de marketplace în limbaj obișnuit.
 
-Întrebi ce comenzi au depășit termenul de predare, de ce a fost respinsă o ofertă, ce produse au pierdut butonul de cumpărare, ce întrebări ale clienților așteaptă răspuns sau cât ți-a plătit Trendyol săptămâna trecută. Când vrei să schimbi ceva, asistentul pregătește schimbarea, îți arată o previzualizare înainte și după, și așteaptă aprobarea ta explicită.
+Întrebi ce comenzi au depășit termenul de predare, de ce a fost respinsă o ofertă, ce produse au pierdut butonul de cumpărare, ce întrebări ale clienților așteaptă răspuns, cât ți-a plătit Trendyol săptămâna trecută sau cine deține Buy Box-ul pe Kaufland. Când vrei să schimbi ceva, asistentul pregătește schimbarea, îți arată o previzualizare înainte și după, și așteaptă aprobarea ta explicită.
 
 ## Pentru cine este
 
 - **Vânzătorii de pe eMAG Marketplace România** care vor răspunsuri și schimbări de rutină fără să navigheze prin Seller Center.
 - **Vânzătorii Trendyol** din România, Bulgaria, Grecia, Cehia, Slovacia și Germania care vor să gestioneze comenzile, paginile de produs, retururile și întrebările clienților dintr-o conversație.
+- **Vânzătorii Kaufland Global Marketplace** din Germania, Austria, Polonia, Cehia, Slovacia, Franța, Italia, Spania și Olanda care vor să gestioneze ofertele, Buy Box-ul, stocul, comenzile și tichetele cumpărătorilor dintr-o conversație.
 - **Operatorii de magazin și echipele mici** care facturează comenzile eMAG în **Oblio** și vor facturi și AWB-uri pregătite direct din comandă.
 - **Agențiile și integratorii** care administrează conturi de vânzător și au nevoie de o evidență a fiecărei schimbări făcute de un asistent AI.
 
-Ai nevoie de un cont Vendwiser (există un plan gratuit, vezi [vendwiser.ai](https://vendwiser.ai) pentru planuri) și de un cont de vânzător eMAG Marketplace România sau Trendyol cu acces API. Fiecare magazin Trendyol este un cont de marketplace separat: planurile Gratuit, Starter și Pro includ un cont per marketplace, Scale până la șase, adică toate țările Trendyol. Oblio este opțional.
+Ai nevoie de un cont Vendwiser (există un plan gratuit, vezi [vendwiser.ai](https://vendwiser.ai) pentru planuri) și de un cont de vânzător eMAG Marketplace România, Trendyol sau Kaufland cu acces API. Fiecare magazin Trendyol și fiecare țară Kaufland este un cont de marketplace separat: planurile Gratuit, Starter și Pro includ un cont per marketplace, Scale până la nouă per marketplace, adică toate țările Trendyol sau Kaufland. Oblio este opțional.
 
 ## Funcții
 
 - **Catalog:** oferte cu preț, stoc, stare, stare de validare și poziție la butonul de cumpărare; numărători exacte ale catalogului; mesaje de validare complete; regulile categoriilor; cote de TVA și timpi de procesare (eMAG).
-- **Pagini de produs (Trendyol):** citești pagina unui produs și propui schimbări de titlu, descriere (întreagă sau înlocuire de fragmente), atribute și zile de livrare; propui produse noi; ștergi variante arhivate.
-- **Prețuri și stoc:** propui prețuri noi, stocuri noi și activarea sau dezactivarea ofertelor, mereu întâi ca previzualizare.
-- **Comenzi:** listezi, numeri și deschizi comenzi; găsești comenzile care au depășit termenul de predare; propui confirmarea comenzilor noi; pe Trendyol împarți o comandă în colete sau anulezi produsele care nu pot fi livrate.
+- **Pagini de produs:** citești pagina unui produs și propui schimbări de titlu, descriere (întreagă sau înlocuire de fragmente), atribute și zile de livrare; pe Trendyol și Kaufland propui și produse noi (pe Kaufland în mai multe țări deodată, cu preț per țară) și ștergi variante arhivate.
+- **Concurență (Kaufland):** toate ofertele de pe aceeași pagină de produs ordonate pentru Buy Box, analiza sortimentului făcută de Kaufland, grupurile de livrare.
+- **Prețuri și stoc:** propui prețuri noi, stocuri noi, timpi de predare (eMAG, Kaufland) și activarea sau dezactivarea ofertelor, mereu întâi ca previzualizare.
+- **Comenzi:** listezi, numeri și deschizi comenzi; găsești comenzile care au depășit termenul de predare; propui confirmarea comenzilor noi; pe Trendyol și Kaufland marchezi comenzile ca expediate cu numărul de urmărire sau anulezi produsele care nu pot fi livrate; pe Trendyol împarți o comandă, setezi coletele sau schimbi curierul; pe Kaufland rambursezi fără retur sau îi scrii cumpărătorului.
 - **Livrare (AWB, doar eMAG):** propui un AWB pentru o comandă prin conturile de curier eMAG, cu greutatea și coletele sugerate din datele produsului; citești AWB-urile emise prin Vendwiser.
-- **Retururi:** cererile de retur, cele mai noi primele; pe Trendyol propui acceptarea sau refuzul unui retur.
-- **Întrebările clienților (Trendyol):** vezi întrebările de pe paginile produselor și propui un răspuns; Trendyol îl verifică înainte să-l publice.
+- **Retururi:** cererile de retur, cele mai noi primele; pe Trendyol și Kaufland propui acceptarea sau refuzul unui retur ori deschizi un retur pentru client.
+- **Întrebări și tichete:** pe Trendyol vezi întrebările de pe paginile produselor și propui răspunsuri (Trendyol le verifică înainte să le publice); pe Kaufland citești tichetele cumpărătorilor, propui răspunsuri și închizi tichetele rezolvate.
 - **Finanțe (Trendyol):** vânzări, retururi, reduceri, cupoane, plăți și facturile de comision și transport reținute, exact cum le raportează Trendyol.
-- **Campanii (doar eMAG):** campaniile la care te poți înscrie, cu date și reguli; propui produse pentru o campanie.
+- **Campanii (doar eMAG):** campaniile la care te poți înscrie, cu date și reguli, unde lipsești, și propui produse pentru o campanie.
+- **Vouchere și rapoarte (Kaufland):** listezi, creezi și oprești vouchere de reducere; ceri și descarci rapoartele Kaufland.
 - **Facturare (Oblio):** listezi și deschizi facturi și proforme; propui emiterea unei facturi, emiterea facturii pentru o comandă de marketplace în lei (eMAG România, Trendyol România; cumpărătorul, produsele, transportul și voucherele se iau din comandă), sau anularea unei facturi.
-- **Analize (eMAG și Trendyol):** auditul sănătății catalogului, verificarea butonului de cumpărare cu diferența față de prețul câștigător, paritatea prețurilor între oricare două conturi (două țări Trendyol sau eMAG și Trendyol; fără conversie valutară și fără ajustare de TVA), raportul comenzilor neexpediate.
+- **Analize:** auditul sănătății catalogului, verificarea butonului de cumpărare cu diferența față de prețul câștigător, paritatea prețurilor între oricare două conturi (de exemplu două țări Trendyol sau Kaufland, ori eMAG și Trendyol; fără conversie valutară și fără ajustare de TVA), raportul comenzilor neexpediate.
+- **Stadiul Kaufland:** citirea și schimbarea stocului sunt verificate pe un cont Kaufland real. Schimbările de preț, răspunsurile la tichete, voucherele, marcarea comenzilor ca expediate și celelalte schimbări Kaufland trec prin aceeași previzualizare și aprobare și sunt în curs de verificare pe conturi reale (marcate cu † în tabelele de unelte).
 - **Siguranță:** propuneri cu aprobare în conversație, reguli de protecție și jurnal de activitate exportabil (vezi mai jos).
 
 ## Modelul de siguranță
 
 Vendwiser e construit astfel încât un asistent AI **să poată citi liber, dar să nu-ți poată schimba niciodată magazinul singur**.
 
-1. **Citirea e imediată.** Ofertele, paginile de produs, stocul, prețurile, comenzile, retururile, întrebările clienților, finanțele, campaniile, facturile și rapoartele vin direct din conturile tale.
-2. **Orice scriere este o propunere.** Uneltele care schimbă ceva (prețuri, stoc, starea ofertelor, pagini de produs, produse noi sau șterse, confirmarea comenzilor, împărțiri și anulări în comenzi, decizii de retur, răspunsuri la întrebările clienților, facturi, AWB-uri, înscrieri în campanii) doar *simulează* schimbarea. Întorc o previzualizare înainte și după și un identificator de acțiune, de exemplu `act_1a2b3c`. În acest moment nimic nu ajunge la eMAG, Trendyol sau Oblio.
+1. **Citirea e imediată.** Ofertele, paginile de produs, stocul, prețurile, comenzile, retururile, întrebările clienților și tichetele, finanțele, campaniile, voucherele, facturile și rapoartele vin direct din conturile tale.
+2. **Orice scriere este o propunere.** Uneltele care schimbă ceva (prețuri, stoc, starea ofertelor, pagini de produs, produse noi sau șterse, confirmarea comenzilor, împărțiri și anulări în comenzi, decizii de retur, răspunsuri la întrebări și tichete, rambursări, vouchere, facturi, AWB-uri, înscrieri în campanii) doar *simulează* schimbarea. Întorc o previzualizare înainte și după și un identificator de acțiune, de exemplu `act_1a2b3c`. În acest moment nimic nu ajunge la eMAG, Trendyol, Kaufland sau Oblio.
 3. **Aprobi în conversație.** Asistentul îți arată fraza exactă de aprobare, de exemplu:
 
    ```text
@@ -79,7 +83,7 @@ Vendwiser e construit astfel încât un asistent AI **să poată citi liber, dar
 4. **Regulile de protecție blochează schimbările riscante înainte să fie puse în așteptare**: o scădere maximă de preț per schimbare (de exemplu 15%), un preț minim și o limită a numărului de oferte pe care o singură schimbare le poate atinge. O schimbare blocată este refuzată cu numele regulii; nu se pune nimic în așteptare.
 5. **Totul se înregistrează.** Fiecare apel de unealtă și fiecare aprobare intră într-un jurnal de activitate pe care îl citești cu `get_activity` și îl exporți din panoul de control.
 
-Alte protecții: datele de acces la marketplace și la facturare sunt stocate criptat și nu sunt arătate niciodată asistentului; telefoanele, emailurile și adresele cumpărătorilor nu sunt transmise asistentului (comenzile arată doar numele și orașul cumpărătorului). `manage_action` este singura unealtă marcată `destructiveHint: true`, iar toate uneltele au `openWorldHint: false`. Unele schimbări aprobate nu pot fi anulate pe marketplace (ștergerea variantelor Trendyol, anularea produselor dintr-o comandă); previzualizarea o spune clar. Detalii în [docs/security.md](docs/security.md) (în engleză).
+Alte protecții: datele de acces la marketplace și la facturare sunt stocate criptat și nu sunt arătate niciodată asistentului; telefoanele, emailurile și adresele cumpărătorilor nu sunt transmise asistentului (comenzile arată doar numele și orașul cumpărătorului). `manage_action` este singura unealtă marcată `destructiveHint: true`, iar toate uneltele au `openWorldHint: false`. Unele schimbări aprobate nu pot fi anulate pe marketplace (ștergerea variantelor, anularea produselor dintr-o comandă, rambursările); previzualizarea o spune clar. Detalii în [docs/security.md](docs/security.md) (în engleză).
 
 ## Conectare rapidă
 
@@ -223,11 +227,12 @@ Pentru clienții care acceptă doar servere locale (stdio), puntea comunitară [
 
 ## Unelte
 
-Ultima coloană arată ce marketplace-uri acceptă fiecare unealtă (în clientul tău, rândul „Works on:” al fiecărei unelte arată doar conturile pe care le-ai conectat): **eMAG** (România), **Trendyol** (România, Bulgaria, Grecia, Cehia, Slovacia, Germania) sau **Oblio**. Legendă: 📖 **Citire** (`readOnlyHint: true`, întoarce date) · ✍️ **Propunere** (simulează o schimbare și așteaptă aprobarea ta) · 🔀 **Router** (rulează altă unealtă după nume și se comportă exact ca ea) · ⚠️ **Distructivă** (aplică sau respinge o schimbare pe care ai aprobat-o; `destructiveHint: true`). Toate uneltele au `openWorldHint: false`.
+Ultima coloană arată ce marketplace-uri acceptă fiecare unealtă (în clientul tău, rândul „Works on:” al fiecărei unelte arată doar conturile pe care le-ai conectat): **eMAG** (România), **Trendyol** (România, Bulgaria, Grecia, Cehia, Slovacia, Germania), **Kaufland** (Germania, Austria, Polonia, Cehia, Slovacia, Franța, Italia, Spania, Olanda) sau **Oblio**. **Kaufland†** înseamnă că unealta e construită și trece prin aceeași previzualizare și aprobare, dar nu a fost încă rulată pe un cont Kaufland real (verificate până acum: citirea și schimbarea stocului). Legendă: 📖 **Citire** (`readOnlyHint: true`, întoarce date) · ✍️ **Propunere** (simulează o schimbare și așteaptă aprobarea ta) · 🔀 **Router** (rulează altă unealtă după nume și se comportă exact ca ea) · ⚠️ **Distructivă** (aplică sau respinge o schimbare pe care ai aprobat-o; `destructiveHint: true`). Toate uneltele au `openWorldHint: false`.
+
 
 ### Pornire și găsirea uneltelor
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
 | [`start_here`](docs/tools.md#start_here) | Ce poate face Vendwiser acum: conturi conectate, apeluri rămase, schimbări în așteptare. | 📖 Citire | Spațiu de lucru |
 | [`search_tools`](docs/tools.md#search_tools) | Găsește unealta potrivită pentru o sarcină descrisă în cuvinte simple. | 📖 Citire | Spațiu de lucru |
@@ -236,7 +241,7 @@ Ultima coloană arată ce marketplace-uri acceptă fiecare unealtă (în clientu
 
 ### Conturi și consum
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
 | [`list_accounts`](docs/tools.md#list_accounts) | Conturile de marketplace conectate și ce are voie asistentul pe fiecare. | 📖 Citire | Spațiu de lucru |
 | [`connection_health`](docs/tools.md#connection_health) | Verifică dacă fiecare cont conectat răspunde. | 📖 Citire | Spațiu de lucru |
@@ -244,7 +249,7 @@ Ultima coloană arată ce marketplace-uri acceptă fiecare unealtă (în clientu
 
 ### Aprobări și jurnal de activitate
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
 | [`list_pending_actions`](docs/tools.md#list_pending_actions) | Schimbările simulate care așteaptă aprobare. | 📖 Citire | Spațiu de lucru |
 | [`get_action`](docs/tools.md#get_action) | Starea și rezultatul unei schimbări propuse. | 📖 Citire | Spațiu de lucru |
@@ -253,68 +258,95 @@ Ultima coloană arată ce marketplace-uri acceptă fiecare unealtă (în clientu
 
 ### Catalog și oferte
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
-| [`offers_list`](docs/tools.md#offers_list) | Oferte cu preț, stoc, stare, validare și poziție la butonul de cumpărare. | 📖 Citire | eMAG, Trendyol |
-| [`offers_summary`](docs/tools.md#offers_summary) | Numărători exacte: total, active, inactive, respinse. | 📖 Citire | eMAG, Trendyol |
-| [`offers_get`](docs/tools.md#offers_get) | Detaliile complete ale unei oferte, cu toate mesajele de validare. | 📖 Citire | eMAG, Trendyol |
-| [`offers_validation_errors`](docs/tools.md#offers_validation_errors) | Ofertele respinse sau blocate, cu motivele date de marketplace. | 📖 Citire | eMAG, Trendyol |
-| [`categories_get`](docs/tools.md#categories_get) | Regulile unei categorii: caracteristici obligatorii, valori permise, EAN. | 📖 Citire | eMAG, Trendyol |
+| [`offers_list`](docs/tools.md#offers_list) | Oferte cu preț, stoc, stare, validare și poziție la butonul de cumpărare. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`offers_summary`](docs/tools.md#offers_summary) | Numărători exacte: total, active, inactive, respinse. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`offers_get`](docs/tools.md#offers_get) | Detaliile complete ale unei oferte, cu toate mesajele de validare. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`offers_validation_errors`](docs/tools.md#offers_validation_errors) | Ofertele respinse sau blocate, cu motivele date de marketplace. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`offers_competitors`](docs/tools.md#offers_competitors) | Toate ofertele de pe aceeași pagină de produs, ordonate pentru Buy Box (vânzător, preț, transport, livrare), plus produse înlocuitoare. | 📖 Citire | Kaufland |
+| [`market_insights`](docs/tools.md#market_insights) | Analiza Kaufland a sortimentului: poziția de preț, distanța față de cel mai bun preț, recomandări, prețul Buy Box pe 30 și 90 de zile. | 📖 Citire | Kaufland |
+| [`categories_get`](docs/tools.md#categories_get) | Regulile unei categorii: caracteristici obligatorii, valori permise, EAN. | 📖 Citire | eMAG, Trendyol, Kaufland |
 | [`vat_list`](docs/tools.md#vat_list) | Cotele de TVA disponibile pe cont. | 📖 Citire | eMAG |
 | [`handling_time_list`](docs/tools.md#handling_time_list) | Valorile de timp de procesare acceptate. | 📖 Citire | eMAG |
-| [`offers_update_price`](docs/tools.md#offers_update_price) | Propune prețuri noi (fără TVA pe eMAG, cu TVA pe Trendyol). | ✍️ Propunere | eMAG, Trendyol |
-| [`offers_update_stock`](docs/tools.md#offers_update_stock) | Propune valori noi de stoc. | ✍️ Propunere | eMAG, Trendyol |
-| [`offers_update_status`](docs/tools.md#offers_update_status) | Propune activarea sau dezactivarea ofertelor. | ✍️ Propunere | eMAG, Trendyol |
-| [`offers_content_get`](docs/tools.md#offers_content_get) | Conținutul paginii unui produs: titlu, descriere, imagini, atribute, atribute necompletate, zile de livrare. | 📖 Citire | Trendyol |
-| [`offers_update_content`](docs/tools.md#offers_update_content) | Propune schimbări de titlu, descriere (întreagă sau înlocuire de fragmente), atribute și zile de livrare; Trendyol le verifică înainte să le afișeze. | ✍️ Propunere | Trendyol |
-| [`offers_create`](docs/tools.md#offers_create) | Propune produse noi (variantele au același product_main_id); Trendyol verifică fiecare produs înainte de vânzare. | ✍️ Propunere | Trendyol |
-| [`offers_delete`](docs/tools.md#offers_delete) | Propune ștergerea variantelor arhivate de peste o zi. Nu se poate anula. | ✍️ Propunere | Trendyol |
+| [`shipping_groups_list`](docs/tools.md#shipping_groups_list) | Grupurile de livrare ale magazinului: preț de livrare și țări deservite. | 📖 Citire | Kaufland |
+| [`offers_update_price`](docs/tools.md#offers_update_price) | Propune prețuri noi (fără TVA pe eMAG, cu TVA pe Trendyol). | ✍️ Propunere | eMAG, Trendyol, Kaufland† |
+| [`offers_update_stock`](docs/tools.md#offers_update_stock) | Propune valori noi de stoc. | ✍️ Propunere | eMAG, Trendyol, Kaufland |
+| [`offers_update_status`](docs/tools.md#offers_update_status) | Propune activarea sau dezactivarea ofertelor. | ✍️ Propunere | eMAG, Trendyol, Kaufland† |
+| [`offers_update_handling_time`](docs/tools.md#offers_update_handling_time) | Propune un nou timp de predare pe multe oferte deodată (după id-uri sau după valoarea actuală). | ✍️ Propunere | eMAG, Kaufland† |
+| [`offers_update_shipping_group`](docs/tools.md#offers_update_shipping_group) | Propune mutarea ofertelor în alt grup de livrare (schimbă prețul de livrare văzut de cumpărător). | ✍️ Propunere | Kaufland† |
+| [`offers_unlock`](docs/tools.md#offers_unlock) | Propune cererea de deblocare a variantelor oprite de Trendyol. | ✍️ Propunere | Trendyol |
+| [`offers_content_get`](docs/tools.md#offers_content_get) | Conținutul paginii unui produs: titlu, descriere, imagini, atribute, atribute necompletate, zile de livrare. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`offers_update_content`](docs/tools.md#offers_update_content) | Propune schimbări de titlu, descriere (întreagă sau înlocuire de fragmente), atribute și zile de livrare; marketplace-ul le verifică înainte să le afișeze. | ✍️ Propunere | eMAG, Trendyol, Kaufland† |
+| [`offers_create`](docs/tools.md#offers_create) | Propune produse noi (variantele au același product_main_id; pe Kaufland un preț per țară); marketplace-ul verifică fiecare produs înainte de vânzare. | ✍️ Propunere | Trendyol, Kaufland† |
+| [`offers_delete`](docs/tools.md#offers_delete) | Propune ștergerea variantelor arhivate de peste o zi. Nu se poate anula. | ✍️ Propunere | Trendyol, Kaufland† |
 
 ### Comenzi și livrare
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
-| [`orders_list`](docs/tools.md#orders_list) | Comenzi dintr-un interval (implicit ultimele 7 zile); cumpărătorul redus la nume și oraș. | 📖 Citire | eMAG, Trendyol |
-| [`orders_get`](docs/tools.md#orders_get) | O comandă cu produsele, AWB-ul și starea facturii. | 📖 Citire | eMAG, Trendyol |
-| [`orders_count`](docs/tools.md#orders_count) | Numărul de comenzi, opțional pe o stare. | 📖 Citire | eMAG, Trendyol |
-| [`couriers_list`](docs/tools.md#couriers_list) | Conturile de curier configurate. | 📖 Citire | eMAG |
+| [`orders_list`](docs/tools.md#orders_list) | Comenzi dintr-un interval (implicit ultimele 7 zile); cumpărătorul redus la nume și oraș. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`orders_get`](docs/tools.md#orders_get) | O comandă cu produsele, AWB-ul și starea facturii. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`orders_count`](docs/tools.md#orders_count) | Numărul de comenzi, opțional pe o stare. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`couriers_list`](docs/tools.md#couriers_list) | Conturile de curier configurate. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`seller_addresses`](docs/tools.md#seller_addresses) | Adresele magazinului pe marketplace: ridicare, retur și facturare. | 📖 Citire | Trendyol, Kaufland |
 | [`awb_get`](docs/tools.md#awb_get) | Un AWB emis prin Vendwiser. | 📖 Citire | eMAG |
-| [`orders_acknowledge`](docs/tools.md#orders_acknowledge) | Propune confirmarea comenzilor noi. | ✍️ Propunere | eMAG, Trendyol |
-| [`orders_attach_invoice`](docs/tools.md#orders_attach_invoice) | Propune atașarea unei facturi PDF la o comandă. | ✍️ Propunere | eMAG, Trendyol |
+| [`orders_label_get`](docs/tools.md#orders_label_get) | Eticheta de transport a unei comenzi, pentru curierii din contractul marketplace-ului. | 📖 Citire | Trendyol |
+| [`order_notifications_get`](docs/tools.md#order_notifications_get) | Dacă notificările instant de comenzi sunt pornite, câte s-au trimis și ce alte sisteme sunt abonate. | 📖 Citire | Trendyol, Kaufland |
+| [`orders_acknowledge`](docs/tools.md#orders_acknowledge) | Propune confirmarea comenzilor noi. | ✍️ Propunere | eMAG, Trendyol, Kaufland† |
+| [`orders_attach_invoice`](docs/tools.md#orders_attach_invoice) | Propune atașarea unei facturi PDF la o comandă. | ✍️ Propunere | eMAG, Trendyol, Kaufland† |
+| [`orders_detach_invoice`](docs/tools.md#orders_detach_invoice) | Propune scoaterea unei facturi atașate greșit la o comandă (factura nu se anulează). | ✍️ Propunere | Trendyol, Kaufland† |
+| [`orders_mark_invoiced`](docs/tools.md#orders_mark_invoiced) | Propune anunțarea Trendyol că o comandă în pregătire are factură (doar starea). | ✍️ Propunere | Trendyol |
 | [`orders_issue_awb`](docs/tools.md#orders_issue_awb) | Propune un AWB pentru o comandă. Doar eMAG. | ✍️ Propunere | eMAG |
+| [`orders_mark_shipped`](docs/tools.md#orders_mark_shipped) | Propune marcarea comenzii ca expediată, cu curierul și numărul de urmărire (curier propriu sau livrare proprie). | ✍️ Propunere | Trendyol, Kaufland† |
+| [`orders_mark_delivered`](docs/tools.md#orders_mark_delivered) | Propune înregistrarea finalului unei livrări proprii: livrată sau întoarsă la magazin. | ✍️ Propunere | Trendyol |
+| [`orders_set_parcels`](docs/tools.md#orders_set_parcels) | Propune numărul de colete și greutatea volumetrică a unei comenzi. | ✍️ Propunere | Trendyol |
+| [`orders_change_courier`](docs/tools.md#orders_change_courier) | Propune alt curier plătit de marketplace pentru o comandă; se emite un nou număr de urmărire. | ✍️ Propunere | Trendyol |
 | [`orders_split`](docs/tools.md#orders_split) | Propune trimiterea unei părți din comandă în colete separate. | ✍️ Propunere | Trendyol |
-| [`orders_cancel_items`](docs/tools.md#orders_cancel_items) | Propune anularea produselor dintr-o comandă care nu pot fi livrate. Nu se poate anula și contează împotriva magazinului. | ✍️ Propunere | Trendyol |
+| [`orders_cancel_items`](docs/tools.md#orders_cancel_items) | Propune anularea produselor dintr-o comandă care nu pot fi livrate. Nu se poate anula și contează împotriva magazinului. | ✍️ Propunere | Trendyol, Kaufland† |
+| [`orders_refund`](docs/tools.md#orders_refund) | Propune rambursarea cumpărătorului pentru un produs, fără retur. Nu se poate anula. | ✍️ Propunere | Kaufland† |
+| [`orders_contact_buyer`](docs/tools.md#orders_contact_buyer) | Propune un mesaj către cumpărătorul unei comenzi prin Kaufland (deschide un tichet); se trimite doar după ce aprobi textul exact. | ✍️ Propunere | Kaufland† |
+| [`order_notifications_set`](docs/tools.md#order_notifications_set) | Propune pornirea sau oprirea notificărilor instant de comenzi; nu se schimbă nicio comandă. | ✍️ Propunere | Trendyol, Kaufland† |
 
 ### Retururi
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
-| [`returns_list`](docs/tools.md#returns_list) | Cererile de retur, cele mai noi primele. | 📖 Citire | eMAG, Trendyol |
-| [`returns_decide`](docs/tools.md#returns_decide) | Propune acceptarea (rambursează clientul) sau refuzul unui retur, cu unul dintre motivele marketplace-ului. | ✍️ Propunere | Trendyol |
+| [`returns_list`](docs/tools.md#returns_list) | Cererile de retur, cele mai noi primele. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`returns_history`](docs/tools.md#returns_history) | Fiecare schimbare de stare a unui retur, când și cine a făcut-o. Util într-o dispută. | 📖 Citire | Trendyol |
+| [`returns_decide`](docs/tools.md#returns_decide) | Propune acceptarea (rambursează clientul) sau refuzul unui retur, cu unul dintre motivele marketplace-ului. | ✍️ Propunere | Trendyol, Kaufland† |
+| [`returns_create`](docs/tools.md#returns_create) | Propune un retur pe care clientul nu l-a deschis (rambursare imediată sau cerere cu curierul de retur). | ✍️ Propunere | Trendyol, Kaufland† |
 
-### Întrebările clienților (Trendyol)
+### Întrebările clienților și tichete (Trendyol, Kaufland)
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
-| [`questions_list`](docs/tools.md#questions_list) | Întrebările clienților de pe paginile produselor, cele mai noi primele, și dacă mai așteaptă răspuns. | 📖 Citire | Trendyol |
-| [`questions_answer`](docs/tools.md#questions_answer) | Propune un răspuns public; se trimite doar după aprobare, iar Trendyol îl verifică înainte să-l afișeze. | ✍️ Propunere | Trendyol |
+| [`questions_list`](docs/tools.md#questions_list) | Întrebările clienților de pe paginile produselor, cele mai noi primele, și dacă mai așteaptă răspuns. | 📖 Citire | Trendyol, Kaufland |
+| [`questions_answer`](docs/tools.md#questions_answer) | Propune un răspuns public; se trimite doar după aprobare (pe Kaufland, răspuns la tichetul unui cumpărător). | ✍️ Propunere | Trendyol, Kaufland† |
+| [`questions_close`](docs/tools.md#questions_close) | Propune închiderea unui tichet rezolvat cu un cumpărător. | ✍️ Propunere | Kaufland† |
 
-### Finanțe (Trendyol)
+### Finanțe și rapoarte
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
 | [`finance_transactions`](docs/tools.md#finance_transactions) | Vânzări, retururi, reduceri, cupoane, plăți și facturile de comision și transport reținute, cum le înregistrează Trendyol (maximum 15 zile pe apel). | 📖 Citire | Trendyol |
+| [`reports_list`](docs/tools.md#reports_list) | Rapoartele (CSV) pregătite de Kaufland pentru magazin, cu linkul de descărcare când sunt gata. | 📖 Citire | Kaufland |
+| [`reports_request`](docs/tools.md#reports_request) | Cere Kaufland un raport (vânzări, mișcări de bani, oferte, Buy Box pierdut, concurenți și altele). Nu schimbă nimic în magazin. | 📖 Citire | Kaufland |
 
-### Campanii (eMAG)
+### Campanii (eMAG) și vouchere (Kaufland)
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
 | [`campaigns_list`](docs/tools.md#campaigns_list) | Campaniile la care se poate înscrie vânzătorul, cu date și reguli. | 📖 Citire | eMAG |
+| [`campaigns_check`](docs/tools.md#campaigns_check) | Campaniile și produsele tale dintr-o trecere: unde mai poți propune, unde lipsești, ce oferte încalcă reguli, pașii următori. | 📖 Citire | eMAG |
 | [`campaigns_propose`](docs/tools.md#campaigns_propose) | Propune produse pentru o campanie. | ✍️ Propunere | eMAG |
+| [`vouchers_list`](docs/tools.md#vouchers_list) | Voucherele tale, cu stare, perioadă, folosiri, vânzări aduse și cost. | 📖 Citire | Kaufland |
+| [`vouchers_create`](docs/tools.md#vouchers_create) | Propune un voucher de reducere (procent sau sumă fixă, plătit de tine) pe unele produse, pentru o perioadă; previzualizarea arată fiecare preț nou. | ✍️ Propunere | Kaufland† |
+| [`vouchers_stop`](docs/tools.md#vouchers_stop) | Propune oprirea voucherelor: cel activ se oprește, cel care n-a început se șterge. | ✍️ Propunere | Kaufland† |
 
 ### Facturare (Oblio)
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
 | [`invoice_series_list`](docs/tools.md#invoice_series_list) | Seriile de documente și cotele de TVA din contul de facturare. | 📖 Citire | Oblio |
 | [`invoices_list`](docs/tools.md#invoices_list) | Facturi sau proforme, cu client, total, stare și link PDF. | 📖 Citire | Oblio |
@@ -323,16 +355,14 @@ Ultima coloană arată ce marketplace-uri acceptă fiecare unealtă (în clientu
 | [`invoices_issue_for_order`](docs/tools.md#invoices_issue_for_order) | Propune factura pentru o comandă de marketplace în lei (eMAG România, Trendyol România). | ✍️ Propunere | Oblio |
 | [`invoices_cancel`](docs/tools.md#invoices_cancel) | Propune anularea unei facturi sau proforme. | ✍️ Propunere | Oblio |
 
-### Analize și rapoarte
+### Analize
 
-| Unealtă | Ce face | Tip | Acceptă |
+| Unealtă | Ce face | Tip | Suportă |
 |---|---|---|---|
-| [`catalog_health_audit`](docs/tools.md#catalog_health_audit) | Sănătatea catalogului: respinse, fără stoc, fără EAN, fără buton de cumpărare. | 📖 Citire | eMAG, Trendyol |
-| [`buy_button_check`](docs/tools.md#buy_button_check) | Ofertele active care nu dețin butonul de cumpărare, cu diferența de preț. | 📖 Citire | eMAG, Trendyol |
-| [`price_parity_check`](docs/tools.md#price_parity_check) | Compară prețurile acelorași SKU-uri între două conturi (de ex. două țări Trendyol sau eMAG și Trendyol), fără conversie valutară sau ajustare de TVA. | 📖 Citire | eMAG, Trendyol |
-| [`unshipped_orders_report`](docs/tools.md#unshipped_orders_report) | Comenzi neexpediate mai vechi de N ore, cu întârzierea față de termenul de predare. | 📖 Citire | eMAG, Trendyol |
-
-Parametrii și descrierile complete ale fiecărei unelte (în engleză): [docs/tools.md](docs/tools.md).
+| [`catalog_health_audit`](docs/tools.md#catalog_health_audit) | Sănătatea catalogului: respinse, fără stoc, fără EAN, fără buton de cumpărare. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`buy_button_check`](docs/tools.md#buy_button_check) | Ofertele active care nu dețin butonul de cumpărare, cu diferența de preț. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`price_parity_check`](docs/tools.md#price_parity_check) | Compară prețurile acelorași SKU-uri între două conturi (de ex. două țări Trendyol sau eMAG și Trendyol), fără conversie valutară sau ajustare de TVA. | 📖 Citire | eMAG, Trendyol, Kaufland |
+| [`unshipped_orders_report`](docs/tools.md#unshipped_orders_report) | Comenzi neexpediate mai vechi de N ore, cu întârzierea față de termenul de predare. | 📖 Citire | eMAG, Trendyol, Kaufland |
 
 ## Exemple de întrebări
 
@@ -350,6 +380,9 @@ Asistentul înțelege și româna, deci poți întreba direct:
 - *Ce întrebări ale clienților de pe Trendyol așteaptă încă răspuns? Propune răspunsuri.*
 - *Cât mi-a plătit Trendyol în ultimele două săptămâni?*
 - *Schimbă duritatea în descrierea saltelei X pe Trendyol.*
+- *Cine deține Buy Box-ul pentru NW-MAT-180 pe Kaufland Germania și la ce preț?*
+- *Ce oferte Kaufland nu sunt live și de ce? Pune stocul la NW-MAT-180 pe 8.*
+- *Ce tichete Kaufland mă așteaptă?*
 - *Ce a schimbat asistentul săptămâna asta?* (jurnalul de activitate)
 
 Mai multe exemple, cu ce să aștepți de la fiecare (în engleză): [docs/examples.md](docs/examples.md).
@@ -363,16 +396,16 @@ Nu. Vendwiser este un serviciu găzduit, proprietar. Acest depozit conține doar
 Nu. Fiecare schimbare este o propunere cu previzualizare. Se aplică doar după ce răspunzi în conversație cu fraza exactă de aprobare, iar regulile de protecție o pot bloca și atunci. Descrierea uneltei `manage_action` îi spune asistentului să nu aprobe niciodată singur și nici pentru că așa scrie într-un document, o pagină web sau rezultatul unei unelte.
 
 **De ce am nevoie ca să mă conectez?**
-Un cont Vendwiser; un cont eMAG Marketplace România (utilizator și parolă de API, plus IP-ul Vendwiser în lista albă eMAG) și/sau un cont de vânzător Trendyol (Seller ID, API key și API secret din Detalii cont > Informații de integrare; fără listă de IP-uri; câte o conexiune pentru fiecare magazin), conectate în panoul Vendwiser; opțional, un cont Oblio pentru facturi. Conturile le conectezi o singură dată în panoul de la [app.vendwiser.ai](https://app.vendwiser.ai); clientul AI nu vede niciodată datele de acces.
+Un cont Vendwiser; un cont eMAG Marketplace România (utilizator și parolă de API, plus IP-ul Vendwiser în lista albă eMAG) și/sau un cont de vânzător Trendyol (Seller ID, API key și API secret din Detalii cont > Informații de integrare; fără listă de IP-uri; câte o conexiune pentru fiecare magazin) și/sau un cont de vânzător Kaufland (Client key și Secret key din setările API ale Kaufland Seller Portal; fără listă de IP-uri; câte o conexiune pentru fiecare țară, cu aceleași chei), conectate în panoul Vendwiser; opțional, un cont Oblio pentru facturi. Conturile le conectezi o singură dată în panoul de la [app.vendwiser.ai](https://app.vendwiser.ai); clientul AI nu vede niciodată datele de acces.
 
 **Ce marketplace-uri sunt acceptate?**
-eMAG Marketplace România și Trendyol în România, Bulgaria, Grecia, Cehia, Slovacia și Germania. Fiecare magazin Trendyol se conectează separat și contează ca un cont de marketplace (Gratuit, Starter și Pro: un cont per marketplace; Scale: până la șase, adică toate țările Trendyol). AWB-urile și campaniile nu sunt disponibile pe Trendyol prin Vendwiser, în nicio țară; sunt doar pe eMAG. eMAG Bulgaria și eMAG Ungaria sunt planificate.
+eMAG Marketplace România; Trendyol în România, Bulgaria, Grecia, Cehia, Slovacia și Germania; Kaufland Global Marketplace în Germania, Austria, Polonia, Cehia, Slovacia, Franța, Italia, Spania și Olanda. Fiecare magazin Trendyol și fiecare țară Kaufland se conectează separat și contează ca un cont de marketplace (Gratuit, Starter și Pro: un cont per marketplace; Scale: până la nouă per marketplace, adică toate țările Trendyol sau Kaufland). AWB-urile și campaniile sunt doar pe eMAG; nu sunt disponibile pe Trendyol sau Kaufland prin Vendwiser. Pe Kaufland, citirea și schimbarea stocului sunt verificate pe un cont real; celelalte schimbări Kaufland sunt în curs de verificare. eMAG Bulgaria și eMAG Ungaria sunt planificate.
 
 **Prețurile sunt cu sau fără TVA?**
-Prețurile eMAG sunt **fără TVA**, așa cum le întoarce eMAG. Prețurile Trendyol **includ TVA**, așa cum le întoarce Trendyol. `price_parity_check` nu convertește moneda și nu ajustează TVA-ul. Liniile facturilor Oblio sunt **cu TVA**, dacă nu se precizează altfel. Descrierile uneltelor îi spun asistentului ce convenție se aplică.
+Prețurile eMAG sunt **fără TVA**, așa cum le întoarce eMAG. Prețurile Trendyol și Kaufland **includ TVA**, așa cum le întorc aceste marketplace-uri, în moneda fiecărei țări (pe Kaufland: EUR, PLN în Polonia, CZK în Cehia). `price_parity_check` nu convertește moneda și nu ajustează TVA-ul. Liniile facturilor Oblio sunt **cu TVA**, dacă nu se precizează altfel. Descrierile uneltelor îi spun asistentului ce convenție se aplică.
 
 **Trimite Vendwiser facturile în e-Factura (SPV)?**
-Nu. Vendwiser emite factura în Oblio (facturile din comenzi de marketplace merg doar pentru comenzi în lei); nu o trimite în SPV și nu citește și nu schimbă setarea ta de e-Factura din Oblio.
+Nu. Vendwiser emite factura în Oblio (facturile din comenzi de marketplace merg doar pentru comenzi în lei, deci nu pentru comenzile Kaufland); nu o trimite în SPV și nu citește și nu schimbă setarea ta de e-Factura din Oblio.
 
 **Ce date despre cumpărători vede asistentul?**
 Numele și orașul cumpărătorului. Telefoanele, emailurile și adresele nu sunt transmise asistentului.
@@ -380,8 +413,8 @@ Numele și orașul cumpărătorului. Telefoanele, emailurile și adresele nu sun
 **Câte apeluri pot face?**
 Depinde de plan. Întreabă asistentul *„Câte apeluri mai am?”* (`get_usage_status`) sau vezi [vendwiser.ai](https://vendwiser.ai).
 
-**Este Vendwiser afiliat cu eMAG, Trendyol sau Oblio?**
-Nu. Vendwiser este independent și folosește API-urile publice eMAG Marketplace, Trendyol și Oblio, cu conturile pe care le conectezi tu.
+**Este Vendwiser afiliat cu eMAG, Trendyol, Kaufland sau Oblio?**
+Nu. Vendwiser este independent și folosește API-urile publice eMAG Marketplace, Trendyol, Kaufland și Oblio, cu conturile pe care le conectezi tu.
 
 **Cum mă deconectez?**
 Ștergi conectorul din clientul AI, apoi revoci accesul sau deconectezi conturile de marketplace din panoul Vendwiser.
@@ -394,6 +427,7 @@ Nu. Vendwiser este independent și folosește API-urile publice eMAG Marketplace
 - Vezi cum funcționează (conversații exemplu și clipuri scurte, date demo):
   - eMAG: <https://vendwiser.ai/emag/> ([English](https://vendwiser.ai/en/emag/))
   - Trendyol: <https://vendwiser.ai/trendyol/> ([English](https://vendwiser.ai/en/trendyol/))
+  - Kaufland: <https://vendwiser.ai/kaufland/> ([English](https://vendwiser.ai/en/kaufland/))
   - Oblio: <https://vendwiser.ai/oblio/> ([English](https://vendwiser.ai/en/oblio/))
 - Ghiduri de configurare: [eMAG în ChatGPT](https://vendwiser.ai/emag-chatgpt/) · [eMAG în Claude](https://vendwiser.ai/emag-claude/)
 - Factură Oblio din comanda eMAG: <https://vendwiser.ai/facturi-emag-oblio/> ([English](https://vendwiser.ai/en/oblio-invoice-from-emag-order/))
@@ -407,7 +441,7 @@ Nu. Vendwiser este independent și folosește API-urile publice eMAG Marketplace
 
 Documentația din acest depozit este licențiată sub [CC BY 4.0](LICENSES/CC-BY-4.0.txt), iar fișierele de configurare sub [licența MIT](LICENSE). Serverul, serviciul și marca Vendwiser sunt proprietare și **nu** sunt acoperite de aceste licențe. Vezi [LICENSE](LICENSE).
 
-eMAG, Trendyol și Oblio sunt mărci ale proprietarilor lor și sunt folosite aici doar pentru a descrie compatibilitatea.
+eMAG, Trendyol, Kaufland și Oblio sunt mărci ale proprietarilor lor și sunt folosite aici doar pentru a descrie compatibilitatea.
 
 ---
 

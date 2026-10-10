@@ -1,7 +1,7 @@
 {
   "name": "vendwiser",
-  "version": "1.1.0",
-  "description": "Run your eMAG Marketplace Romania and Trendyol shops and Oblio invoicing from Gemini CLI. Reads are immediate; every change is a preview that waits for your approval.",
+  "version": "1.2.0",
+  "description": "Run your eMAG Marketplace Romania, Trendyol and Kaufland shops and Oblio invoicing from Gemini CLI. Reads are immediate; every change is a preview that waits for your approval.",
   "mcpServers": {
     "vendwiser": {
       "httpUrl": "https://app.vendwiser.ai/mcp"

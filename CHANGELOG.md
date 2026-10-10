@@ -4,13 +4,30 @@ All notable changes to this documentation and configuration repository are liste
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-10
+
+### Added
+
+- **Kaufland Global Marketplace** in Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain and the Netherlands. Each country is a separate marketplace account, connected with the Client key and Secret key from the Kaufland Seller Portal (same keys for every country, no IP allowlist). Kaufland prices include VAT, in the currency of each country.
+- 27 tools (79 in total): `offers_competitors`, `market_insights`, `shipping_groups_list`, `offers_update_shipping_group`, `offers_update_handling_time`, `offers_unlock`, `seller_addresses`, `orders_label_get`, `order_notifications_get`, `order_notifications_set`, `orders_mark_shipped`, `orders_mark_delivered`, `orders_mark_invoiced`, `orders_set_parcels`, `orders_change_courier`, `orders_detach_invoice`, `orders_refund`, `orders_contact_buyer`, `returns_history`, `returns_create`, `questions_close`, `reports_list`, `reports_request`, `campaigns_check`, `vouchers_list`, `vouchers_create`, `vouchers_stop`.
+- Links to the Kaufland pages: <https://vendwiser.ai/en/kaufland/> and <https://vendwiser.ai/kaufland/>.
+- Kaufland examples in `docs/examples.md`.
+
 ### Changed
 
-- Scale plan: up to six accounts per marketplace (every Trendyol country), was five.
+- Scale plan: up to nine accounts per marketplace (every Trendyol or Kaufland country), was six.
+- Existing tools now list Kaufland where the server supports it (offers, prices, stock, status, product pages, new products, orders, returns, questions/tickets). Product page content (`offers_content_get`, `offers_update_content`) now also lists eMAG Romania, as the live `tools/list` does.
+- Live schema changes: `returns_decide` accepts `repair` and `clarify` where the marketplace has them; `questions_answer` has `interim` (tickets); `offers_update_price` has `min_price`; `offers_create` has `storefront_prices` (Kaufland, one offer per country); `unshipped_orders_report` accepts `hours`.
 - "Works on" explained as per-workspace: the live `tools/list` lists the accounts the user has connected. `docs/tools.md`, the server card and `lhm.plugin.json` now say **Supports:** with the full list of marketplaces.
 - AWB and campaigns: "not available on Trendyol through Vendwiser, in any country".
 - README (EN/RO): links to the English and Romanian content pages on vendwiser.ai.
 - Links moved to the new site structure: integrations hub (`/integrari/`, `/en/integrations/`), showcase pages with example conversations and videos (`/emag/`, `/trendyol/`, `/oblio/` and `/en/…`), setup guides (`/emag-chatgpt/`, `/emag-claude/`) and `llms-full.txt`. The old `/trendyol-chatgpt/` and `/oblio-chatgpt/` pages now redirect.
+- `server.json` description now mentions Kaufland; version 1.2.0 in `server.json`, `gemini-extension.json`, `.cursor-plugin/plugin.json`, `lhm.plugin.json` and the server card.
+
+### Notes
+
+- Kaufland status: reading and stock changes are verified on a real Kaufland account. Price changes, ticket replies, vouchers, marking orders shipped and the other Kaufland changes are built and go through the same preview and approval, but are still being verified on real accounts; they are marked "changes being verified on real accounts" in `docs/tools.md` and † in the README tool tables.
+- Titles and annotations of the 27 new tools in `docs/tools.md` and the server card are documentation labels until the next server card export.
 
 ## [1.1.0] - 2026-10-10
 

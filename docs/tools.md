@@ -1,50 +1,55 @@
 # Vendwiser tools reference
 
-All 52 tools exposed by the Vendwiser MCP server at `https://app.vendwiser.ai/mcp`, grouped by area, with their titles, annotations and inputs as returned by `tools/list`.
+All 79 tools exposed by the Vendwiser MCP server at `https://app.vendwiser.ai/mcp`, grouped by area, with their inputs as returned by `tools/list`.
 
-_Source: `tools/list` of 10 October 2026 (server 1.1.0), with the per-workspace "Works on" line replaced by the full list of supported marketplaces. The server may add tools later; `search_tools` always searches the current list._
+_Source: `tools/list` of 10 October 2026 (server 1.2.0), with the per-workspace "Works on" line replaced by the full list of supported marketplaces. Titles and annotations of the 27 tools added in 1.2.0 are documentation labels until the next server card export. The server may add tools later; `search_tools` always searches the current list._
 
 ## Where each tool works
 
 In this reference each marketplace tool ends with **Supports:**, the marketplaces the tool can work with:
 
 - **eMAG Marketplace Romania** (eMAG Bulgaria and Hungary are planned).
-- **Trendyol** in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany. Each storefront is a separate marketplace account, connected on its own with a Seller ID, API key and API secret (no IP allowlist). Free, Starter and Pro include one account per marketplace; Scale up to six (every Trendyol country).
+- **Trendyol** in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany. Each storefront is a separate marketplace account, connected with a Seller ID, API key and API secret (no IP allowlist).
+- **Kaufland Global Marketplace** in Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain and the Netherlands. Each country is a separate marketplace account, connected with the same Client key and Secret key from the Kaufland Seller Portal (no IP allowlist). **Verified on a real Kaufland account: reading and stock changes.** The other Kaufland changes (prices, product pages, orders, tickets, vouchers, returns, refunds) use the same preview and approval and are marked _changes being verified on real accounts_ until they have been run on real accounts.
 - **Oblio** for invoicing.
 
-In your own client, the live `tools/list` ends each description with **Works on:** instead, listing only the accounts **you** have connected (for example `Works on: eMAG Romania, Trendyol Bulgaria.`). So the text you see depends on your workspace; the marketplaces a tool supports are the ones listed here.
+Free, Starter and Pro include one account per marketplace; Scale includes up to nine per marketplace (every Trendyol or Kaufland country).
+
+In your own client, the live `tools/list` ends each description with **Works on:** instead, listing only the accounts **you** have connected (for example `Works on: eMAG Romania, Kaufland Germany.`). So the text you see depends on your workspace; the marketplaces a tool supports are the ones listed here.
 
 Quick map:
 
-- **eMAG and Trendyol:** offers (list, details, summary, rejected offers, category rules), price, stock and status changes, orders (list, details, count, acknowledge, attach invoice), returns list, and the analysis tools (catalog audit, buy-button check, unshipped orders report, price parity).
-- **Trendyol only:** product page content (read and change), new products, deleting archived variants, splitting orders, cancelling order items, return decisions, customer questions, finance transactions.
-- **eMAG only:** shipping labels (AWB) and AWB lookup, courier accounts, campaigns, VAT and handling-time lists. AWBs and campaigns are not available on Trendyol through Vendwiser, in any country.
-- **Oblio:** invoices. Invoices from a marketplace order work for orders in RON only (eMAG Romania, Trendyol Romania).
+- **All three marketplaces:** offers (list, details, summary, rejected or blocked offers, category rules, product page content), price, stock and status changes, orders (list, details, count, acknowledge, attach invoice), returns list, couriers, and the analysis tools (catalog audit, buy-button check, unshipped orders report, price parity).
+- **Trendyol and Kaufland:** new products, deleting archived variants, marking orders shipped, cancelling order items, detaching an invoice, return decisions and returns you open, customer questions (Trendyol) and buyer tickets (Kaufland), shop addresses, instant order notifications.
+- **Trendyol only:** finance transactions, order split, parcels and volumetric weight, courier change, shipping label of marketplace couriers, own-delivery result, marking invoiced, unlocking blocked variants, return history.
+- **Kaufland only:** competing offers and Buy Box rank, the marketplace's assortment insights, shipping groups, refunds without a return, writing to a buyer, closing tickets, discount vouchers, report files.
+- **eMAG only:** shipping labels (AWB) and AWB lookup, campaigns, VAT and handling-time lists. AWBs and campaigns are not available on Trendyol or Kaufland through Vendwiser. Handling time changes work on eMAG and Kaufland.
+- **Oblio:** invoices. Invoices from a marketplace order work for orders in RON only (eMAG Romania, Trendyol Romania), so not for Kaufland orders.
 
-Prices follow each marketplace's convention: **eMAG prices exclude VAT, Trendyol prices include VAT.** `price_parity_check` does not convert currencies or normalise VAT.
+Prices follow each marketplace's convention: **eMAG prices exclude VAT; Trendyol and Kaufland prices include VAT**, in the currency of each country. `price_parity_check` does not convert currencies or normalise VAT.
 
 ## How the tool types work
 
-- 📖 **Read** (`readOnlyHint: true`): returns data from your connected accounts. Nothing changes.
-- ✍️ **Propose** (`readOnlyHint: false`, `destructiveHint: false`): simulates a change, checks protection rules and returns a before-and-after preview with an action id. Nothing reaches eMAG, Trendyol or Oblio until the seller approves.
+- 📖 **Read** (`readOnlyHint: true`): returns data from your connected accounts. Nothing changes. (`reports_request` asks the marketplace to prepare a report file; it changes nothing in the shop.)
+- ✍️ **Propose** (`readOnlyHint: false`, `destructiveHint: false`): simulates a change, checks protection rules and returns a before-and-after preview with an action id. Nothing reaches the marketplace or Oblio until the seller approves.
 - 🔀 **Router** (`run_tool`): runs another tool by name and behaves exactly like that tool (reads return data, changes are only proposed).
-- ⚠️ **Destructive** (`manage_action`, `destructiveHint: true`): applies (or rejects) a proposal the seller approved in the conversation. Some approved changes cannot be undone on the marketplace (`offers_delete`, `orders_cancel_items`); their descriptions say so.
+- ⚠️ **Destructive** (`manage_action`, `destructiveHint: true`): applies (or rejects) a proposal the seller approved in the conversation. Some approved changes cannot be undone on the marketplace (`offers_delete`, `orders_cancel_items`, `orders_refund`, `returns_create` with `refund_now`); their descriptions say so.
 
-Every tool has `openWorldHint: false`: it only touches the eMAG Marketplace, Trendyol and Oblio accounts connected to your Vendwiser workspace. Most marketplace tools accept an optional `account` (an id from `list_accounts`), needed only when several accounts are connected. All tools declare an output schema of type `object`.
+Every tool has `openWorldHint: false`: it only touches the eMAG Marketplace, Trendyol, Kaufland and Oblio accounts connected to your Vendwiser workspace. Most marketplace tools accept an optional `account` (an id from `list_accounts`), needed only when several accounts are connected. All tools declare an output schema of type `object`.
 
 ## Contents
 
 - **Getting started and tool discovery:** [`start_here`](#start_here), [`search_tools`](#search_tools), [`get_tool_schema`](#get_tool_schema), [`run_tool`](#run_tool)
 - **Accounts and usage:** [`list_accounts`](#list_accounts), [`connection_health`](#connection_health), [`get_usage_status`](#get_usage_status)
 - **Approvals and activity log:** [`list_pending_actions`](#list_pending_actions), [`get_action`](#get_action), [`manage_action`](#manage_action), [`get_activity`](#get_activity)
-- **Catalog and offers:** [`offers_list`](#offers_list), [`offers_summary`](#offers_summary), [`offers_get`](#offers_get), [`offers_validation_errors`](#offers_validation_errors), [`categories_get`](#categories_get), [`vat_list`](#vat_list), [`handling_time_list`](#handling_time_list), [`offers_update_price`](#offers_update_price), [`offers_update_stock`](#offers_update_stock), [`offers_update_status`](#offers_update_status), [`offers_content_get`](#offers_content_get), [`offers_update_content`](#offers_update_content), [`offers_create`](#offers_create), [`offers_delete`](#offers_delete)
-- **Orders and shipping:** [`orders_list`](#orders_list), [`orders_get`](#orders_get), [`orders_count`](#orders_count), [`couriers_list`](#couriers_list), [`awb_get`](#awb_get), [`orders_acknowledge`](#orders_acknowledge), [`orders_attach_invoice`](#orders_attach_invoice), [`orders_issue_awb`](#orders_issue_awb), [`orders_split`](#orders_split), [`orders_cancel_items`](#orders_cancel_items)
-- **Returns:** [`returns_list`](#returns_list), [`returns_decide`](#returns_decide)
-- **Customer questions (Trendyol):** [`questions_list`](#questions_list), [`questions_answer`](#questions_answer)
-- **Finance (Trendyol):** [`finance_transactions`](#finance_transactions)
-- **Campaigns (eMAG):** [`campaigns_list`](#campaigns_list), [`campaigns_propose`](#campaigns_propose)
+- **Catalog and offers:** [`offers_list`](#offers_list), [`offers_summary`](#offers_summary), [`offers_get`](#offers_get), [`offers_validation_errors`](#offers_validation_errors), [`offers_competitors`](#offers_competitors), [`market_insights`](#market_insights), [`categories_get`](#categories_get), [`vat_list`](#vat_list), [`handling_time_list`](#handling_time_list), [`shipping_groups_list`](#shipping_groups_list), [`offers_update_price`](#offers_update_price), [`offers_update_stock`](#offers_update_stock), [`offers_update_status`](#offers_update_status), [`offers_update_handling_time`](#offers_update_handling_time), [`offers_update_shipping_group`](#offers_update_shipping_group), [`offers_unlock`](#offers_unlock), [`offers_content_get`](#offers_content_get), [`offers_update_content`](#offers_update_content), [`offers_create`](#offers_create), [`offers_delete`](#offers_delete)
+- **Orders and shipping:** [`orders_list`](#orders_list), [`orders_get`](#orders_get), [`orders_count`](#orders_count), [`couriers_list`](#couriers_list), [`seller_addresses`](#seller_addresses), [`awb_get`](#awb_get), [`orders_label_get`](#orders_label_get), [`order_notifications_get`](#order_notifications_get), [`orders_acknowledge`](#orders_acknowledge), [`orders_attach_invoice`](#orders_attach_invoice), [`orders_detach_invoice`](#orders_detach_invoice), [`orders_mark_invoiced`](#orders_mark_invoiced), [`orders_issue_awb`](#orders_issue_awb), [`orders_mark_shipped`](#orders_mark_shipped), [`orders_mark_delivered`](#orders_mark_delivered), [`orders_set_parcels`](#orders_set_parcels), [`orders_change_courier`](#orders_change_courier), [`orders_split`](#orders_split), [`orders_cancel_items`](#orders_cancel_items), [`orders_refund`](#orders_refund), [`orders_contact_buyer`](#orders_contact_buyer), [`order_notifications_set`](#order_notifications_set)
+- **Returns:** [`returns_list`](#returns_list), [`returns_history`](#returns_history), [`returns_decide`](#returns_decide), [`returns_create`](#returns_create)
+- **Customer questions and tickets (Trendyol, Kaufland):** [`questions_list`](#questions_list), [`questions_answer`](#questions_answer), [`questions_close`](#questions_close)
+- **Finance and reports:** [`finance_transactions`](#finance_transactions), [`reports_list`](#reports_list), [`reports_request`](#reports_request)
+- **Campaigns (eMAG) and vouchers (Kaufland):** [`campaigns_list`](#campaigns_list), [`campaigns_check`](#campaigns_check), [`campaigns_propose`](#campaigns_propose), [`vouchers_list`](#vouchers_list), [`vouchers_create`](#vouchers_create), [`vouchers_stop`](#vouchers_stop)
 - **Invoicing (Oblio):** [`invoice_series_list`](#invoice_series_list), [`invoices_list`](#invoices_list), [`invoices_get`](#invoices_get), [`invoices_issue`](#invoices_issue), [`invoices_issue_for_order`](#invoices_issue_for_order), [`invoices_cancel`](#invoices_cancel)
-- **Analysis and reports:** [`catalog_health_audit`](#catalog_health_audit), [`buy_button_check`](#buy_button_check), [`price_parity_check`](#price_parity_check), [`unshipped_orders_report`](#unshipped_orders_report)
+- **Analysis:** [`catalog_health_audit`](#catalog_health_audit), [`buy_button_check`](#buy_button_check), [`price_parity_check`](#price_parity_check), [`unshipped_orders_report`](#unshipped_orders_report)
 
 ## Getting started and tool discovery
 
@@ -185,7 +190,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List offers** · 📖 Read
 
-Each row already carries price, stock, status, buy-button rank and handling time, 100 offers per page: for a question about many offers, page through this list (or use catalog_health_audit) and never call offers_get once per offer. List the seller's offers with price, stock, status, validation state and buy-button position. On eMAG prices are WITHOUT VAT (the shopper sees price plus VAT; use vat_list for the rate). On Trendyol prices INCLUDE VAT (price_includes_vat is true). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Each row already carries price, stock, status, buy-button rank and handling time, 100 offers per page: for a question about many offers, page through this list (or use catalog_health_audit) and never call offers_get once per offer. List the seller's offers with price, stock, status, validation state and buy-button position. On eMAG prices are WITHOUT VAT (the shopper sees price plus VAT; use vat_list for the rate). On Trendyol prices INCLUDE VAT (price_includes_vat is true). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -201,7 +206,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Offers summary** · 📖 Read
 
-Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -213,7 +218,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Get an offer** · 📖 Read
 
-Full details of one offer, including every validation message. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Full details of one offer, including every validation message. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -226,7 +231,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List rejected offers** · 📖 Read
 
-Offers the marketplace rejected or blocked, each with the reasons given. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Offers the marketplace rejected or blocked, each with the reasons given. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -235,11 +240,36 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 | `max_pages` | integer | no | How many pages of 100 offers to scan (default 5). (min 1; max 50) |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
+### offers_competitors
+
+**List competing offers for a product** · 📖 Read
+
+Who else sells one product and on what terms: every offer on the same product page ranked for the buy box (seller, price, shipping, delivery days), and the same for products buyers treat as substitutes. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `id` | integer or string | yes | Offer id on the marketplace. |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### market_insights
+
+**Get the marketplace's assortment insights** · 📖 Read
+
+The marketplace's own analysis of the shop's assortment: groups of similar products with the shop's price rank, the gap to the best price and the marketplace's advice (focus, defend, grow, maintain), and per product the buy-box price over 30 and 90 days, demand and whether it is priced badly. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
 ### categories_get
 
 **Get a category** · 📖 Read
 
-A category's rules: mandatory characteristics, allowed values, whether an EAN is required. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+A category's rules: mandatory characteristics, allowed values, whether an EAN is required. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -272,11 +302,23 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 |---|---|---|---|
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
+### shipping_groups_list
+
+**List shipping groups** · 📖 Read
+
+The shop's shipping groups (delivery price and countries served) on a marketplace that has them. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
 ### offers_update_price
 
 **Propose price changes** · ✍️ Propose
 
-Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list: on eMAG WITHOUT VAT (convert a shelf price to a price without VAT first), on Trendyol WITH VAT. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list: on eMAG WITHOUT VAT (convert a shelf price to a price without VAT first), on Trendyol WITH VAT. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -285,13 +327,14 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `changes` | array of object | yes | (min items 1; max items 200) |
 | `changes[].id` | integer or string | yes | Offer id on the marketplace. |
 | `changes[].price` | number | yes | (> 0) |
+| `changes[].min_price` | number | no | Only where the marketplace reprices automatically: the lowest price it may go down to. (> 0) |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
 ### offers_update_stock
 
 **Propose stock changes** · ✍️ Propose
 
-Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -306,7 +349,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose turning offers on or off** · ✍️ Propose
 
-Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -317,11 +360,56 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `changes[].active` | boolean | yes |  |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
+### offers_update_handling_time
+
+**Propose handling time changes** · ✍️ Propose
+
+Propose a new handling time (days the seller needs to hand the parcel to the courier) on many offers at once. Either give ids, or give from_days to take every offer that now has that handling time (for example from_days 6, days 3); the tool finds them itself, do not list offers first. Simulated first; nothing changes until the seller approves. One proposal holds at most as many offers as the workspace protection rule allows (50 unless the seller changed it); the tool fills it by itself and says in warnings when more offers remain: tell the seller how many proposals that means BEFORE starting, and that raising the rule under Rules in the dashboard lets one proposal take them all. Then repeat the same call after each approval until nothing is left. Supports: eMAG Romania, Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `days` | integer | yes | The new handling time. (min 0; max 60) |
+| `ids` | array of integer or string | no | (min items 1; max items 200) |
+| `from_days` | integer | no | Change every offer that now has this handling time. (min 0) |
+| `include_inactive` | boolean | no | With from_days: also offers that are off sale. Default: active offers only. |
+| `limit` | integer | no | With from_days: at most this many offers in one proposal. (min 1; max 5000) |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### offers_update_shipping_group
+
+**Propose shipping group changes** · ✍️ Propose
+
+Propose putting offers in another shipping group (changes the delivery price the buyer sees). Simulated first; nothing changes until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `changes` | array of object | yes | (min items 1; max items 150) |
+| `changes[].id` | integer or string | yes | Offer id on the marketplace. |
+| `changes[].shipping_group_id` | integer or string | yes |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### offers_unlock
+
+**Propose unlocking blocked variants** · ✍️ Propose
+
+Propose asking the marketplace to unlock variants it stopped from selling (price far too low or too high, or repeated failure to deliver). offers_validation_errors shows the locked ones. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `ids` | array of integer or string | yes | (min items 1; max items 100) |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
 ### offers_content_get
 
 **Get a product page** · 📖 Read
 
-The content of one product page: title, description, images, attributes with their values, which attributes are not filled in, delivery days, and the verdict on recent content changes. Use it before proposing a content change. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+The content of one product page: title, description, images, attributes with their values, which attributes are not filled in, delivery days, and the verdict on recent content changes. Use it before proposing a content change. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -335,7 +423,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose product page changes** · ✍️ Propose
 
-Propose changes to product pages: title, description (whole, or find-and-replace inside the current one), attributes (by name and value, as offers_content_get shows them) and delivery days. Simulated first; nothing changes until the seller approves. The marketplace reviews content changes before showing them. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose changes to product pages: title, description (whole, or find-and-replace inside the current one), attributes (by name and value, as offers_content_get shows them) and delivery days. Simulated first; nothing changes until the seller approves. The marketplace reviews content changes before showing them. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -359,7 +447,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose new products** · ✍️ Propose
 
-Propose new products. Simulated first; nothing is sent until the seller approves, and the marketplace reviews each product before it goes on sale. Variants (sizes) of one product are separate items with the same product_main_id. categories_get shows which attributes a category requires and their accepted values. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose new products. Simulated first; nothing is sent until the seller approves, and the marketplace reviews each product before it goes on sale. Variants (sizes) of one product are separate items with the same product_main_id. categories_get shows which attributes a category requires and their accepted values. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -379,6 +467,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `items[].weight_kg` | number | no |  |
 | `items[].description` | string | no |  |
 | `items[].images` | array of string | yes | (min items 1; max items 8) |
+| `items[].storefront_prices` | object | no | Kaufland only: the price in each country where the product should go on sale, in that country's currency, for example {"de": 499, "at": 499, "pl": 2149}. One offer is created per country listed. Without it, only the country of this account is used. |
 | `items[].attributes` | array of object | no |  |
 | `items[].attributes[].name` | string | yes |  |
 | `items[].attributes[].value` | string | yes |  |
@@ -389,7 +478,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose deleting archived variants** · ✍️ Propose
 
-Propose deleting variants from the marketplace for good. Cannot be undone. Only variants archived for more than a day can be deleted (archive with offers_update_status first). Simulated first; nothing is deleted until the seller approves. Before deleting a variant that will be created again elsewhere, read and keep its content with offers_content_get and offers_get. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose deleting variants from the marketplace for good. Cannot be undone. Only variants archived for more than a day can be deleted (archive with offers_update_status first). Simulated first; nothing is deleted until the seller approves. Before deleting a variant that will be created again elsewhere, read and keep its content with offers_content_get and offers_get. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -404,7 +493,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **List orders** · 📖 Read
 
-List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -421,7 +510,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Get an order** · 📖 Read
 
-One order with its lines, AWB and invoice state. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+One order with its lines, AWB and invoice state. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -434,7 +523,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Count orders** · 📖 Read
 
-Number of orders, optionally in one status. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Number of orders, optionally in one status. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -447,7 +536,19 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List courier accounts** · 📖 Read
 
-Courier accounts configured on the seller account. Supports: eMAG Romania.
+Couriers for this account: the courier accounts configured on the seller account, or the courier codes the marketplace knows and who pays for each. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### seller_addresses
+
+**List the shop's addresses** · 📖 Read
+
+The shop's addresses on the marketplace: where parcels are picked up from, where returns come back, and the invoicing address. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -468,11 +569,37 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 | `reservation_id` | integer or string | yes |  |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
+### orders_label_get
+
+**Get an order's shipping label** · 📖 Read
+
+The shipping label of an order, as the marketplace gives it (a link to a PDF, or the label text), for couriers under the marketplace's own contract. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | no |  |
+| `package_id` | integer or string | no |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### order_notifications_get
+
+**Get instant order notification status** · 📖 Read
+
+Whether the marketplace tells Vendwiser about order changes the moment they happen (new order, cancellation, failed delivery, return), how many it sent, and which other systems are subscribed on the same shop. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
 ### orders_acknowledge
 
 **Propose acknowledging orders** · ✍️ Propose
 
-Propose acknowledging new orders (moves them to "in progress"). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose acknowledging new orders (moves them to "in progress"). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -485,7 +612,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose attaching an invoice** · ✍️ Propose
 
-Propose attaching an invoice PDF (by public URL) to an order. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose attaching an invoice PDF (by public URL) to an order. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -494,6 +621,35 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `order_id` | integer or string | yes |  |
 | `url` | string | yes | Public https URL of the invoice PDF. |
 | `name` | string | no |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### orders_detach_invoice
+
+**Propose removing an attached invoice** · ✍️ Propose
+
+Propose removing the invoice attached to an order on the marketplace, when the wrong one was sent. The invoice itself is not cancelled. Attach the right one afterwards with orders_attach_invoice. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | no |  |
+| `package_id` | integer or string | no |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### orders_mark_invoiced
+
+**Propose marking an order as invoiced** · ✍️ Propose
+
+Propose telling the marketplace that an order being prepared has an invoice (status only; orders_attach_invoice sends the document). After it the customer can no longer cancel through customer care without the shop. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | no |  |
+| `invoice_number` | string | no |  |
+| `package_id` | integer or string | no |  |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
 ### orders_issue_awb
@@ -522,6 +678,73 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `observation` | string | no |  |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
+### orders_mark_shipped
+
+**Propose marking an order as shipped** · ✍️ Propose
+
+Propose telling the marketplace an order is on its way: the courier and the tracking number, where the seller ships with his own courier. For own delivery without a courier (where the marketplace allows it) give tracking_url or courier_phone instead. couriers_list shows the courier codes. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | no |  |
+| `carrier` | string | no | Courier code or name as the marketplace knows it, for example DHL, DPD, GLS. |
+| `tracking_number` | string | no |  |
+| `return_tracking_number` | string | no | Optional: tracking number of the return label put in the parcel. |
+| `tracking_url` | string | no | Own delivery: an https link where the customer follows the parcel. |
+| `courier_phone` | string | no | Own delivery: phone number of the person delivering. |
+| `boxes` | integer | no | (min 1) |
+| `volumetric_weight` | number | no | (> 0) |
+| `package_id` | integer or string | no | Instead of order_id: the shipment package id, for a parcel sent back to the customer after a refused return. |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### orders_mark_delivered
+
+**Propose recording an own delivery result** · ✍️ Propose
+
+Propose recording the end of an own delivery: delivered to the customer, or not delivered and back at the shop. Only for orders shipped with own delivery (orders_mark_shipped with tracking_url or courier_phone). Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | no |  |
+| `outcome` | string | yes | (one of `delivered`, `returned_to_seller`) |
+| `package_id` | integer or string | no |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### orders_set_parcels
+
+**Propose parcels and volumetric weight** · ✍️ Propose
+
+Propose telling the marketplace how many parcels an order has and its volumetric weight (length x width x height in cm, divided by 5000), where the courier asks for it. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | no |  |
+| `boxes` | integer | yes | (min 1) |
+| `volumetric_weight` | number | yes | (> 0) |
+| `package_id` | integer or string | no |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### orders_change_courier
+
+**Propose another courier for an order** · ✍️ Propose
+
+Propose another courier for an order, among the couriers the marketplace pays for (couriers_list). The marketplace gives a new tracking number. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | no |  |
+| `courier` | string | yes | Courier code or name from couriers_list. |
+| `package_id` | integer or string | no |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
 ### orders_split
 
 **Propose splitting an order into packages** · ✍️ Propose
@@ -542,7 +765,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose cancelling order items** · ✍️ Propose
 
-Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -555,13 +778,58 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `reason` | string | yes | (one of `out_of_stock`, `defective_product`, `wrong_price`, `integration_error`, `bulk_purchase`, `force_majeure`) |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
+### orders_refund
+
+**Propose a refund without a return** · ✍️ Propose
+
+Propose sending money back to the buyer for one product of an order, without a return (damage in transport, late delivery, missing part, postage). Cannot be recalled. Simulated first; nothing happens until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | yes |  |
+| `amount` | number | yes | In the currency of the order. (> 0) |
+| `reason` | string | yes | (one of `defect`, `delivery_damage`, `delivery_delay`, `incomplete_delivery`, `incorrect_delivery`, `other_refund`, `refund_postage_fee`, `refund_return_postage_fee`) |
+| `barcode` | string | no | Which product, when the order has several. |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### orders_contact_buyer
+
+**Propose a message to a buyer** · ✍️ Propose
+
+Propose writing to the buyer of an order through the marketplace (opens a ticket). Simulated first; nothing is sent until the seller approves the exact text. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | yes |  |
+| `reason` | string | yes | (one of `product_not_as_described`, `product_defect`, `product_not_delivered`, `product_return`, `contact_other`) |
+| `message` | string | yes | (min length 10; max length 2000) |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### order_notifications_set
+
+**Propose turning order notifications on or off** · ✍️ Propose
+
+Propose turning instant order notifications on or off for a marketplace account. When on, the marketplace calls Vendwiser at each chosen order change and a notice appears in the workspace; nothing is changed on any order. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `enabled` | boolean | yes |  |
+| `statuses` | array of string | no | Default: CREATED, CANCELLED, UNSUPPLIED, UNDELIVERED, RETURNED. |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
 ## Returns
 
 ### returns_list
 
 **List returns** · 📖 Read
 
-Return requests, newest first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Return requests, newest first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -571,30 +839,62 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 | `per_page` | integer | no | Items per page (default 50, max 100). (min 1; max 100) |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
+### returns_history
+
+**Get a return's history** · 📖 Read
+
+The history of one return: each status change, when it happened and who made it (the seller through an integration, the seller in the panel, or the marketplace). Useful in a dispute. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `return_id` | integer or string | yes |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
 ### returns_decide
 
 **Propose a return decision** · ✍️ Propose
 
-Propose accepting or refusing a return (id from returns_list). Accepting refunds the customer. Refusing needs one of the marketplace's reasons and an explanation; called without them, the tool lists the reasons. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose accepting or refusing a return (id from returns_list). Accepting refunds the customer. Refusing needs one of the marketplace's reasons and an explanation; called without them, the tool lists the reasons. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
 | Input | Type | Required | Notes |
 |---|---|---|---|
 | `return_id` | integer or string | yes |  |
-| `decision` | string | yes | (one of `accept`, `reject`) |
+| `decision` | string | yes | repair and clarify exist only where the marketplace has them. (one of `accept`, `reject`, `repair`, `clarify`) |
 | `reason_id` | integer | no |  |
 | `note` | string | no | (max length 500) |
 | `item_ids` | array of string | no | Default: every undecided item of the return. |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
-## Customer questions (Trendyol)
+### returns_create
+
+**Propose a return for an order** · ✍️ Propose
+
+Propose a return the customer did not open himself. mode refund_now records it as already accepted (the customer is refunded, cannot be undone); mode open_request opens a request with the marketplace's return courier, to be accepted later with returns_decide. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `order_id` | integer or string | yes |  |
+| `items` | array of object | yes | (min items 1; max items 50) |
+| `items[].barcode` | string | yes |  |
+| `items[].quantity` | integer | no | Default: the whole quantity ordered. (min 1) |
+| `mode` | string | no | Default refund_now. (one of `refund_now`, `open_request`) |
+| `reason` | string | no | Where the marketplace asks for one of its own return reasons. |
+| `note` | string | no | (max length 300) |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+## Customer questions and tickets (Trendyol, Kaufland)
 
 ### questions_list
 
 **List customer questions** · 📖 Read
 
-Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. Use the id with questions_answer. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. Use the id with questions_answer. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -608,7 +908,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose an answer to a customer question** · ✍️ Propose
 
-Propose a public answer to one customer question. Simulated first; nothing is sent until the seller approves the exact text (asked in the conversation, confirmed with manage_action). Write in the language of the question, state only facts the seller or the product data gave you, never guess sizes, firmness, stock or delivery dates. The marketplace reviews the answer before showing it. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose a public answer to one customer question. Simulated first; nothing is sent until the seller approves the exact text (asked in the conversation, confirmed with manage_action). Write in the language of the question, state only facts the seller or the product data gave you, never guess sizes, firmness, stock or delivery dates. The marketplace reviews the answer before showing it. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -616,9 +916,23 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 |---|---|---|---|
 | `question_id` | integer or string | yes |  |
 | `text` | string | yes | (min length 10; max length 2000) |
+| `interim` | boolean | no | Tickets only: a holding reply; the conversation keeps waiting for the seller. |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
-## Finance (Trendyol)
+### questions_close
+
+**Propose closing a buyer conversation** · ✍️ Propose
+
+Propose closing a conversation with a buyer that is solved, on a marketplace where questions are tickets. Simulated first; nothing happens until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `question_id` | integer or string | yes |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+## Finance and reports
 
 ### finance_transactions
 
@@ -636,7 +950,34 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 | `page` | integer | no | Page number, starting at 1. (min 1) |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
-## Campaigns (eMAG)
+### reports_list
+
+**List marketplace reports** · 📖 Read
+
+Reports the marketplace prepared for the shop (CSV files), newest first, with the download link when ready. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### reports_request
+
+**Request a marketplace report** · 📖 Read
+
+Ask the marketplace to prepare a report file: sales or bookings (money movements) for a period, all offers, cancellations, lost buy boxes, buy-box opportunities, price competitiveness, competitor prices, offers that could not be listed, product data changes. It changes nothing in the shop. reports_list gives the file when it is ready. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `type` | string | yes | (one of `sales`, `bookings`, `offers`, `cancellations`, `lost_buybox`, `buybox_opportunity`, `price_competitiveness`, `competitors`, `invalid_items`, `product_data_changes`) |
+| `date_from` | string | no | YYYY-MM-DD, for sales and bookings. Default: 30 days ago. |
+| `date_to` | string | no | YYYY-MM-DD. Default: today. |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+## Campaigns (eMAG) and vouchers (Kaufland)
 
 ### campaigns_list
 
@@ -650,6 +991,19 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 |---|---|---|---|
 | `status` | string | no | (one of `active`, `inactive`) |
 | `name` | string | no | Part of the campaign name. |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### campaigns_check
+
+**Check campaigns and your products** · 📖 Read
+
+Campaigns and the seller's own products in one pass: which campaigns still take proposals and until when, in which ones the seller already has products and how many, which ones he is missing from, which offers break a campaign rule (stock, handling time), and a short list of recommended next steps, each with the sentence to say to the assistant. Use it for any question like "which campaigns am I in" or "what should I join". Supports: eMAG Romania.
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `max_pages` | integer | no | Pages of 100 offers to scan (default: enough for 2000 offers). (min 1; max 50) |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
 ### campaigns_propose
@@ -669,6 +1023,52 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `proposals[].stock` | integer | no |  |
 | `proposals[].voucher_discount` | number | no |  |
 | `proposals[].max_qty_per_order` | integer | no |  |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### vouchers_list
+
+**List discount vouchers** · 📖 Read
+
+The shop's own discount vouchers on the marketplace, with status, period, how often each was used, the sales it brought and its cost. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).
+
+Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `status` | string | no | (one of `new`, `active`, `inactive`, `expired`, `consumed`) |
+| `page` | integer | no | Page number, starting at 1. (min 1) |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### vouchers_create
+
+**Propose a discount voucher** · ✍️ Propose
+
+Propose a discount voucher on some of the shop's products for a period: a percentage or a fixed amount, paid by the seller. The preview shows the price each product would have. Simulated first; nothing is created until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `title` | string | yes | (min length 3; max length 100) |
+| `ids` | array of integer or string | yes | Offer ids. (min items 1; max items 200) |
+| `discount_percent` | number | no | (min 1; max 85) |
+| `discount_amount` | number | no | Fixed amount in the currency of the account. (> 0) |
+| `date_from` | string | yes | YYYY-MM-DD |
+| `date_to` | string | yes | YYYY-MM-DD |
+| `usage_limit` | integer | no | Default 1000. (min 1) |
+| `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
+
+### vouchers_stop
+
+**Propose ending vouchers** · ✍️ Propose
+
+Propose ending vouchers: an active one is switched off, one that has not started is deleted. Simulated first; nothing happens until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).
+
+Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
+
+| Input | Type | Required | Notes |
+|---|---|---|---|
+| `ids` | array of integer or string | yes | (min items 1; max items 100) |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
 ## Invoicing (Oblio)
@@ -795,13 +1195,13 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 | `number` | string | yes |  |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |
 
-## Analysis and reports
+## Analysis
 
 ### catalog_health_audit
 
 **Audit catalog health** · 📖 Read
 
-One pass over the whole catalog (pages of 100 offers, not one call per offer): how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each, and which handling time (days until handover to the courier) the active offers carry, with the offers that differ from the usual value. Use this for any question about the whole catalog instead of reading offers one by one. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+One pass over the whole catalog (pages of 100 offers, not one call per offer): how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each, and which handling time (days until handover to the courier) the active offers carry, with the offers that differ from the usual value. Use this for any question about the whole catalog instead of reading offers one by one. Supports: any connected eMAG, Trendyol or Kaufland account.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -814,7 +1214,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Check the buy button** · 📖 Read
 
-Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. Supports: any connected eMAG, Trendyol or Kaufland account.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -827,7 +1227,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Compare prices across accounts** · 📖 Read
 
-Compare prices of the same SKUs between two accounts, across marketplaces and countries (for example two Trendyol countries, or eMAG and Trendyol). Currencies are not converted and VAT is not normalised (eMAG prices exclude VAT, Trendyol prices include it): the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Compare prices of the same SKUs between two accounts, across marketplaces and countries (for example two Trendyol countries, or eMAG and Trendyol). Currencies are not converted and VAT is not normalised (eMAG prices exclude VAT, Trendyol prices include it): the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts. Supports: any connected eMAG, Trendyol or Kaufland account.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -842,11 +1242,12 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Report unshipped orders** · 📖 Read
 
-Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it. Supports: any connected eMAG, Trendyol or Kaufland account.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
 | Input | Type | Required | Notes |
 |---|---|---|---|
 | `older_than_hours` | number | no | Default 24. |
+| `hours` | number | no | Same as older_than_hours. |
 | `account` | string | no | Account id from list_accounts. Optional when only one account is connected. |

@@ -1,8 +1,8 @@
 {
   "name": "vendwiser",
   "displayName": "Vendwiser",
-  "description": "Run your eMAG and Trendyol marketplace shops from Cursor: offers, product pages, prices, stock, orders, returns, customer questions, eMAG campaigns and AWB labels, and Oblio invoices. Every change is a preview that waits for your approval.",
-  "version": "1.1.0",
+  "description": "Run your eMAG, Trendyol and Kaufland marketplace shops from Cursor: offers, product pages, prices, stock, orders, returns, customer questions and tickets, eMAG campaigns and AWB labels, Kaufland vouchers, and Oblio invoices. Every change is a preview that waits for your approval.",
+  "version": "1.2.0",
   "author": {
     "name": "VOLTIVO POWER TRADING SRL",
     "email": "hello@vendwiser.ai"
@@ -15,6 +15,7 @@
   "keywords": [
     "emag",
     "trendyol",
+    "kaufland",
     "marketplace",
     "ecommerce",
     "seller",
@@ -30,7 +31,8 @@
   "tags": [
     "mcp",
     "ecommerce",
-    "marketplace"
+    "marketplace",
+    "kaufland"
   ],
   "mcpServers": {
     "vendwiser": {

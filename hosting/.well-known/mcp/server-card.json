@@ -1,7 +1,7 @@
 {
   "serverInfo": {
     "name": "Vendwiser",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "authentication": {
     "required": true,
@@ -10,6 +10,27 @@
     ]
   },
   "tools": [
+    {
+      "name": "start_here",
+      "title": "Get started",
+      "description": "What Vendwiser can do for this seller right now: connected accounts, remaining calls, changes waiting for approval and the available tools. Call this first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get started",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
     {
       "name": "search_tools",
       "title": "Find a tool",
@@ -103,27 +124,6 @@
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "start_here",
-      "title": "Get started",
-      "description": "What Vendwiser can do for this seller right now: connected accounts, remaining calls, changes waiting for approval and the available tools. Call this first.",
-      "inputSchema": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "Get started",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
         "openWorldHint": false
       }
     },
@@ -308,7 +308,7 @@
     {
       "name": "offers_list",
       "title": "List offers",
-      "description": "[Catalog] Each row already carries price, stock, status, buy-button rank and handling time, 100 offers per page: for a question about many offers, page through this list (or use catalog_health_audit) and never call offers_get once per offer. List the seller's offers with price, stock, status, validation state and buy-button position. On eMAG prices are WITHOUT VAT (the shopper sees price plus VAT; use vat_list for the rate). On Trendyol prices INCLUDE VAT (price_includes_vat is true). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog] Each row already carries price, stock, status, buy-button rank and handling time, 100 offers per page: for a question about many offers, page through this list (or use catalog_health_audit) and never call offers_get once per offer. List the seller's offers with price, stock, status, validation state and buy-button position. On eMAG prices are WITHOUT VAT (the shopper sees price plus VAT; use vat_list for the rate). On Trendyol prices INCLUDE VAT (price_includes_vat is true). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -356,7 +356,7 @@
     {
       "name": "offers_summary",
       "title": "Offers summary",
-      "description": "[Catalog] Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog] Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -382,7 +382,7 @@
     {
       "name": "offers_get",
       "title": "Get an offer",
-      "description": "[Catalog] Full details of one offer, including every validation message. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog] Full details of one offer, including every validation message. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -417,7 +417,7 @@
     {
       "name": "offers_validation_errors",
       "title": "List rejected offers",
-      "description": "[Catalog] Offers the marketplace rejected or blocked, each with the reasons given. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog] Offers the marketplace rejected or blocked, each with the reasons given. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -447,9 +447,70 @@
       }
     },
     {
+      "name": "offers_competitors",
+      "title": "List competing offers for a product",
+      "description": "[Catalog] Who else sells one product and on what terms: every offer on the same product page ranked for the buy box (seller, price, shipping, delivery days), and the same for products buyers treat as substitutes. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Offer id on the marketplace."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List competing offers for a product",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "market_insights",
+      "title": "Get the marketplace's assortment insights",
+      "description": "[Catalog] The marketplace's own analysis of the shop's assortment: groups of similar products with the shop's price rank, the gap to the best price and the marketplace's advice (focus, defend, grow, maintain), and per product the buy-box price over 30 and 90 days, demand and whether it is priced badly. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get the marketplace's assortment insights",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
       "name": "categories_get",
       "title": "Get a category",
-      "description": "[Catalog] A category's rules: mandatory characteristics, allowed values, whether an EAN is required. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog] A category's rules: mandatory characteristics, allowed values, whether an EAN is required. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -533,136 +594,9 @@
       }
     },
     {
-      "name": "orders_list",
-      "title": "List orders",
-      "description": "[Orders] List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "page": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "Page number, starting at 1."
-          },
-          "per_page": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 100,
-            "description": "Items per page (default 50, max 100)."
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "new",
-              "in_progress",
-              "prepared",
-              "finalized",
-              "returned",
-              "canceled"
-            ]
-          },
-          "created_after": {
-            "type": "string",
-            "description": "ISO date or datetime."
-          },
-          "created_before": {
-            "type": "string",
-            "description": "ISO date or datetime."
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "List orders",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "orders_get",
-      "title": "Get an order",
-      "description": "[Orders] One order with its lines, AWB and invoice state. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": [
-              "integer",
-              "string"
-            ]
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "Get an order",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "orders_count",
-      "title": "Count orders",
-      "description": "[Orders] Number of orders, optionally in one status. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "new",
-              "in_progress",
-              "prepared",
-              "finalized",
-              "returned",
-              "canceled"
-            ]
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "Count orders",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "couriers_list",
-      "title": "List courier accounts",
-      "description": "[Orders] Courier accounts configured on the seller account. Supports: eMAG Romania.",
+      "name": "shipping_groups_list",
+      "title": "List shipping groups",
+      "description": "[Catalog] The shop's shipping groups (delivery price and countries served) on a marketplace that has them. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -678,268 +612,7 @@
         "type": "object"
       },
       "annotations": {
-        "title": "List courier accounts",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "returns_list",
-      "title": "List returns",
-      "description": "[Returns] Return requests, newest first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "page": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "Page number, starting at 1."
-          },
-          "per_page": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 100,
-            "description": "Items per page (default 50, max 100)."
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "List returns",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "returns_decide",
-      "title": "Propose a return decision",
-      "description": "[Returns] Propose accepting or refusing a return (id from returns_list). Accepting refunds the customer. Refusing needs one of the marketplace's reasons and an explanation; called without them, the tool lists the reasons. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "return_id": {
-            "type": [
-              "integer",
-              "string"
-            ]
-          },
-          "decision": {
-            "type": "string",
-            "enum": [
-              "accept",
-              "reject"
-            ]
-          },
-          "reason_id": {
-            "type": "integer"
-          },
-          "note": {
-            "type": "string",
-            "maxLength": 500
-          },
-          "item_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Default: every undecided item of the return."
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [
-          "return_id",
-          "decision"
-        ],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "Propose a return decision",
-        "readOnlyHint": false,
-        "destructiveHint": false,
-        "idempotentHint": false,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "questions_list",
-      "title": "List customer questions",
-      "description": "[Customer questions] Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. Use the id with questions_answer. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "waiting",
-              "answered",
-              "rejected"
-            ],
-            "description": "Default: waiting (not answered yet)."
-          },
-          "page": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "Page number, starting at 1."
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "List customer questions",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "questions_answer",
-      "title": "Propose an answer to a customer question",
-      "description": "[Customer questions] Propose a public answer to one customer question. Simulated first; nothing is sent until the seller approves the exact text (asked in the conversation, confirmed with manage_action). Write in the language of the question, state only facts the seller or the product data gave you, never guess sizes, firmness, stock or delivery dates. The marketplace reviews the answer before showing it. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "question_id": {
-            "type": [
-              "integer",
-              "string"
-            ]
-          },
-          "text": {
-            "type": "string",
-            "minLength": 10,
-            "maxLength": 2000
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [
-          "question_id",
-          "text"
-        ],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "Propose an answer to a customer question",
-        "readOnlyHint": false,
-        "destructiveHint": false,
-        "idempotentHint": false,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "finance_transactions",
-      "title": "List finance transactions",
-      "description": "[Finance] Money movements as the marketplace books them: sales, returns, discounts and coupons per order line (with commission and what the seller receives), payouts made to the seller, and the invoices the marketplace deducted (commission, shipping). At most 15 days per call. Amounts are exactly what the marketplace reports. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "sales",
-              "returns",
-              "discounts",
-              "coupons",
-              "payouts",
-              "deduction_invoices"
-            ],
-            "description": "Default: sales."
-          },
-          "date_from": {
-            "type": "string",
-            "description": "YYYY-MM-DD. Default: 14 days before date_to."
-          },
-          "date_to": {
-            "type": "string",
-            "description": "YYYY-MM-DD. Default: today."
-          },
-          "page": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "Page number, starting at 1."
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "List finance transactions",
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": false
-      }
-    },
-    {
-      "name": "campaigns_list",
-      "title": "List campaigns",
-      "description": "[Campaigns] Marketplace campaigns the seller can join, with dates, type and participation rules. Use the id with campaigns_propose. Supports: eMAG Romania.",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "active",
-              "inactive"
-            ]
-          },
-          "name": {
-            "type": "string",
-            "description": "Part of the campaign name."
-          },
-          "account": {
-            "type": "string",
-            "description": "Account id from list_accounts. Optional when only one account is connected."
-          }
-        },
-        "required": [],
-        "additionalProperties": false
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "annotations": {
-        "title": "List campaigns",
+        "title": "List shipping groups",
         "readOnlyHint": true,
         "destructiveHint": false,
         "idempotentHint": true,
@@ -949,7 +622,7 @@
     {
       "name": "offers_update_price",
       "title": "Propose price changes",
-      "description": "[Catalog changes] Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list: on eMAG WITHOUT VAT (convert a shelf price to a price without VAT first), on Trendyol WITH VAT. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog changes] Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list: on eMAG WITHOUT VAT (convert a shelf price to a price without VAT first), on Trendyol WITH VAT. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -970,6 +643,11 @@
                 "price": {
                   "type": "number",
                   "exclusiveMinimum": 0
+                },
+                "min_price": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "Only where the marketplace reprices automatically: the lowest price it may go down to."
                 }
               },
               "required": [
@@ -1002,7 +680,7 @@
     {
       "name": "offers_update_stock",
       "title": "Propose stock changes",
-      "description": "[Catalog changes] Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog changes] Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1055,7 +733,7 @@
     {
       "name": "offers_update_status",
       "title": "Propose turning offers on or off",
-      "description": "[Catalog changes] Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog changes] Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1105,9 +783,163 @@
       }
     },
     {
+      "name": "offers_update_handling_time",
+      "title": "Propose handling time changes",
+      "description": "[Catalog changes] Propose a new handling time (days the seller needs to hand the parcel to the courier) on many offers at once. Either give ids, or give from_days to take every offer that now has that handling time (for example from_days 6, days 3); the tool finds them itself, do not list offers first. Simulated first; nothing changes until the seller approves. One proposal holds at most as many offers as the workspace protection rule allows (50 unless the seller changed it); the tool fills it by itself and says in warnings when more offers remain: tell the seller how many proposals that means BEFORE starting, and that raising the rule under Rules in the dashboard lets one proposal take them all. Then repeat the same call after each approval until nothing is left. Supports: eMAG Romania, Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 60,
+            "description": "The new handling time."
+          },
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "maxItems": 200
+          },
+          "from_days": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Change every offer that now has this handling time."
+          },
+          "include_inactive": {
+            "type": "boolean",
+            "description": "With from_days: also offers that are off sale. Default: active offers only."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5000,
+            "description": "With from_days: at most this many offers in one proposal."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "days"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose handling time changes",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "offers_update_shipping_group",
+      "title": "Propose shipping group changes",
+      "description": "[Catalog changes] Propose putting offers in another shipping group (changes the delivery price the buyer sees). Simulated first; nothing changes until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "changes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
+                  "description": "Offer id on the marketplace."
+                },
+                "shipping_group_id": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "shipping_group_id"
+              ]
+            },
+            "maxItems": 150
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "changes"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose shipping group changes",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "offers_unlock",
+      "title": "Propose unlocking blocked variants",
+      "description": "[Catalog changes] Propose asking the marketplace to unlock variants it stopped from selling (price far too low or too high, or repeated failure to deliver). offers_validation_errors shows the locked ones. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "maxItems": 100
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "ids"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose unlocking blocked variants",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
       "name": "offers_content_get",
       "title": "Get a product page",
-      "description": "[Catalog] The content of one product page: title, description, images, attributes with their values, which attributes are not filled in, delivery days, and the verdict on recent content changes. Use it before proposing a content change. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog] The content of one product page: title, description, images, attributes with their values, which attributes are not filled in, delivery days, and the verdict on recent content changes. Use it before proposing a content change. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1146,7 +978,7 @@
     {
       "name": "offers_update_content",
       "title": "Propose product page changes",
-      "description": "[Catalog changes] Propose changes to product pages: title, description (whole, or find-and-replace inside the current one), attributes (by name and value, as offers_content_get shows them) and delivery days. Simulated first; nothing changes until the seller approves. The marketplace reviews content changes before showing them. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog changes] Propose changes to product pages: title, description (whole, or find-and-replace inside the current one), attributes (by name and value, as offers_content_get shows them) and delivery days. Simulated first; nothing changes until the seller approves. The marketplace reviews content changes before showing them. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1251,7 +1083,7 @@
     {
       "name": "offers_create",
       "title": "Propose new products",
-      "description": "[Catalog changes] Propose new products. Simulated first; nothing is sent until the seller approves, and the marketplace reviews each product before it goes on sale. Variants (sizes) of one product are separate items with the same product_main_id. categories_get shows which attributes a category requires and their accepted values. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog changes] Propose new products. Simulated first; nothing is sent until the seller approves, and the marketplace reviews each product before it goes on sale. Variants (sizes) of one product are separate items with the same product_main_id. categories_get shows which attributes a category requires and their accepted values. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1309,6 +1141,13 @@
                   "maxItems": 8,
                   "items": {
                     "type": "string"
+                  }
+                },
+                "storefront_prices": {
+                  "type": "object",
+                  "description": "Kaufland only: the price in each country where the product should go on sale, in that country's currency, for example {\"de\": 499, \"at\": 499, \"pl\": 2149}. One offer is created per country listed. Without it, only the country of this account is used.",
+                  "additionalProperties": {
+                    "type": "number"
                   }
                 },
                 "attributes": {
@@ -1371,7 +1210,7 @@
     {
       "name": "offers_delete",
       "title": "Propose deleting archived variants",
-      "description": "[Catalog changes] Propose deleting variants from the marketplace for good. Cannot be undone. Only variants archived for more than a day can be deleted (archive with offers_update_status first). Simulated first; nothing is deleted until the seller approves. Before deleting a variant that will be created again elsewhere, read and keep its content with offers_content_get and offers_get. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Catalog changes] Propose deleting variants from the marketplace for good. Cannot be undone. Only variants archived for more than a day can be deleted (archive with offers_update_status first). Simulated first; nothing is deleted until the seller approves. Before deleting a variant that will be created again elsewhere, read and keep its content with offers_content_get and offers_get. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1409,9 +1248,286 @@
       }
     },
     {
+      "name": "orders_list",
+      "title": "List orders",
+      "description": "[Orders] List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number, starting at 1."
+          },
+          "per_page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Items per page (default 50, max 100)."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "in_progress",
+              "prepared",
+              "finalized",
+              "returned",
+              "canceled"
+            ]
+          },
+          "created_after": {
+            "type": "string",
+            "description": "ISO date or datetime."
+          },
+          "created_before": {
+            "type": "string",
+            "description": "ISO date or datetime."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List orders",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_get",
+      "title": "Get an order",
+      "description": "[Orders] One order with its lines, AWB and invoice state. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get an order",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_count",
+      "title": "Count orders",
+      "description": "[Orders] Number of orders, optionally in one status. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "in_progress",
+              "prepared",
+              "finalized",
+              "returned",
+              "canceled"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Count orders",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "couriers_list",
+      "title": "List courier accounts",
+      "description": "[Orders] Couriers for this account: the courier accounts configured on the seller account, or the courier codes the marketplace knows and who pays for each. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List courier accounts",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "seller_addresses",
+      "title": "List the shop's addresses",
+      "description": "[Orders] The shop's addresses on the marketplace: where parcels are picked up from, where returns come back, and the invoicing address. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List the shop's addresses",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "awb_get",
+      "title": "Get an AWB issued through Vendwiser",
+      "description": "[Orders] One AWB by its reservation id (returned when the AWB was issued through Vendwiser): courier, AWB numbers, status, cash on delivery. AWBs made in Seller Center or in another system cannot be read by the marketplace API. Supports: eMAG Romania.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "reservation_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "reservation_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get an AWB issued through Vendwiser",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_label_get",
+      "title": "Get an order's shipping label",
+      "description": "[Orders] The shipping label of an order, as the marketplace gives it (a link to a PDF, or the label text), for couriers under the marketplace's own contract. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "package_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get an order's shipping label",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "order_notifications_get",
+      "title": "Get instant order notification status",
+      "description": "[Orders] Whether the marketplace tells Vendwiser about order changes the moment they happen (new order, cancellation, failed delivery, return), how many it sent, and which other systems are subscribed on the same shop. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get instant order notification status",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
       "name": "orders_acknowledge",
       "title": "Propose acknowledging orders",
-      "description": "[Order changes] Propose acknowledging new orders (moves them to \"in progress\"). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Order changes] Propose acknowledging new orders (moves them to \"in progress\"). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1450,7 +1566,7 @@
     {
       "name": "orders_attach_invoice",
       "title": "Propose attaching an invoice",
-      "description": "[Order changes] Propose attaching an invoice PDF (by public URL) to an order. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Order changes] Propose attaching an invoice PDF (by public URL) to an order. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1490,66 +1606,37 @@
       }
     },
     {
-      "name": "campaigns_propose",
-      "title": "Propose products for a campaign",
-      "description": "[Campaigns] Propose products for a marketplace campaign. Simulated first; nothing is submitted until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania.",
+      "name": "orders_detach_invoice",
+      "title": "Propose removing an attached invoice",
+      "description": "[Order changes] Propose removing the invoice attached to an order on the marketplace, when the wrong one was sent. The invoice itself is not cancelled. Attach the right one afterwards with orders_attach_invoice. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "campaign_id": {
+          "order_id": {
             "type": [
               "integer",
               "string"
             ]
           },
-          "proposals": {
-            "type": "array",
-            "minItems": 1,
-            "maxItems": 200,
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
-                  "description": "Offer id on the marketplace."
-                },
-                "sale_price": {
-                  "type": "number"
-                },
-                "stock": {
-                  "type": "integer"
-                },
-                "voucher_discount": {
-                  "type": "number"
-                },
-                "max_qty_per_order": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "id"
-              ]
-            }
+          "package_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
           },
           "account": {
             "type": "string",
             "description": "Account id from list_accounts. Optional when only one account is connected."
           }
         },
-        "required": [
-          "campaign_id",
-          "proposals"
-        ],
+        "required": [],
         "additionalProperties": false
       },
       "outputSchema": {
         "type": "object"
       },
       "annotations": {
-        "title": "Propose products for a campaign",
+        "title": "Propose removing an attached invoice",
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
@@ -1557,13 +1644,22 @@
       }
     },
     {
-      "name": "awb_get",
-      "title": "Get an AWB issued through Vendwiser",
-      "description": "[Orders] One AWB by its reservation id (returned when the AWB was issued through Vendwiser): courier, AWB numbers, status, cash on delivery. AWBs made in Seller Center or in another system cannot be read by the marketplace API. Supports: eMAG Romania.",
+      "name": "orders_mark_invoiced",
+      "title": "Propose marking an order as invoiced",
+      "description": "[Order changes] Propose telling the marketplace that an order being prepared has an invoice (status only; orders_attach_invoice sends the document). After it the customer can no longer cancel through customer care without the shop. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "reservation_id": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "invoice_number": {
+            "type": "string"
+          },
+          "package_id": {
             "type": [
               "integer",
               "string"
@@ -1574,19 +1670,17 @@
             "description": "Account id from list_accounts. Optional when only one account is connected."
           }
         },
-        "required": [
-          "reservation_id"
-        ],
+        "required": [],
         "additionalProperties": false
       },
       "outputSchema": {
         "type": "object"
       },
       "annotations": {
-        "title": "Get an AWB issued through Vendwiser",
-        "readOnlyHint": true,
+        "title": "Propose marking an order as invoiced",
+        "readOnlyHint": false,
         "destructiveHint": false,
-        "idempotentHint": true,
+        "idempotentHint": false,
         "openWorldHint": false
       }
     },
@@ -1672,6 +1766,212 @@
       }
     },
     {
+      "name": "orders_mark_shipped",
+      "title": "Propose marking an order as shipped",
+      "description": "[Order changes] Propose telling the marketplace an order is on its way: the courier and the tracking number, where the seller ships with his own courier. For own delivery without a courier (where the marketplace allows it) give tracking_url or courier_phone instead. couriers_list shows the courier codes. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "carrier": {
+            "type": "string",
+            "description": "Courier code or name as the marketplace knows it, for example DHL, DPD, GLS."
+          },
+          "tracking_number": {
+            "type": "string"
+          },
+          "return_tracking_number": {
+            "type": "string",
+            "description": "Optional: tracking number of the return label put in the parcel."
+          },
+          "tracking_url": {
+            "type": "string",
+            "description": "Own delivery: an https link where the customer follows the parcel."
+          },
+          "courier_phone": {
+            "type": "string",
+            "description": "Own delivery: phone number of the person delivering."
+          },
+          "boxes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "volumetric_weight": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "package_id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Instead of order_id: the shipment package id, for a parcel sent back to the customer after a refused return."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose marking an order as shipped",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_mark_delivered",
+      "title": "Propose recording an own delivery result",
+      "description": "[Order changes] Propose recording the end of an own delivery: delivered to the customer, or not delivered and back at the shop. Only for orders shipped with own delivery (orders_mark_shipped with tracking_url or courier_phone). Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "delivered",
+              "returned_to_seller"
+            ]
+          },
+          "package_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "outcome"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose recording an own delivery result",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_set_parcels",
+      "title": "Propose parcels and volumetric weight",
+      "description": "[Order changes] Propose telling the marketplace how many parcels an order has and its volumetric weight (length x width x height in cm, divided by 5000), where the courier asks for it. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "boxes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "volumetric_weight": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "package_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "boxes",
+          "volumetric_weight"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose parcels and volumetric weight",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_change_courier",
+      "title": "Propose another courier for an order",
+      "description": "[Order changes] Propose another courier for an order, among the couriers the marketplace pays for (couriers_list). The marketplace gives a new tracking number. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "courier": {
+            "type": "string",
+            "description": "Courier code or name from couriers_list."
+          },
+          "package_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "courier"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose another courier for an order",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
       "name": "orders_split",
       "title": "Propose splitting an order into packages",
       "description": "[Order changes] Propose sending part of an order in separate packages. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
@@ -1735,7 +2035,7 @@
     {
       "name": "orders_cancel_items",
       "title": "Propose cancelling order items",
-      "description": "[Order changes] Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Order changes] Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1794,6 +2094,888 @@
       },
       "annotations": {
         "title": "Propose cancelling order items",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_refund",
+      "title": "Propose a refund without a return",
+      "description": "[Order changes] Propose sending money back to the buyer for one product of an order, without a return (damage in transport, late delivery, missing part, postage). Cannot be recalled. Simulated first; nothing happens until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "amount": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "In the currency of the order."
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "defect",
+              "delivery_damage",
+              "delivery_delay",
+              "incomplete_delivery",
+              "incorrect_delivery",
+              "other_refund",
+              "refund_postage_fee",
+              "refund_return_postage_fee"
+            ]
+          },
+          "barcode": {
+            "type": "string",
+            "description": "Which product, when the order has several."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "order_id",
+          "amount",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose a refund without a return",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_contact_buyer",
+      "title": "Propose a message to a buyer",
+      "description": "[Order changes] Propose writing to the buyer of an order through the marketplace (opens a ticket). Simulated first; nothing is sent until the seller approves the exact text. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "product_not_as_described",
+              "product_defect",
+              "product_not_delivered",
+              "product_return",
+              "contact_other"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 2000
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "order_id",
+          "reason",
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose a message to a buyer",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "order_notifications_set",
+      "title": "Propose turning order notifications on or off",
+      "description": "[Order changes] Propose turning instant order notifications on or off for a marketplace account. When on, the marketplace calls Vendwiser at each chosen order change and a notice appears in the workspace; nothing is changed on any order. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Default: CREATED, CANCELLED, UNSUPPLIED, UNDELIVERED, RETURNED."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "enabled"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose turning order notifications on or off",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "returns_list",
+      "title": "List returns",
+      "description": "[Returns] Return requests, newest first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number, starting at 1."
+          },
+          "per_page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Items per page (default 50, max 100)."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List returns",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "returns_history",
+      "title": "Get a return's history",
+      "description": "[Returns] The history of one return: each status change, when it happened and who made it (the seller through an integration, the seller in the panel, or the marketplace). Useful in a dispute. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "return_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "return_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get a return's history",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "returns_decide",
+      "title": "Propose a return decision",
+      "description": "[Returns] Propose accepting or refusing a return (id from returns_list). Accepting refunds the customer. Refusing needs one of the marketplace's reasons and an explanation; called without them, the tool lists the reasons. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "return_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "reject",
+              "repair",
+              "clarify"
+            ],
+            "description": "repair and clarify exist only where the marketplace has them."
+          },
+          "reason_id": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "item_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Default: every undecided item of the return."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "return_id",
+          "decision"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose a return decision",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "returns_create",
+      "title": "Propose a return for an order",
+      "description": "[Returns] Propose a return the customer did not open himself. mode refund_now records it as already accepted (the customer is refunded, cannot be undone); mode open_request opens a request with the marketplace's return courier, to be accepted later with returns_decide. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "barcode": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "description": "Default: the whole quantity ordered."
+                }
+              },
+              "required": [
+                "barcode"
+              ]
+            },
+            "maxItems": 50
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "refund_now",
+              "open_request"
+            ],
+            "description": "Default refund_now."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Where the marketplace asks for one of its own return reasons."
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "order_id",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose a return for an order",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "questions_list",
+      "title": "List customer questions",
+      "description": "[Customer questions] Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. Use the id with questions_answer. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "waiting",
+              "answered",
+              "rejected"
+            ],
+            "description": "Default: waiting (not answered yet)."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number, starting at 1."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List customer questions",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "questions_answer",
+      "title": "Propose an answer to a customer question",
+      "description": "[Customer questions] Propose a public answer to one customer question. Simulated first; nothing is sent until the seller approves the exact text (asked in the conversation, confirmed with manage_action). Write in the language of the question, state only facts the seller or the product data gave you, never guess sizes, firmness, stock or delivery dates. The marketplace reviews the answer before showing it. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 2000
+          },
+          "interim": {
+            "type": "boolean",
+            "description": "Tickets only: a holding reply; the conversation keeps waiting for the seller."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "question_id",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose an answer to a customer question",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "questions_close",
+      "title": "Propose closing a buyer conversation",
+      "description": "[Customer questions] Propose closing a conversation with a buyer that is solved, on a marketplace where questions are tickets. Simulated first; nothing happens until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "question_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose closing a buyer conversation",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "finance_transactions",
+      "title": "List finance transactions",
+      "description": "[Finance] Money movements as the marketplace books them: sales, returns, discounts and coupons per order line (with commission and what the seller receives), payouts made to the seller, and the invoices the marketplace deducted (commission, shipping). At most 15 days per call. Amounts are exactly what the marketplace reports. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "sales",
+              "returns",
+              "discounts",
+              "coupons",
+              "payouts",
+              "deduction_invoices"
+            ],
+            "description": "Default: sales."
+          },
+          "date_from": {
+            "type": "string",
+            "description": "YYYY-MM-DD. Default: 14 days before date_to."
+          },
+          "date_to": {
+            "type": "string",
+            "description": "YYYY-MM-DD. Default: today."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number, starting at 1."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List finance transactions",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "reports_list",
+      "title": "List marketplace reports",
+      "description": "[Finance] Reports the marketplace prepared for the shop (CSV files), newest first, with the download link when ready. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List marketplace reports",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "reports_request",
+      "title": "Request a marketplace report",
+      "description": "[Finance] Ask the marketplace to prepare a report file: sales or bookings (money movements) for a period, all offers, cancellations, lost buy boxes, buy-box opportunities, price competitiveness, competitor prices, offers that could not be listed, product data changes. It changes nothing in the shop. reports_list gives the file when it is ready. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "sales",
+              "bookings",
+              "offers",
+              "cancellations",
+              "lost_buybox",
+              "buybox_opportunity",
+              "price_competitiveness",
+              "competitors",
+              "invalid_items",
+              "product_data_changes"
+            ]
+          },
+          "date_from": {
+            "type": "string",
+            "description": "YYYY-MM-DD, for sales and bookings. Default: 30 days ago."
+          },
+          "date_to": {
+            "type": "string",
+            "description": "YYYY-MM-DD. Default: today."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Request a marketplace report",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "campaigns_list",
+      "title": "List campaigns",
+      "description": "[Campaigns] Marketplace campaigns the seller can join, with dates, type and participation rules. Use the id with campaigns_propose. Supports: eMAG Romania.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Part of the campaign name."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List campaigns",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "campaigns_check",
+      "title": "Check campaigns and your products",
+      "description": "[Analysis] Campaigns and the seller's own products in one pass: which campaigns still take proposals and until when, in which ones the seller already has products and how many, which ones he is missing from, which offers break a campaign rule (stock, handling time), and a short list of recommended next steps, each with the sentence to say to the assistant. Use it for any question like \"which campaigns am I in\" or \"what should I join\". Supports: eMAG Romania.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "max_pages": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Pages of 100 offers to scan (default: enough for 2000 offers)."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Check campaigns and your products",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "campaigns_propose",
+      "title": "Propose products for a campaign",
+      "description": "[Campaigns] Propose products for a marketplace campaign. Simulated first; nothing is submitted until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "proposals": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
+                  "description": "Offer id on the marketplace."
+                },
+                "sale_price": {
+                  "type": "number"
+                },
+                "stock": {
+                  "type": "integer"
+                },
+                "voucher_discount": {
+                  "type": "number"
+                },
+                "max_qty_per_order": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "campaign_id",
+          "proposals"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose products for a campaign",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "vouchers_list",
+      "title": "List discount vouchers",
+      "description": "[Campaigns] The shop's own discount vouchers on the marketplace, with status, period, how often each was used, the sales it brought and its cost. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "active",
+              "inactive",
+              "expired",
+              "consumed"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number, starting at 1."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List discount vouchers",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "vouchers_create",
+      "title": "Propose a discount voucher",
+      "description": "[Campaigns] Propose a discount voucher on some of the shop's products for a period: a percentage or a fixed amount, paid by the seller. The preview shows the price each product would have. Simulated first; nothing is created until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100
+          },
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "maxItems": 200,
+            "description": "Offer ids."
+          },
+          "discount_percent": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 85
+          },
+          "discount_amount": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Fixed amount in the currency of the account."
+          },
+          "date_from": {
+            "type": "string",
+            "description": "YYYY-MM-DD"
+          },
+          "date_to": {
+            "type": "string",
+            "description": "YYYY-MM-DD"
+          },
+          "usage_limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Default 1000."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "title",
+          "ids",
+          "date_from",
+          "date_to"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose a discount voucher",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "vouchers_stop",
+      "title": "Propose ending vouchers",
+      "description": "[Campaigns] Propose ending vouchers: an active one is switched off, one that has not started is deleted. Simulated first; nothing happens until the seller approves. Supports: Kaufland (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, Netherlands; changes being verified on real accounts).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "maxItems": 100
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "ids"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose ending vouchers",
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
@@ -2178,7 +3360,7 @@
     {
       "name": "catalog_health_audit",
       "title": "Audit catalog health",
-      "description": "[Analysis] One pass over the whole catalog (pages of 100 offers, not one call per offer): how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each, and which handling time (days until handover to the courier) the active offers carry, with the offers that differ from the usual value. Use this for any question about the whole catalog instead of reading offers one by one. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Analysis] One pass over the whole catalog (pages of 100 offers, not one call per offer): how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each, and which handling time (days until handover to the courier) the active offers carry, with the offers that differ from the usual value. Use this for any question about the whole catalog instead of reading offers one by one. Supports: any connected eMAG, Trendyol or Kaufland account.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -2210,7 +3392,7 @@
     {
       "name": "buy_button_check",
       "title": "Check the buy button",
-      "description": "[Analysis] Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Analysis] Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. Supports: any connected eMAG, Trendyol or Kaufland account.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -2242,7 +3424,7 @@
     {
       "name": "price_parity_check",
       "title": "Compare prices across accounts",
-      "description": "[Analysis] Compare prices of the same SKUs between two accounts, across marketplaces and countries (for example two Trendyol countries, or eMAG and Trendyol). Currencies are not converted and VAT is not normalised (eMAG prices exclude VAT, Trendyol prices include it): the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Analysis] Compare prices of the same SKUs between two accounts, across marketplaces and countries (for example two Trendyol countries, or eMAG and Trendyol). Currencies are not converted and VAT is not normalised (eMAG prices exclude VAT, Trendyol prices include it): the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts. Supports: any connected eMAG, Trendyol or Kaufland account.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -2283,13 +3465,17 @@
     {
       "name": "unshipped_orders_report",
       "title": "Report unshipped orders",
-      "description": "[Analysis] Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "description": "[Analysis] Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it. Supports: any connected eMAG, Trendyol or Kaufland account.",
       "inputSchema": {
         "type": "object",
         "properties": {
           "older_than_hours": {
             "type": "number",
             "description": "Default 24."
+          },
+          "hours": {
+            "type": "number",
+            "description": "Same as older_than_hours."
           },
           "account": {
             "type": "string",

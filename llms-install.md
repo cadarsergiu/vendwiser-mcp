@@ -26,25 +26,26 @@ The server uses OAuth 2.1 with Dynamic Client Registration and PKCE. On first co
 Requirements on the user's side:
 
 - A Vendwiser account (sign up at https://vendwiser.ai; a free plan is available).
-- An eMAG Marketplace Romania seller account (API user and password, plus the Vendwiser IP in the eMAG allowlist) and/or a Trendyol seller account in Romania, Bulgaria, Greece, Czechia, Slovakia or Germany (Seller ID, API key and API secret; each storefront is connected separately, no IP allowlist), connected in the Vendwiser dashboard at https://app.vendwiser.ai. Oblio is optional (for invoices).
+- An eMAG Marketplace Romania seller account (API user and password, plus the Vendwiser IP in the eMAG allowlist) and/or a Trendyol seller account in Romania, Bulgaria, Greece, Czechia, Slovakia or Germany (Seller ID, API key and API secret; each storefront is connected separately, no IP allowlist) and/or a Kaufland seller account in Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain or the Netherlands (Client key and Secret key from the Kaufland Seller Portal; each country is connected separately with the same keys, no IP allowlist), connected in the Vendwiser dashboard at https://app.vendwiser.ai. Oblio is optional (for invoices).
 
 ## 3. Verify
 
-After sign-in, the server should list **52 tools**. Call `start_here` (read-only) to confirm the connection; it returns the connected accounts and remaining calls.
+After sign-in, the server should list **79 tools**. Call `start_here` (read-only) to confirm the connection; it returns the connected accounts and remaining calls.
 
 ## Rules for using the tools
 
 - Tools titled "Propose …" only simulate changes and return a preview and an action id. Show the preview and the approval phrase to the user.
 - Call `manage_action` with `decision: "approve"` only after the user explicitly approves that exact change in the conversation.
-- eMAG prices are without VAT; Trendyol prices include VAT.
+- eMAG prices are without VAT; Trendyol and Kaufland prices include VAT.
+- On Kaufland, reading and stock changes are verified on real accounts; other Kaufland changes are still being verified.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 |---|---|
 | `401 Unauthorized` | Expected before sign-in. Start the OAuth flow (Authenticate). |
-| Connected but no accounts | The user must connect their eMAG or Trendyol account in the Vendwiser dashboard. |
-| Authentication or network error from eMAG or Trendyol | Call `connection_health`. |
+| Connected but no accounts | The user must connect their eMAG, Trendyol or Kaufland account in the Vendwiser dashboard. |
+| Authentication or network error from eMAG, Trendyol or Kaufland | Call `connection_health`. |
 | Client only supports stdio | Use `npx -y mcp-remote https://app.vendwiser.ai/mcp` as the command. |
 
-Documentation: https://vendwiser.ai/docs/ · Integrations and example conversations: https://vendwiser.ai/en/integrations/ (eMAG, Trendyol, Oblio) · Support: hello@vendwiser.ai
+Documentation: https://vendwiser.ai/docs/ · Integrations and example conversations: https://vendwiser.ai/en/integrations/ (eMAG, Trendyol, Kaufland, Oblio) · Support: hello@vendwiser.ai

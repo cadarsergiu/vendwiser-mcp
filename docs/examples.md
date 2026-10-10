@@ -2,7 +2,7 @@
 
 These prompts work in any MCP client connected to Vendwiser. You can ask in English or Romanian. The expected results below come from the **Northwind Sleep** demo shop, which contains only fictional data; on your own shop the numbers will be your own.
 
-Prices on eMAG are **without VAT**, as eMAG returns them. Prices on Trendyol **include VAT**, as Trendyol returns them.
+Prices on eMAG are **without VAT**, as eMAG returns them. Prices on Trendyol and Kaufland **include VAT**, as those marketplaces return them.
 
 ## Getting started
 
@@ -70,6 +70,21 @@ These work on a connected Trendyol storefront (Romania, Bulgaria, Greece, Czechi
 | *Compare my prices on Trendyol Romania and Trendyol Bulgaria.* | `price_parity_check` | SKUs whose price ratio differs from the usual one. Currencies are not converted and VAT is not normalised. |
 
 AWBs and campaigns are not available on Trendyol.
+
+## Kaufland
+
+These work on a connected Kaufland country (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain or the Netherlands; each country is a separate account). The demo shop has no Kaufland account, so no sample results are shown here; illustrative example conversations are on <https://vendwiser.ai/en/kaufland/>. Reading and stock changes are verified on a real Kaufland account; the other changes below use the same preview and approval and are still being verified on real accounts.
+
+| Prompt | Tool(s) | What you get |
+|---|---|---|
+| *Who else sells NW-MAT-180 on Kaufland Germany, and at what price?* | `offers_competitors` | Every offer on the product page, ranked for the Buy Box, with price, shipping and delivery days. |
+| *Which of my Kaufland offers are not live, and why?* | `offers_validation_errors` | The offers Kaufland does not show, with the reason Kaufland gives. |
+| *Set the stock of NW-MAT-180 to 8.* | `offers_update_stock` | A before-and-after preview. Offers with the same offer code in your other Kaufland countries share this stock. |
+| *Which Kaufland tickets are waiting for me? Draft a reply.* | `questions_list`, `questions_answer` | The open buyer tickets, then a proposed reply that is sent only after you approve it (being verified). |
+| *Make a 10% voucher on NW-MAT-160 for two weeks.* | `vouchers_create` | A preview with the price each product would have; you pay the discount (being verified). |
+| *Order MABC123 left with DHL, tracking 0034…* | `orders_mark_shipped` | A preview of the shipment; Kaufland refuses orders that are still in the buyer's cancellation window (being verified). |
+
+AWBs and campaigns are not available on Kaufland. Oblio invoices from an order work only for orders in RON, so not for Kaufland orders.
 
 ## Audit
 

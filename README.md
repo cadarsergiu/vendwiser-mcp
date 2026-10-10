@@ -1,17 +1,17 @@
 <p align="center">
-  <img src="assets/banner-1200x200.png" alt="Vendwiser: run your eMAG and Trendyol shops from your AI assistant" width="100%">
+  <img src="assets/banner-1200x200.png" alt="Vendwiser: run your eMAG, Trendyol and Kaufland shops from your AI assistant" width="100%">
 </p>
 
 <h1 align="center">Vendwiser MCP server</h1>
 
 <p align="center">
-  <strong>Run your eMAG and Trendyol marketplace shops by asking: offers, product pages, orders, returns, customer questions, invoices, and eMAG shipping labels and campaigns, with your approval on every change.</strong>
+  <strong>Run your eMAG, Trendyol and Kaufland marketplace shops by asking: offers, product pages, orders, returns, customer questions, invoices, eMAG shipping labels and campaigns, and Kaufland vouchers, with your approval on every change.</strong>
 </p>
 
 <p align="center">
   <a href="https://vendwiser.ai">Website</a> ·
   <a href="https://vendwiser.ai/docs/">Documentation</a> ·
-  <a href="docs/tools.md">All 52 tools</a> ·
+  <a href="docs/tools.md">All 79 tools</a> ·
   <a href="docs/security.md">Security</a> ·
   <a href="README.ro.md">Română</a>
 </p>
@@ -29,46 +29,50 @@
 | **Server URL** | `https://app.vendwiser.ai/mcp` |
 | **Transport** | Streamable HTTP (stateless) |
 | **Authentication** | OAuth 2.1 with Dynamic Client Registration and PKCE (S256). You sign in to Vendwiser in a browser window; no API keys to copy. |
-| **Tools** | 52 (33 read-only, 17 that only *propose* changes, 1 router, 1 that applies approved changes) |
-| **Marketplaces** | eMAG Marketplace Romania. Trendyol Romania, Bulgaria, Greece, Czechia, Slovakia and Germany (each storefront connected separately). Oblio for invoicing (optional). |
+| **Tools** | 79 (44 read-only, 33 that only *propose* changes, 1 router, 1 that applies approved changes) |
+| **Marketplaces** | eMAG Marketplace Romania. Trendyol Romania, Bulgaria, Greece, Czechia, Slovakia and Germany (each storefront connected separately). Kaufland Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain and the Netherlands (each country connected separately; reading and stock changes verified on a real account, other Kaufland changes being verified). Oblio for invoicing (optional). |
 | **Registry name** | `ai.vendwiser/vendwiser` |
 
 ## What it is
 
-Vendwiser connects your **eMAG** and **Trendyol** seller accounts and your **Oblio invoicing account** to the AI assistant you already use (Claude, ChatGPT, Cursor, VS Code, Gemini CLI and any other MCP client), so you can run daily marketplace work in plain language.
+Vendwiser connects your **eMAG**, **Trendyol** and **Kaufland** seller accounts and your **Oblio invoicing account** to the AI assistant you already use (Claude, ChatGPT, Cursor, VS Code, Gemini CLI and any other MCP client), so you can run daily marketplace work in plain language.
 
-Ask which orders are past their handover deadline, why an offer was rejected, which products lost the buy button, which customer questions are still unanswered, or what Trendyol paid you last week. When you want to change something, the assistant prepares the change, shows you a before-and-after preview, and waits for your explicit approval.
+Ask which orders are past their handover deadline, why an offer was rejected, which products lost the buy button, which customer questions are still unanswered, what Trendyol paid you last week, or who holds the Kaufland Buy Box. When you want to change something, the assistant prepares the change, shows you a before-and-after preview, and waits for your explicit approval.
 
 ## Who it's for
 
 - **eMAG Marketplace sellers in Romania** who want answers and routine changes without clicking through Seller Center.
 - **Trendyol sellers** in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany who want orders, product pages, returns and customer questions handled from a conversation.
+- **Kaufland Global Marketplace sellers** in Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain and the Netherlands who want offers, Buy Box, stock, orders and buyer tickets handled from a conversation.
 - **Shop operators and small teams** who invoice eMAG orders in **Oblio** and want invoices and AWBs prepared from the order itself.
 - **Agencies and integrators** who manage seller accounts and need an audit trail of every change an AI assistant makes.
 
-You need a Vendwiser account (a free plan is available, see [vendwiser.ai](https://vendwiser.ai) for plans) and an eMAG Marketplace Romania or Trendyol seller account with API access. Each Trendyol storefront is a separate marketplace account: the Free, Starter and Pro plans include one account per marketplace, Scale up to six, which covers every Trendyol country. Oblio is optional.
+You need a Vendwiser account (a free plan is available, see [vendwiser.ai](https://vendwiser.ai) for plans) and an eMAG Marketplace Romania, Trendyol or Kaufland seller account with API access. Each Trendyol storefront and each Kaufland country is a separate marketplace account: the Free, Starter and Pro plans include one account per marketplace, Scale up to nine per marketplace, which covers every Trendyol or Kaufland country. Oblio is optional.
 
 ## Features
 
 - **Catalog:** list offers with price, stock, status, validation state and buy-button position; exact catalog counts; full validation messages; category rules; VAT rates and handling times (eMAG).
-- **Product pages (Trendyol):** read a product page and propose changes to the title, description (whole or find-and-replace), attributes and delivery days; propose new products; delete archived variants.
-- **Pricing and stock:** propose new prices, stock levels, and turning offers on or off, always as a preview first.
-- **Orders:** list, count and inspect orders; find orders past the handover deadline; propose acknowledging new orders; on Trendyol, split an order into packages or cancel items that cannot be supplied.
-- **Shipping (AWB, eMAG only):** propose an AWB for an order through your eMAG courier accounts, with weight and parcels suggested from product data; read AWBs issued through Vendwiser.
-- **Returns:** list return requests, newest first; on Trendyol, propose accepting or refusing a return.
-- **Customer questions (Trendyol):** list the questions buyers asked on product pages and propose an answer; Trendyol reviews it before publishing.
+- **Product pages:** read a product page and propose changes to the title, description (whole or find-and-replace), attributes and delivery days; on Trendyol and Kaufland also propose new products (on Kaufland in several countries at once, one price per country) and delete archived variants.
+- **Competition (Kaufland):** every offer on the same product page ranked for the Buy Box, Kaufland's own assortment insights, shipping groups.
+- **Pricing and stock:** propose new prices, stock levels, handling times (eMAG, Kaufland) and turning offers on or off, always as a preview first.
+- **Orders:** list, count and inspect orders; find orders past the handover deadline; propose acknowledging new orders; on Trendyol and Kaufland, mark orders shipped with the tracking number or cancel items that cannot be supplied; on Trendyol, split an order, set parcels or change the courier; on Kaufland, refund without a return or write to the buyer.
+- **Shipping labels (AWB, eMAG only):** propose an AWB for an order through your eMAG courier accounts, with weight and parcels suggested from product data; read AWBs issued through Vendwiser.
+- **Returns:** list return requests, newest first; on Trendyol and Kaufland, propose accepting or refusing a return, or open one for the customer.
+- **Customer questions and tickets:** on Trendyol, list product questions and propose answers (Trendyol reviews them before publishing); on Kaufland, read buyer tickets, propose replies and close solved tickets.
 - **Finance (Trendyol):** sales, returns, discounts, coupons, payouts and the commission and shipping invoices Trendyol deducted, exactly as Trendyol reports them.
-- **Campaigns (eMAG only):** list campaigns you can join with their dates and rules; propose products for a campaign.
+- **Campaigns (eMAG only):** list campaigns you can join with their dates and rules, check where you are missing, propose products for a campaign.
+- **Vouchers and reports (Kaufland):** list, create and stop discount vouchers; request and download Kaufland report files.
 - **Invoicing (Oblio):** list and inspect invoices and proformas; propose issuing an invoice, issuing the invoice for a marketplace order in RON (eMAG Romania, Trendyol Romania; buyer, products, shipping and vouchers taken from the order), or cancelling an invoice.
-- **Analysis (eMAG and Trendyol):** catalog health audit, buy-button check with the gap to the winning price, price parity between any two accounts (two Trendyol countries, or eMAG and Trendyol; no currency conversion or VAT normalisation), unshipped-orders report.
+- **Analysis:** catalog health audit, buy-button check with the gap to the winning price, price parity between any two accounts (for example two Trendyol or Kaufland countries, or eMAG and Trendyol; no currency conversion or VAT normalisation), unshipped-orders report.
+- **Kaufland status:** reading and stock changes are verified on a real Kaufland account. Price changes, ticket replies, vouchers, marking orders shipped and the other Kaufland changes use the same preview and approval and are being verified on real accounts (marked † in the tool tables).
 - **Safety:** proposals with in-conversation approval, protection rules, and an exportable activity log (see below).
 
 ## Safety model
 
 Vendwiser is built so that an AI assistant can **read freely but never change your shop on its own**.
 
-1. **Reads are immediate.** Offers, product pages, stock, prices, orders, returns, customer questions, finance, campaigns, invoices and reports come straight from your accounts.
-2. **Every write is a proposal.** Tools that change something (prices, stock, offer status, product pages, new or deleted products, order acknowledgement, order splits and cancellations, return decisions, answers to customer questions, invoices, AWBs, campaign entries) only *simulate* the change. They return a before-and-after preview and an action id such as `act_1a2b3c`. Nothing reaches eMAG, Trendyol or Oblio at this point.
+1. **Reads are immediate.** Offers, product pages, stock, prices, orders, returns, customer questions and tickets, finance, campaigns, vouchers, invoices and reports come straight from your accounts.
+2. **Every write is a proposal.** Tools that change something (prices, stock, offer status, product pages, new or deleted products, order acknowledgement, order splits and cancellations, return decisions, answers to customer questions and tickets, refunds, vouchers, invoices, AWBs, campaign entries) only *simulate* the change. They return a before-and-after preview and an action id such as `act_1a2b3c`. Nothing reaches eMAG, Trendyol, Kaufland or Oblio at this point.
 3. **You approve in the conversation.** The assistant shows you an exact approval phrase, for example:
 
    ```text
@@ -79,7 +83,7 @@ Vendwiser is built so that an AI assistant can **read freely but never change yo
 4. **Protection rules block risky changes before they are even queued**: a maximum price drop per change (for example 15%), a price floor, and a limit on how many offers one change may touch. A blocked change is refused with the name of the rule; nothing is queued.
 5. **Everything is logged.** Every tool call and every approval goes into an activity log you can read with `get_activity` and export from the dashboard.
 
-Other protections: marketplace and invoicing credentials are stored encrypted and are never shown to the assistant; buyers' phone numbers, emails and street addresses are not passed to the assistant (orders show only the buyer's name and city). `manage_action` is the only tool marked `destructiveHint: true`, and every tool is `openWorldHint: false`. Some approved changes cannot be undone on the marketplace (deleting Trendyol variants, cancelling order items); their previews say so. More in [docs/security.md](docs/security.md).
+Other protections: marketplace and invoicing credentials are stored encrypted and are never shown to the assistant; buyers' phone numbers, emails and street addresses are not passed to the assistant (orders show only the buyer's name and city). `manage_action` is the only tool marked `destructiveHint: true`, and every tool is `openWorldHint: false`. Some approved changes cannot be undone on the marketplace (deleting variants, cancelling order items, refunds); their previews say so. More in [docs/security.md](docs/security.md).
 
 ## Quick connect
 
@@ -226,7 +230,8 @@ If you want to document this for clients without OAuth support, describe here wh
 
 ## Tools
 
-The last column shows which marketplaces each tool supports (in your client, each tool's "Works on:" line lists the accounts you have actually connected): **eMAG** (Romania), **Trendyol** (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany) or **Oblio**. Legend: 📖 **Read** (`readOnlyHint: true`, returns data) · ✍️ **Propose** (simulates a change and waits for your approval) · 🔀 **Router** (runs another tool by name; behaves exactly like that tool) · ⚠️ **Destructive** (applies or rejects a change you approved; `destructiveHint: true`). All tools have `openWorldHint: false`.
+The last column shows which marketplaces each tool supports (in your client, each tool's "Works on:" line lists the accounts you have actually connected): **eMAG** (Romania), **Trendyol** (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany), **Kaufland** (Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain, the Netherlands) or **Oblio**. **Kaufland†** means the tool is built and goes through the same preview and approval, but has not yet been run on a real Kaufland account (verified so far: reading and stock changes). Legend: 📖 **Read** (`readOnlyHint: true`, returns data) · ✍️ **Propose** (simulates a change and waits for your approval) · 🔀 **Router** (runs another tool by name; behaves exactly like that tool) · ⚠️ **Destructive** (applies or rejects a change you approved; `destructiveHint: true`). All tools have `openWorldHint: false`.
+
 
 ### Getting started and tool discovery
 
@@ -258,62 +263,89 @@ The last column shows which marketplaces each tool supports (in your client, eac
 
 | Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
-| [`offers_list`](docs/tools.md#offers_list) | List offers | List the seller's offers with price, stock, status, validation state and buy-button position. | 📖 Read | eMAG, Trendyol |
-| [`offers_summary`](docs/tools.md#offers_summary) | Offers summary | Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. | 📖 Read | eMAG, Trendyol |
-| [`offers_get`](docs/tools.md#offers_get) | Get an offer | Full details of one offer, including every validation message. | 📖 Read | eMAG, Trendyol |
-| [`offers_validation_errors`](docs/tools.md#offers_validation_errors) | List rejected offers | Offers the marketplace rejected or blocked, each with the reasons given. | 📖 Read | eMAG, Trendyol |
-| [`categories_get`](docs/tools.md#categories_get) | Get a category | A category's rules: mandatory characteristics, allowed values, whether an EAN is required. | 📖 Read | eMAG, Trendyol |
+| [`offers_list`](docs/tools.md#offers_list) | List offers | List the seller's offers with price, stock, status, validation state and buy-button position. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`offers_summary`](docs/tools.md#offers_summary) | Offers summary | Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`offers_get`](docs/tools.md#offers_get) | Get an offer | Full details of one offer, including every validation message. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`offers_validation_errors`](docs/tools.md#offers_validation_errors) | List rejected offers | Offers the marketplace rejected or blocked, each with the reasons given. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`offers_competitors`](docs/tools.md#offers_competitors) | List competing offers for a product | Every offer on the same product page ranked for the Buy Box (seller, price, shipping, delivery), plus substitutes. | 📖 Read | Kaufland |
+| [`market_insights`](docs/tools.md#market_insights) | Get the marketplace's assortment insights | Kaufland's own assortment analysis: price rank, gap to the best price, advice, buy-box price over 30 and 90 days. | 📖 Read | Kaufland |
+| [`categories_get`](docs/tools.md#categories_get) | Get a category | A category's rules: mandatory characteristics, allowed values, whether an EAN is required. | 📖 Read | eMAG, Trendyol, Kaufland |
 | [`vat_list`](docs/tools.md#vat_list) | List VAT rates | VAT rates available on this account, with their ids. | 📖 Read | eMAG |
 | [`handling_time_list`](docs/tools.md#handling_time_list) | List handling times | Handling-time values the marketplace accepts. | 📖 Read | eMAG |
-| [`offers_update_price`](docs/tools.md#offers_update_price) | Propose price changes | Propose new sale prices. | ✍️ Propose | eMAG, Trendyol |
-| [`offers_update_stock`](docs/tools.md#offers_update_stock) | Propose stock changes | Propose new stock values. | ✍️ Propose | eMAG, Trendyol |
-| [`offers_update_status`](docs/tools.md#offers_update_status) | Propose turning offers on or off | Propose activating or deactivating offers. | ✍️ Propose | eMAG, Trendyol |
-| [`offers_content_get`](docs/tools.md#offers_content_get) | Get a product page | The content of one product page: title, description, images, attributes, which attributes are not filled in, delivery days. | 📖 Read | Trendyol |
-| [`offers_update_content`](docs/tools.md#offers_update_content) | Propose product page changes | Propose changes to titles, descriptions (whole or find-and-replace), attributes and delivery days; Trendyol reviews them before showing them. | ✍️ Propose | Trendyol |
-| [`offers_create`](docs/tools.md#offers_create) | Propose new products | Propose new products (variants share a product_main_id); Trendyol reviews each product before it goes on sale. | ✍️ Propose | Trendyol |
-| [`offers_delete`](docs/tools.md#offers_delete) | Propose deleting archived variants | Propose deleting variants archived for more than a day. Cannot be undone. | ✍️ Propose | Trendyol |
+| [`shipping_groups_list`](docs/tools.md#shipping_groups_list) | List shipping groups | The shop's shipping groups: delivery price and countries served. | 📖 Read | Kaufland |
+| [`offers_update_price`](docs/tools.md#offers_update_price) | Propose price changes | Propose new sale prices. | ✍️ Propose | eMAG, Trendyol, Kaufland† |
+| [`offers_update_stock`](docs/tools.md#offers_update_stock) | Propose stock changes | Propose new stock values. | ✍️ Propose | eMAG, Trendyol, Kaufland |
+| [`offers_update_status`](docs/tools.md#offers_update_status) | Propose turning offers on or off | Propose activating or deactivating offers. | ✍️ Propose | eMAG, Trendyol, Kaufland† |
+| [`offers_update_handling_time`](docs/tools.md#offers_update_handling_time) | Propose handling time changes | Propose a new handling time on many offers at once (by ids or by current value). | ✍️ Propose | eMAG, Kaufland† |
+| [`offers_update_shipping_group`](docs/tools.md#offers_update_shipping_group) | Propose shipping group changes | Propose moving offers to another shipping group (changes the delivery price the buyer sees). | ✍️ Propose | Kaufland† |
+| [`offers_unlock`](docs/tools.md#offers_unlock) | Propose unlocking blocked variants | Propose asking Trendyol to unlock variants it stopped from selling. | ✍️ Propose | Trendyol |
+| [`offers_content_get`](docs/tools.md#offers_content_get) | Get a product page | The content of one product page: title, description, images, attributes, which attributes are not filled in, delivery days. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`offers_update_content`](docs/tools.md#offers_update_content) | Propose product page changes | Propose changes to titles, descriptions (whole or find-and-replace), attributes and delivery days; the marketplace reviews them before showing them. | ✍️ Propose | eMAG, Trendyol, Kaufland† |
+| [`offers_create`](docs/tools.md#offers_create) | Propose new products | Propose new products (variants share a product_main_id; on Kaufland one price per country); the marketplace reviews each product before it goes on sale. | ✍️ Propose | Trendyol, Kaufland† |
+| [`offers_delete`](docs/tools.md#offers_delete) | Propose deleting archived variants | Propose deleting variants archived for more than a day. Cannot be undone. | ✍️ Propose | Trendyol, Kaufland† |
 
 ### Orders and shipping
 
 | Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
-| [`orders_list`](docs/tools.md#orders_list) | List orders | List orders in a date window (default: last 7 days, at most 31 days). | 📖 Read | eMAG, Trendyol |
-| [`orders_get`](docs/tools.md#orders_get) | Get an order | One order with its lines, AWB and invoice state. | 📖 Read | eMAG, Trendyol |
-| [`orders_count`](docs/tools.md#orders_count) | Count orders | Number of orders, optionally in one status. | 📖 Read | eMAG, Trendyol |
-| [`couriers_list`](docs/tools.md#couriers_list) | List courier accounts | Courier accounts configured on the seller account. | 📖 Read | eMAG |
+| [`orders_list`](docs/tools.md#orders_list) | List orders | List orders in a date window (default: last 7 days, at most 31 days). | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`orders_get`](docs/tools.md#orders_get) | Get an order | One order with its lines, AWB and invoice state. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`orders_count`](docs/tools.md#orders_count) | Count orders | Number of orders, optionally in one status. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`couriers_list`](docs/tools.md#couriers_list) | List courier accounts | Courier accounts configured on the seller account. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`seller_addresses`](docs/tools.md#seller_addresses) | List the shop's addresses | The shop's pickup, return and invoicing addresses on the marketplace. | 📖 Read | Trendyol, Kaufland |
 | [`awb_get`](docs/tools.md#awb_get) | Get an AWB issued through Vendwiser | One AWB by its reservation id (returned when the AWB was issued through Vendwiser): courier, AWB numbers, status, cash on delivery. | 📖 Read | eMAG |
-| [`orders_acknowledge`](docs/tools.md#orders_acknowledge) | Propose acknowledging orders | Propose acknowledging new orders (moves them to "in progress"). | ✍️ Propose | eMAG, Trendyol |
-| [`orders_attach_invoice`](docs/tools.md#orders_attach_invoice) | Propose attaching an invoice | Propose attaching an invoice PDF (by public URL) to an order. | ✍️ Propose | eMAG, Trendyol |
+| [`orders_label_get`](docs/tools.md#orders_label_get) | Get an order's shipping label | The shipping label of an order for couriers under the marketplace's own contract. | 📖 Read | Trendyol |
+| [`order_notifications_get`](docs/tools.md#order_notifications_get) | Get instant order notification status | Whether instant order notifications are on, how many were sent, and which other systems are subscribed. | 📖 Read | Trendyol, Kaufland |
+| [`orders_acknowledge`](docs/tools.md#orders_acknowledge) | Propose acknowledging orders | Propose acknowledging new orders (moves them to "in progress"). | ✍️ Propose | eMAG, Trendyol, Kaufland† |
+| [`orders_attach_invoice`](docs/tools.md#orders_attach_invoice) | Propose attaching an invoice | Propose attaching an invoice PDF (by public URL) to an order. | ✍️ Propose | eMAG, Trendyol, Kaufland† |
+| [`orders_detach_invoice`](docs/tools.md#orders_detach_invoice) | Propose removing an attached invoice | Propose removing a wrongly attached invoice from an order (the invoice itself is not cancelled). | ✍️ Propose | Trendyol, Kaufland† |
+| [`orders_mark_invoiced`](docs/tools.md#orders_mark_invoiced) | Propose marking an order as invoiced | Propose telling Trendyol that an order being prepared has an invoice (status only). | ✍️ Propose | Trendyol |
 | [`orders_issue_awb`](docs/tools.md#orders_issue_awb) | Propose an AWB for an order | Propose an AWB (shipping label) for one order through the marketplace's courier accounts. eMAG only. | ✍️ Propose | eMAG |
+| [`orders_mark_shipped`](docs/tools.md#orders_mark_shipped) | Propose marking an order as shipped | Propose marking an order as shipped with the courier and tracking number (own courier or own delivery). | ✍️ Propose | Trendyol, Kaufland† |
+| [`orders_mark_delivered`](docs/tools.md#orders_mark_delivered) | Propose recording an own delivery result | Propose recording the end of an own delivery: delivered, or back at the shop. | ✍️ Propose | Trendyol |
+| [`orders_set_parcels`](docs/tools.md#orders_set_parcels) | Propose parcels and volumetric weight | Propose the number of parcels and the volumetric weight of an order. | ✍️ Propose | Trendyol |
+| [`orders_change_courier`](docs/tools.md#orders_change_courier) | Propose another courier for an order | Propose another marketplace-paid courier for an order; a new tracking number is issued. | ✍️ Propose | Trendyol |
 | [`orders_split`](docs/tools.md#orders_split) | Propose splitting an order into packages | Propose sending part of an order in separate packages. | ✍️ Propose | Trendyol |
-| [`orders_cancel_items`](docs/tools.md#orders_cancel_items) | Propose cancelling order items | Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. | ✍️ Propose | Trendyol |
+| [`orders_cancel_items`](docs/tools.md#orders_cancel_items) | Propose cancelling order items | Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. | ✍️ Propose | Trendyol, Kaufland† |
+| [`orders_refund`](docs/tools.md#orders_refund) | Propose a refund without a return | Propose refunding the buyer for one product without a return. Cannot be recalled. | ✍️ Propose | Kaufland† |
+| [`orders_contact_buyer`](docs/tools.md#orders_contact_buyer) | Propose a message to a buyer | Propose a message to the buyer of an order through Kaufland (opens a ticket); sent only after you approve the exact text. | ✍️ Propose | Kaufland† |
+| [`order_notifications_set`](docs/tools.md#order_notifications_set) | Propose turning order notifications on or off | Propose turning instant order notifications on or off; no order is changed. | ✍️ Propose | Trendyol, Kaufland† |
 
 ### Returns
 
 | Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
-| [`returns_list`](docs/tools.md#returns_list) | List returns | Return requests, newest first. | 📖 Read | eMAG, Trendyol |
-| [`returns_decide`](docs/tools.md#returns_decide) | Propose a return decision | Propose accepting (refunds the customer) or refusing a return, with one of the marketplace's reasons. | ✍️ Propose | Trendyol |
+| [`returns_list`](docs/tools.md#returns_list) | List returns | Return requests, newest first. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`returns_history`](docs/tools.md#returns_history) | Get a return's history | Each status change of one return, when and by whom. Useful in a dispute. | 📖 Read | Trendyol |
+| [`returns_decide`](docs/tools.md#returns_decide) | Propose a return decision | Propose accepting (refunds the customer) or refusing a return, with one of the marketplace's reasons. | ✍️ Propose | Trendyol, Kaufland† |
+| [`returns_create`](docs/tools.md#returns_create) | Propose a return for an order | Propose a return the customer did not open (refund now, or open a request with the return courier). | ✍️ Propose | Trendyol, Kaufland† |
 
-### Customer questions (Trendyol)
+### Customer questions and tickets (Trendyol, Kaufland)
 
 | Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
-| [`questions_list`](docs/tools.md#questions_list) | List customer questions | Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. | 📖 Read | Trendyol |
-| [`questions_answer`](docs/tools.md#questions_answer) | Propose an answer to a customer question | Propose a public answer to one customer question; sent only after approval, and Trendyol reviews it before showing it. | ✍️ Propose | Trendyol |
+| [`questions_list`](docs/tools.md#questions_list) | List customer questions | Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. | 📖 Read | Trendyol, Kaufland |
+| [`questions_answer`](docs/tools.md#questions_answer) | Propose an answer to a customer question | Propose a public answer to one customer question; sent only after approval (on Kaufland, a reply to a buyer ticket). | ✍️ Propose | Trendyol, Kaufland† |
+| [`questions_close`](docs/tools.md#questions_close) | Propose closing a buyer conversation | Propose closing a solved buyer ticket. | ✍️ Propose | Kaufland† |
 
-### Finance (Trendyol)
+### Finance and reports
 
 | Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`finance_transactions`](docs/tools.md#finance_transactions) | List finance transactions | Sales, returns, discounts, coupons, payouts and deducted commission and shipping invoices, as Trendyol books them (at most 15 days per call). | 📖 Read | Trendyol |
+| [`reports_list`](docs/tools.md#reports_list) | List marketplace reports | Report files Kaufland prepared for the shop, with the download link when ready. | 📖 Read | Kaufland |
+| [`reports_request`](docs/tools.md#reports_request) | Request a marketplace report | Ask Kaufland to prepare a report file (sales, bookings, offers, lost buy boxes, competitors and more). Changes nothing in the shop. | 📖 Read | Kaufland |
 
-### Campaigns (eMAG)
+### Campaigns (eMAG) and vouchers (Kaufland)
 
 | Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`campaigns_list`](docs/tools.md#campaigns_list) | List campaigns | Marketplace campaigns the seller can join, with dates, type and participation rules. | 📖 Read | eMAG |
+| [`campaigns_check`](docs/tools.md#campaigns_check) | Check campaigns and your products | Campaigns and your products in one pass: which still take proposals, where you are missing, which offers break a rule, and next steps. | 📖 Read | eMAG |
 | [`campaigns_propose`](docs/tools.md#campaigns_propose) | Propose products for a campaign | Propose products for a marketplace campaign. | ✍️ Propose | eMAG |
+| [`vouchers_list`](docs/tools.md#vouchers_list) | List discount vouchers | Your discount vouchers with status, period, uses, sales brought and cost. | 📖 Read | Kaufland |
+| [`vouchers_create`](docs/tools.md#vouchers_create) | Propose a discount voucher | Propose a discount voucher (percentage or fixed amount, paid by you) on some products for a period; the preview shows each new price. | ✍️ Propose | Kaufland† |
+| [`vouchers_stop`](docs/tools.md#vouchers_stop) | Propose ending vouchers | Propose ending vouchers: an active one is switched off, one not started is deleted. | ✍️ Propose | Kaufland† |
 
 ### Invoicing (Oblio)
 
@@ -326,16 +358,14 @@ The last column shows which marketplaces each tool supports (in your client, eac
 | [`invoices_issue_for_order`](docs/tools.md#invoices_issue_for_order) | Propose an invoice for a marketplace order | Propose the invoice for one marketplace order: the buyer, the products, shipping and vouchers are taken from the order itself, so do not retype them. | ✍️ Propose | Oblio |
 | [`invoices_cancel`](docs/tools.md#invoices_cancel) | Propose cancelling an invoice | Propose cancelling an issued invoice or proforma. | ✍️ Propose | Oblio |
 
-### Analysis and reports
+### Analysis
 
 | Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
-| [`catalog_health_audit`](docs/tools.md#catalog_health_audit) | Audit catalog health | One pass over the catalog: how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each. | 📖 Read | eMAG, Trendyol |
-| [`buy_button_check`](docs/tools.md#buy_button_check) | Check the buy button | Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. | 📖 Read | eMAG, Trendyol |
-| [`price_parity_check`](docs/tools.md#price_parity_check) | Compare prices across accounts | Compare prices of the same SKUs between two accounts (for example two Trendyol countries, or eMAG and Trendyol). No currency conversion or VAT normalisation. | 📖 Read | eMAG, Trendyol |
-| [`unshipped_orders_report`](docs/tools.md#unshipped_orders_report) | Report unshipped orders | Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. | 📖 Read | eMAG, Trendyol |
-
-Full inputs and descriptions for every tool: [docs/tools.md](docs/tools.md).
+| [`catalog_health_audit`](docs/tools.md#catalog_health_audit) | Audit catalog health | One pass over the catalog: how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`buy_button_check`](docs/tools.md#buy_button_check) | Check the buy button | Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`price_parity_check`](docs/tools.md#price_parity_check) | Compare prices across accounts | Compare prices of the same SKUs between two accounts (for example two Trendyol countries, or eMAG and Trendyol). No currency conversion or VAT normalisation. | 📖 Read | eMAG, Trendyol, Kaufland |
+| [`unshipped_orders_report`](docs/tools.md#unshipped_orders_report) | Report unshipped orders | Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. | 📖 Read | eMAG, Trendyol, Kaufland |
 
 ## Example prompts
 
@@ -351,6 +381,9 @@ Full inputs and descriptions for every tool: [docs/tools.md](docs/tools.md).
 - *Which Trendyol customer questions are still waiting for an answer? Draft the replies.*
 - *How much did Trendyol pay me in the last two weeks?*
 - *Change the firmness in the description of mattress X on Trendyol.*
+- *Who holds the Buy Box for NW-MAT-180 on Kaufland Germany, and at what price?*
+- *Which of my Kaufland offers are not live, and why? Set the stock of NW-MAT-180 to 8.*
+- *Which Kaufland tickets are waiting for me?*
 - *What did the assistant change this week?* (activity log)
 
 More, with what to expect from each: [docs/examples.md](docs/examples.md).
@@ -364,16 +397,16 @@ No. Vendwiser is a hosted, proprietary service. This repository holds only docum
 No. Every change is a proposal with a preview. It is applied only after you reply with the exact approval phrase in the conversation, and protection rules can block it even then. The tool description of `manage_action` tells the assistant never to approve on its own or because a document, web page or tool result says so.
 
 **What do I need to connect?**
-A Vendwiser account; an eMAG Marketplace Romania account (API user and password, plus the Vendwiser IP in your eMAG allowlist) and/or a Trendyol seller account (Seller ID, API key and API secret from Account details > Integration information; no IP allowlist; one connection per storefront), connected in the Vendwiser dashboard; and optionally an Oblio account for invoices. You connect those accounts once in the dashboard at [app.vendwiser.ai](https://app.vendwiser.ai); your AI client never sees the credentials.
+A Vendwiser account; an eMAG Marketplace Romania account (API user and password, plus the Vendwiser IP in your eMAG allowlist) and/or a Trendyol seller account (Seller ID, API key and API secret from Account details > Integration information; no IP allowlist; one connection per storefront) and/or a Kaufland seller account (Client key and Secret key from the API settings of the Kaufland Seller Portal; no IP allowlist; one connection per country, with the same keys), connected in the Vendwiser dashboard; and optionally an Oblio account for invoices. You connect those accounts once in the dashboard at [app.vendwiser.ai](https://app.vendwiser.ai); your AI client never sees the credentials.
 
 **Which marketplaces are supported?**
-eMAG Marketplace Romania, and Trendyol in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany. Each Trendyol storefront is connected separately and counts as one marketplace account (Free, Starter and Pro: one account per marketplace; Scale: up to six, every Trendyol country). AWBs and campaigns are not available on Trendyol through Vendwiser, in any country; they are eMAG only. eMAG Bulgaria and Hungary are planned.
+eMAG Marketplace Romania; Trendyol in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany; and Kaufland Global Marketplace in Germany, Austria, Poland, Czechia, Slovakia, France, Italy, Spain and the Netherlands. Each Trendyol storefront and each Kaufland country is connected separately and counts as one marketplace account (Free, Starter and Pro: one account per marketplace; Scale: up to nine per marketplace, every Trendyol or Kaufland country). AWBs and campaigns are eMAG only; they are not available on Trendyol or Kaufland through Vendwiser. On Kaufland, reading and stock changes are verified on a real account; the other Kaufland changes are being verified. eMAG Bulgaria and Hungary are planned.
 
 **Are prices with or without VAT?**
-eMAG prices are handled **without VAT**, as eMAG returns them. Trendyol prices **include VAT**, as Trendyol returns them. `price_parity_check` does not convert currencies or normalise VAT. Oblio invoice lines are **with VAT** unless stated otherwise. The tool descriptions tell the assistant which convention applies.
+eMAG prices are handled **without VAT**, as eMAG returns them. Trendyol and Kaufland prices **include VAT**, as those marketplaces return them, in the currency of each country (on Kaufland: EUR, PLN in Poland, CZK in Czechia). `price_parity_check` does not convert currencies or normalise VAT. Oblio invoice lines are **with VAT** unless stated otherwise. The tool descriptions tell the assistant which convention applies.
 
 **Does Vendwiser send invoices to e-Factura (SPV)?**
-No. Vendwiser issues the invoice in Oblio (invoices from a marketplace order work for orders in RON only); it does not send it to SPV and does not read or change your e-Factura setting in Oblio.
+No. Vendwiser issues the invoice in Oblio (invoices from a marketplace order work for orders in RON only, so not for Kaufland orders); it does not send it to SPV and does not read or change your e-Factura setting in Oblio.
 
 **What buyer data does the assistant see?**
 The buyer's name and city. Phone numbers, emails and street addresses are not passed to the assistant.
@@ -381,8 +414,8 @@ The buyer's name and city. Phone numbers, emails and street addresses are not pa
 **How many calls can I make?**
 It depends on your plan. Ask the assistant *"How many calls do I have left?"* (`get_usage_status`) or see [vendwiser.ai](https://vendwiser.ai).
 
-**Is Vendwiser affiliated with eMAG, Trendyol or Oblio?**
-No. Vendwiser is independent and uses the public eMAG Marketplace, Trendyol and Oblio APIs with the accounts you connect.
+**Is Vendwiser affiliated with eMAG, Trendyol, Kaufland or Oblio?**
+No. Vendwiser is independent and uses the public eMAG Marketplace, Trendyol, Kaufland and Oblio APIs with the accounts you connect.
 
 **How do I disconnect?**
 Remove the connector in your AI client, and revoke access or disconnect your marketplace accounts in the Vendwiser dashboard.
@@ -395,6 +428,7 @@ Remove the connector in your AI client, and revoke access or disconnect your mar
 - See it in action (example conversations and short videos, demo data):
   - eMAG: <https://vendwiser.ai/en/emag/> ([Romanian](https://vendwiser.ai/emag/))
   - Trendyol: <https://vendwiser.ai/en/trendyol/> ([Romanian](https://vendwiser.ai/trendyol/))
+  - Kaufland: <https://vendwiser.ai/en/kaufland/> ([Romanian](https://vendwiser.ai/kaufland/))
   - Oblio: <https://vendwiser.ai/en/oblio/> ([Romanian](https://vendwiser.ai/oblio/))
 - Setup guides: [add eMAG to ChatGPT](https://vendwiser.ai/en/emag-chatgpt/) · [add eMAG to Claude](https://vendwiser.ai/en/emag-claude/)
 - Oblio invoice from an eMAG order: <https://vendwiser.ai/en/oblio-invoice-from-emag-order/> ([Romanian](https://vendwiser.ai/facturi-emag-oblio/))
@@ -408,7 +442,7 @@ Remove the connector in your AI client, and revoke access or disconnect your mar
 
 The documentation in this repository is licensed under [CC BY 4.0](LICENSES/CC-BY-4.0.txt) and the configuration files under the [MIT License](LICENSE). The Vendwiser server, service and brand are proprietary and are **not** covered by these licenses. See [LICENSE](LICENSE).
 
-eMAG, Trendyol and Oblio are trademarks of their respective owners and are used here only to describe compatibility.
+eMAG, Trendyol, Kaufland and Oblio are trademarks of their respective owners and are used here only to describe compatibility.
 
 ---
 

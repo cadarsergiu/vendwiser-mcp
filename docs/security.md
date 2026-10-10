@@ -12,7 +12,7 @@ This page explains how Vendwiser keeps an AI assistant from changing your shop w
 | Approval | In the conversation, with an exact approval phrase, then applied by `manage_action`. The dashboard lists proposals but cannot approve them. |
 | Protection rules | Maximum price drop per change, price floor, maximum number of offers per change. Blocked changes are refused, not queued. |
 | Audit | Every tool call and every approval is written to an activity log, readable with `get_activity` and exportable. |
-| Credentials | eMAG, Trendyol and Oblio credentials are stored encrypted and never shown to the assistant. |
+| Credentials | eMAG, Trendyol, Kaufland and Oblio credentials are stored encrypted and never shown to the assistant. |
 | Buyer data | Orders show the buyer's name and city only. No phone numbers, emails or street addresses. |
 | Tool hints | 30 tools `readOnlyHint: true`; only `manage_action` has `destructiveHint: true`; all tools `openWorldHint: false`. |
 
@@ -59,8 +59,8 @@ A refused change names the rule that blocked it, and nothing is queued for appro
 ## What the assistant can and cannot see
 
 - **Can see:** offers, prices, stock, validation messages, orders (with buyer name and city), returns, campaigns, invoices and their PDF links, AWB data for AWBs issued through Vendwiser, usage and the activity log of your workspace.
-- **Cannot see:** your eMAG, Trendyol or Oblio credentials; buyers' phone numbers, email addresses and street addresses.
-- **Cannot do:** anything outside the eMAG Marketplace, Trendyol and Oblio accounts you connected (`openWorldHint: false`); send invoices to e-Factura (SPV) or change your e-Factura setting in Oblio; read AWBs created in Seller Center or another system.
+- **Cannot see:** your eMAG, Trendyol, Kaufland or Oblio credentials; buyers' phone numbers, email addresses and street addresses.
+- **Cannot do:** anything outside the eMAG Marketplace, Trendyol, Kaufland and Oblio accounts you connected (`openWorldHint: false`); send invoices to e-Factura (SPV) or change your e-Factura setting in Oblio; read AWBs created in Seller Center or another system.
 
 Remember that your AI client provider (for example Anthropic, OpenAI, Google) also processes the conversation, including tool results, under its own terms.
 
@@ -74,4 +74,4 @@ Please email **[hello@vendwiser.ai](mailto:hello@vendwiser.ai)** with the subjec
 
 ## Not affiliated
 
-Vendwiser is independent and is not affiliated with eMAG, Trendyol or Oblio. It uses their public APIs with the accounts you connect.
+Vendwiser is independent and is not affiliated with eMAG, Trendyol, Kaufland or Oblio. It uses their public APIs with the accounts you connect.
