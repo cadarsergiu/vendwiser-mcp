@@ -1,8 +1,8 @@
 {
   "identifier": "vendwiser",
   "name": "Vendwiser",
-  "version": "1.0.0",
-  "description": "Run your eMAG marketplace shop from your AI assistant: offers, prices, stock, orders, returns, campaigns, AWB shipping labels and Oblio invoices. Reads are immediate; every change is a preview that is applied only after you approve it in the conversation, with protection rules and an exportable activity log.",
+  "version": "1.1.0",
+  "description": "Run your eMAG and Trendyol marketplace shops from your AI assistant: offers, product pages, prices, stock, orders, returns, customer questions, finance, eMAG campaigns and AWB shipping labels, and Oblio invoices. Trendyol works in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany (each storefront connected separately). Reads are immediate; every change is a preview that is applied only after you approve it in the conversation, with protection rules and an exportable activity log.",
   "author": "VOLTIVO POWER TRADING SRL",
   "authorUrl": "https://vendwiser.ai",
   "homepage": "https://vendwiser.ai",
@@ -11,6 +11,7 @@
   "icon": "https://vendwiser.ai/icon-512.png",
   "tags": [
     "emag",
+    "trendyol",
     "marketplace",
     "ecommerce",
     "seller",
@@ -318,7 +319,7 @@
     {
       "name": "offers_list",
       "title": "List offers",
-      "description": "[Catalog] List the seller's offers with price, stock, status, validation state and buy-button position. Prices are WITHOUT VAT unless price_includes_vat is true; the shopper sees price plus VAT (use vat_list for the rate).",
+      "description": "[Catalog] Each row already carries price, stock, status, buy-button rank and handling time, 100 offers per page: for a question about many offers, page through this list (or use catalog_health_audit) and never call offers_get once per offer. List the seller's offers with price, stock, status, validation state and buy-button position. On eMAG prices are WITHOUT VAT (the shopper sees price plus VAT; use vat_list for the rate). On Trendyol prices INCLUDE VAT (price_includes_vat is true). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -366,7 +367,7 @@
     {
       "name": "offers_summary",
       "title": "Offers summary",
-      "description": "[Catalog] Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs.",
+      "description": "[Catalog] Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -392,7 +393,7 @@
     {
       "name": "offers_get",
       "title": "Get an offer",
-      "description": "[Catalog] Full details of one offer, including every validation message.",
+      "description": "[Catalog] Full details of one offer, including every validation message. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -427,7 +428,7 @@
     {
       "name": "offers_validation_errors",
       "title": "List rejected offers",
-      "description": "[Catalog] Offers the marketplace rejected or blocked, each with the reasons given.",
+      "description": "[Catalog] Offers the marketplace rejected or blocked, each with the reasons given. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -459,7 +460,7 @@
     {
       "name": "categories_get",
       "title": "Get a category",
-      "description": "[Catalog] A category's rules: mandatory characteristics, allowed values, whether an EAN is required.",
+      "description": "[Catalog] A category's rules: mandatory characteristics, allowed values, whether an EAN is required. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -493,7 +494,7 @@
     {
       "name": "vat_list",
       "title": "List VAT rates",
-      "description": "[Catalog] VAT rates available on this account, with their ids.",
+      "description": "[Catalog] VAT rates available on this account, with their ids. Works on: eMAG Romania.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -519,7 +520,7 @@
     {
       "name": "handling_time_list",
       "title": "List handling times",
-      "description": "[Catalog] Handling-time values the marketplace accepts.",
+      "description": "[Catalog] Handling-time values the marketplace accepts. Works on: eMAG Romania.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -545,7 +546,7 @@
     {
       "name": "orders_list",
       "title": "List orders",
-      "description": "[Orders] List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city.",
+      "description": "[Orders] List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -601,7 +602,7 @@
     {
       "name": "orders_get",
       "title": "Get an order",
-      "description": "[Orders] One order with its lines, AWB and invoice state.",
+      "description": "[Orders] One order with its lines, AWB and invoice state. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -635,7 +636,7 @@
     {
       "name": "orders_count",
       "title": "Count orders",
-      "description": "[Orders] Number of orders, optionally in one status.",
+      "description": "[Orders] Number of orders, optionally in one status. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -672,7 +673,7 @@
     {
       "name": "couriers_list",
       "title": "List courier accounts",
-      "description": "[Orders] Courier accounts configured on the seller account.",
+      "description": "[Orders] Courier accounts configured on the seller account. Works on: eMAG Romania.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -698,7 +699,7 @@
     {
       "name": "returns_list",
       "title": "List returns",
-      "description": "[Returns] Return requests, newest first.",
+      "description": "[Returns] Return requests, newest first. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -733,9 +734,196 @@
       }
     },
     {
+      "name": "returns_decide",
+      "title": "Propose a return decision",
+      "description": "[Returns] Propose accepting or refusing a return (id from returns_list). Accepting refunds the customer. Refusing needs one of the marketplace's reasons and an explanation; called without them, the tool lists the reasons. Simulated first; nothing happens until the seller approves. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "return_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "reject"
+            ]
+          },
+          "reason_id": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "item_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Default: every undecided item of the return."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "return_id",
+          "decision"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose a return decision",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "questions_list",
+      "title": "List customer questions",
+      "description": "[Customer questions] Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. Use the id with questions_answer. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "waiting",
+              "answered",
+              "rejected"
+            ],
+            "description": "Default: waiting (not answered yet)."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number, starting at 1."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List customer questions",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "questions_answer",
+      "title": "Propose an answer to a customer question",
+      "description": "[Customer questions] Propose a public answer to one customer question. Simulated first; nothing is sent until the seller approves the exact text (asked in the conversation, confirmed with manage_action). Write in the language of the question, state only facts the seller or the product data gave you, never guess sizes, firmness, stock or delivery dates. The marketplace reviews the answer before showing it. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 2000
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "question_id",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose an answer to a customer question",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "finance_transactions",
+      "title": "List finance transactions",
+      "description": "[Finance] Money movements as the marketplace books them: sales, returns, discounts and coupons per order line (with commission and what the seller receives), payouts made to the seller, and the invoices the marketplace deducted (commission, shipping). At most 15 days per call. Amounts are exactly what the marketplace reports. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "sales",
+              "returns",
+              "discounts",
+              "coupons",
+              "payouts",
+              "deduction_invoices"
+            ],
+            "description": "Default: sales."
+          },
+          "date_from": {
+            "type": "string",
+            "description": "YYYY-MM-DD. Default: 14 days before date_to."
+          },
+          "date_to": {
+            "type": "string",
+            "description": "YYYY-MM-DD. Default: today."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number, starting at 1."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "List finance transactions",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
       "name": "campaigns_list",
       "title": "List campaigns",
-      "description": "[Campaigns] Marketplace campaigns the seller can join, with dates, type and participation rules. Use the id with campaigns_propose.",
+      "description": "[Campaigns] Marketplace campaigns the seller can join, with dates, type and participation rules. Use the id with campaigns_propose. Works on: eMAG Romania.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -772,7 +960,7 @@
     {
       "name": "offers_update_price",
       "title": "Propose price changes",
-      "description": "[Catalog changes] Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list (on eMAG: WITHOUT VAT). Convert a shelf price to a price without VAT before proposing it.",
+      "description": "[Catalog changes] Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list: on eMAG WITHOUT VAT (convert a shelf price to a price without VAT first), on Trendyol WITH VAT. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -825,7 +1013,7 @@
     {
       "name": "offers_update_stock",
       "title": "Propose stock changes",
-      "description": "[Catalog changes] Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action).",
+      "description": "[Catalog changes] Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -878,7 +1066,7 @@
     {
       "name": "offers_update_status",
       "title": "Propose turning offers on or off",
-      "description": "[Catalog changes] Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action).",
+      "description": "[Catalog changes] Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -928,9 +1116,313 @@
       }
     },
     {
+      "name": "offers_content_get",
+      "title": "Get a product page",
+      "description": "[Catalog] The content of one product page: title, description, images, attributes with their values, which attributes are not filled in, delivery days, and the verdict on recent content changes. Use it before proposing a content change. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Offer id on the marketplace."
+          },
+          "allowed_values_for": {
+            "type": "string",
+            "description": "Name of one attribute: also returns the values the marketplace accepts for it."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Get a product page",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "offers_update_content",
+      "title": "Propose product page changes",
+      "description": "[Catalog changes] Propose changes to product pages: title, description (whole, or find-and-replace inside the current one), attributes (by name and value, as offers_content_get shows them) and delivery days. Simulated first; nothing changes until the seller approves. The marketplace reviews content changes before showing them. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "changes": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
+                  "description": "Offer id on the marketplace."
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "The whole new description."
+                },
+                "description_replace": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 20,
+                  "description": "Exact pieces of the current description to replace, leaving the rest untouched.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "find": {
+                        "type": "string"
+                      },
+                      "replace": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "find",
+                      "replace"
+                    ]
+                  }
+                },
+                "attributes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 40,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ]
+                  }
+                },
+                "delivery_days": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 60
+                },
+                "whole_product": {
+                  "type": "boolean",
+                  "description": "Default true: change every page that shares the product code (for example single and double sizes)."
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "changes"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose product page changes",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "offers_create",
+      "title": "Propose new products",
+      "description": "[Catalog changes] Propose new products. Simulated first; nothing is sent until the seller approves, and the marketplace reviews each product before it goes on sale. Variants (sizes) of one product are separate items with the same product_main_id. categories_get shows which attributes a category requires and their accepted values. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "properties": {
+                "barcode": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "product_main_id": {
+                  "type": "string"
+                },
+                "brand": {
+                  "type": "string",
+                  "description": "Brand name exactly as the marketplace has it."
+                },
+                "category_id": {
+                  "type": "integer"
+                },
+                "price": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "Sale price, VAT included."
+                },
+                "list_price": {
+                  "type": "number"
+                },
+                "vat_rate": {
+                  "type": "integer",
+                  "description": "For example 21."
+                },
+                "stock": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "sku": {
+                  "type": "string"
+                },
+                "weight_kg": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "images": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "attributes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ]
+                  }
+                },
+                "delivery_days": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 60
+                }
+              },
+              "required": [
+                "barcode",
+                "title",
+                "product_main_id",
+                "brand",
+                "category_id",
+                "price",
+                "vat_rate",
+                "images"
+              ]
+            }
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose new products",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "offers_delete",
+      "title": "Propose deleting archived variants",
+      "description": "[Catalog changes] Propose deleting variants from the marketplace for good. Cannot be undone. Only variants archived for more than a day can be deleted (archive with offers_update_status first). Simulated first; nothing is deleted until the seller approves. Before deleting a variant that will be created again elsewhere, read and keep its content with offers_content_get and offers_get. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "description": "Offer ids (barcodes)."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "ids"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose deleting archived variants",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
       "name": "orders_acknowledge",
       "title": "Propose acknowledging orders",
-      "description": "[Order changes] Propose acknowledging new orders (moves them to \"in progress\").",
+      "description": "[Order changes] Propose acknowledging new orders (moves them to \"in progress\"). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -969,7 +1461,7 @@
     {
       "name": "orders_attach_invoice",
       "title": "Propose attaching an invoice",
-      "description": "[Order changes] Propose attaching an invoice PDF (by public URL) to an order.",
+      "description": "[Order changes] Propose attaching an invoice PDF (by public URL) to an order. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1011,7 +1503,7 @@
     {
       "name": "campaigns_propose",
       "title": "Propose products for a campaign",
-      "description": "[Campaigns] Propose products for a marketplace campaign. Simulated first; nothing is submitted until the seller approves (asked in the conversation, confirmed with manage_action).",
+      "description": "[Campaigns] Propose products for a marketplace campaign. Simulated first; nothing is submitted until the seller approves (asked in the conversation, confirmed with manage_action). Works on: eMAG Romania.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1078,7 +1570,7 @@
     {
       "name": "awb_get",
       "title": "Get an AWB issued through Vendwiser",
-      "description": "[Orders] One AWB by its reservation id (returned when the AWB was issued through Vendwiser): courier, AWB numbers, status, cash on delivery. AWBs made in Seller Center or in another system cannot be read by the marketplace API.",
+      "description": "[Orders] One AWB by its reservation id (returned when the AWB was issued through Vendwiser): courier, AWB numbers, status, cash on delivery. AWBs made in Seller Center or in another system cannot be read by the marketplace API. Works on: eMAG Romania.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1112,7 +1604,7 @@
     {
       "name": "orders_issue_awb",
       "title": "Propose an AWB for an order",
-      "description": "[Order changes] Propose an AWB (shipping label) for one order through the marketplace's courier accounts. The receiver, the cash on delivery amount (0 when the order was paid online) and the pickup address come from the order and the seller account. Weight, dimensions and number of parcels are proposed from the product data the marketplace holds, or from what the seller said last time; show them to the seller for confirmation. If something is still missing the tool answers needs_input: ask the seller in plain words, then call again. Answers are remembered per product. Simulated first; the AWB is issued, and the courier asked to pick up, only after the seller approves.",
+      "description": "[Order changes] Propose an AWB (shipping label) for one order through the marketplace's courier accounts. The receiver, the cash on delivery amount (0 when the order was paid online) and the pickup address come from the order and the seller account. Weight, dimensions and number of parcels are proposed from the product data the marketplace holds, or from what the seller said last time; show them to the seller for confirmation. If something is still missing the tool answers needs_input: ask the seller in plain words, then call again. Answers are remembered per product. Simulated first; the AWB is issued, and the courier asked to pick up, only after the seller approves. Works on: eMAG Romania.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1191,9 +1683,138 @@
       }
     },
     {
+      "name": "orders_split",
+      "title": "Propose splitting an order into packages",
+      "description": "[Order changes] Propose sending part of an order in separate packages. Simulated first; nothing happens until the seller approves. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "properties": {
+                "barcode": {
+                  "type": "string"
+                },
+                "quantities": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "description": "One number per new package."
+                }
+              },
+              "required": [
+                "barcode",
+                "quantities"
+              ]
+            }
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "order_id",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose splitting an order into packages",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "orders_cancel_items",
+      "title": "Propose cancelling order items",
+      "description": "[Order changes] Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. Simulated first; nothing happens until the seller approves. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "properties": {
+                "barcode": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "description": "Default: the whole quantity ordered."
+                }
+              },
+              "required": [
+                "barcode"
+              ]
+            }
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "out_of_stock",
+              "defective_product",
+              "wrong_price",
+              "integration_error",
+              "bulk_purchase",
+              "force_majeure"
+            ]
+          },
+          "account": {
+            "type": "string",
+            "description": "Account id from list_accounts. Optional when only one account is connected."
+          }
+        },
+        "required": [
+          "order_id",
+          "items",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Propose cancelling order items",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
       "name": "invoice_series_list",
       "title": "List invoice series and VAT rates",
-      "description": "[Invoicing] Document series and VAT rates set up in the invoicing account, and which series is used by default.",
+      "description": "[Invoicing] Document series and VAT rates set up in the invoicing account, and which series is used by default. Works on: Oblio (invoicing).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1219,7 +1840,7 @@
     {
       "name": "invoices_list",
       "title": "List invoices",
-      "description": "[Invoicing] Invoices (or proformas, with doc_type) issued from the invoicing account, newest first, with client, total, state (cancelled, collected, storno), e-Factura state and the link to the PDF. A state of null means the invoicing service did not report it.",
+      "description": "[Invoicing] Invoices (or proformas, with doc_type) issued from the invoicing account, newest first, with client, total, state (cancelled, collected, storno), e-Factura state and the link to the PDF. A state of null means the invoicing service did not report it. Works on: Oblio (invoicing).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1287,7 +1908,7 @@
     {
       "name": "invoices_get",
       "title": "Get an invoice or proforma",
-      "description": "[Invoicing] One invoice or proforma by series and number, with its current state (cancelled, collected), client, total and PDF link. Use it to check a document after issuing or cancelling it.",
+      "description": "[Invoicing] One invoice or proforma by series and number, with its current state (cancelled, collected), client, total and PDF link. Use it to check a document after issuing or cancelling it. Works on: Oblio (invoicing).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1330,7 +1951,7 @@
     {
       "name": "invoices_issue",
       "title": "Propose issuing an invoice",
-      "description": "[Invoicing changes] Propose issuing an invoice (or a proforma). Simulated first; nothing is issued until the seller approves (asked in the conversation, confirmed with manage_action). After approval, get_action returns the series, number and the PDF link, which can be passed to orders_attach_invoice. Prices are WITH VAT unless vat_included is false. Vendwiser does not send it to SPV (e-Factura) and does not read or change the seller's e-Factura setting in Oblio.",
+      "description": "[Invoicing changes] Propose issuing an invoice (or a proforma). Simulated first; nothing is issued until the seller approves (asked in the conversation, confirmed with manage_action). After approval, get_action returns the series, number and the PDF link, which can be passed to orders_attach_invoice. Prices are WITH VAT unless vat_included is false. Vendwiser does not send it to SPV (e-Factura) and does not read or change the seller's e-Factura setting in Oblio. Works on: Oblio (invoicing).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1475,7 +2096,7 @@
     {
       "name": "invoices_issue_for_order",
       "title": "Propose an invoice for a marketplace order",
-      "description": "[Invoicing changes] Propose the invoice for one marketplace order: the buyer, the products, shipping and vouchers are taken from the order itself, so do not retype them. Simulated first; after the seller approves, the invoice is issued and its PDF is attached to the order on the marketplace. Refused if the order is already invoiced (on the marketplace or in the invoicing account). Orders in RON only.",
+      "description": "[Invoicing changes] Propose the invoice for one marketplace order: the buyer, the products, shipping and vouchers are taken from the order itself, so do not retype them. Simulated first; after the seller approves, the invoice is issued and its PDF is attached to the order on the marketplace. Refused if the order is already invoiced (on the marketplace or in the invoicing account). Orders in RON only (eMAG Romania, Trendyol Romania). Works on: Oblio (invoicing).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1526,7 +2147,7 @@
     {
       "name": "invoices_cancel",
       "title": "Propose cancelling an invoice",
-      "description": "[Invoicing changes] Propose cancelling an issued invoice or proforma. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action).",
+      "description": "[Invoicing changes] Propose cancelling an issued invoice or proforma. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Works on: Oblio (invoicing).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1568,7 +2189,7 @@
     {
       "name": "catalog_health_audit",
       "title": "Audit catalog health",
-      "description": "[Analysis] One pass over the catalog: how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each.",
+      "description": "[Analysis] One pass over the whole catalog (pages of 100 offers, not one call per offer): how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each, and which handling time (days until handover to the courier) the active offers carry, with the offers that differ from the usual value. Use this for any question about the whole catalog instead of reading offers one by one. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1576,7 +2197,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 50,
-            "description": "Pages of 100 offers to scan (default 10)."
+            "description": "Pages of 100 offers to scan (default: enough for 2000 offers)."
           },
           "account": {
             "type": "string",
@@ -1600,7 +2221,7 @@
     {
       "name": "buy_button_check",
       "title": "Check the buy button",
-      "description": "[Analysis] Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first.",
+      "description": "[Analysis] Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1608,7 +2229,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 50,
-            "description": "Pages of 100 offers to scan (default 10)."
+            "description": "Pages of 100 offers to scan (default: enough for 2000 offers)."
           },
           "account": {
             "type": "string",
@@ -1632,7 +2253,7 @@
     {
       "name": "price_parity_check",
       "title": "Compare prices across accounts",
-      "description": "[Analysis] Compare prices of the same SKUs between two accounts (for example two countries). Currencies are not converted: the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts.",
+      "description": "[Analysis] Compare prices of the same SKUs between two accounts, across marketplaces and countries (for example two Trendyol countries, or eMAG and Trendyol). Currencies are not converted and VAT is not normalised (eMAG prices exclude VAT, Trendyol prices include it): the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1646,7 +2267,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 50,
-            "description": "Pages of 100 offers to scan (default 10)."
+            "description": "Pages of 100 offers to scan (default: enough for 2000 offers)."
           },
           "tolerance_pct": {
             "type": "number",
@@ -1673,7 +2294,7 @@
     {
       "name": "unshipped_orders_report",
       "title": "Report unshipped orders",
-      "description": "[Analysis] Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it.",
+      "description": "[Analysis] Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).",
       "inputSchema": {
         "type": "object",
         "properties": {
