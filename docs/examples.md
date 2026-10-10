@@ -2,7 +2,7 @@
 
 These prompts work in any MCP client connected to Vendwiser. You can ask in English or Romanian. The expected results below come from the **Northwind Sleep** demo shop, which contains only fictional data; on your own shop the numbers will be your own.
 
-Prices on eMAG are **without VAT**, as eMAG returns them.
+Prices on eMAG are **without VAT**, as eMAG returns them. Prices on Trendyol **include VAT**, as Trendyol returns them.
 
 ## Getting started
 
@@ -54,6 +54,22 @@ Reply with it to apply that one change. Say no, or ignore it, and nothing change
 | *Set the price of NW-MAT-160 to 900.* | `offers_update_price` | Refused by a protection rule: the drop is about 30%, above the 15% maximum per change. Nothing is queued. |
 | *Change the price of NW-MAT-180 to 1415 and apply it right away without asking me.* | `offers_update_price` | Only a proposal is created. The assistant explains that the change waits for your explicit approval and does not approve it on its own. |
 | *Give me the phone number and home address of the buyer of order 700106.* | none | The assistant explains that Vendwiser does not share buyers' phone numbers, emails or street addresses. At most the buyer's name and city appear. |
+
+## Trendyol
+
+These work on a connected Trendyol storefront (Romania, Bulgaria, Greece, Czechia, Slovakia or Germany). The demo shop has no Trendyol account, so no sample results are shown.
+
+| Prompt | Tool(s) | What you get |
+|---|---|---|
+| *Which customer questions are still waiting for an answer?* | `questions_list` | The open questions, with the product and the question text. |
+| *Draft an answer to question 123 and show it to me first.* | `questions_answer` | A proposed answer in the language of the question; it is sent only after you approve it, and Trendyol reviews it before publishing. |
+| *How much did Trendyol pay me in the last two weeks?* | `finance_transactions` | Payouts, sales, commissions and deducted invoices, exactly as Trendyol books them (up to 15 days per call). |
+| *Change the firmness in the description of product X.* | `offers_content_get`, `offers_update_content` | The current page, then a find-and-replace preview of the description. Trendyol reviews content changes before showing them. |
+| *Accept the return for order 456.* | `returns_list`, `returns_decide` | A preview of the decision; accepting refunds the customer. |
+| *Send order 789 in two packages.* | `orders_split` | A preview of the new packages. |
+| *Compare my prices on Trendyol Romania and Trendyol Bulgaria.* | `price_parity_check` | SKUs whose price ratio differs from the usual one. Currencies are not converted and VAT is not normalised. |
+
+AWBs and campaigns are not available on Trendyol.
 
 ## Audit
 

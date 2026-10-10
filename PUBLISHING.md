@@ -74,7 +74,7 @@ Ghid pas cu pas pentru Sergiu. Nimic din acest depozit nu a fost publicat încă
 
 ### LobeHub (pasul 11)
 
-`lhm.plugin.json` este deja completat (identificator `vendwiser`, categorie `business`, cele 42 de unelte, `cloudEndpoint`). Nu rula `plugin init` peste el (l-ar suprascrie doar cu `--force`).
+`lhm.plugin.json` este deja completat (identificator `vendwiser`, categorie `business`, cele 52 de unelte, `cloudEndpoint`). Nu rula `plugin init` peste el (l-ar suprascrie doar cu `--force`).
 
 ```bash
 cd vendwiser-mcp-repo

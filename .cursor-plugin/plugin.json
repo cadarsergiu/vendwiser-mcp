@@ -1,8 +1,8 @@
 {
   "name": "vendwiser",
   "displayName": "Vendwiser",
-  "description": "Run your eMAG marketplace shop from Cursor: offers, prices, stock, orders, returns, campaigns, AWB shipping labels and Oblio invoices. Every change is a preview that waits for your approval.",
-  "version": "1.0.0",
+  "description": "Run your eMAG and Trendyol marketplace shops from Cursor: offers, product pages, prices, stock, orders, returns, customer questions, eMAG campaigns and AWB labels, and Oblio invoices. Every change is a preview that waits for your approval.",
+  "version": "1.1.0",
   "author": {
     "name": "VOLTIVO POWER TRADING SRL",
     "email": "hello@vendwiser.ai"
@@ -14,6 +14,7 @@
   "logo": "assets/icon-512.png",
   "keywords": [
     "emag",
+    "trendyol",
     "marketplace",
     "ecommerce",
     "seller",
