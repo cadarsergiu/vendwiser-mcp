@@ -2,21 +2,23 @@
 
 All 52 tools exposed by the Vendwiser MCP server at `https://app.vendwiser.ai/mcp`, grouped by area, with their titles, annotations and inputs as returned by `tools/list`.
 
-_Source: `tools/list` snapshot of 10 October 2026 (server 1.1.0). The server may add tools later; `search_tools` always searches the current list._
+_Source: `tools/list` of 10 October 2026 (server 1.1.0), with the per-workspace "Works on" line replaced by the full list of supported marketplaces. The server may add tools later; `search_tools` always searches the current list._
 
 ## Where each tool works
 
-Each tool description ends with **Works on:**, naming the accounts it supports:
+In this reference each marketplace tool ends with **Supports:**, the marketplaces the tool can work with:
 
 - **eMAG Marketplace Romania** (eMAG Bulgaria and Hungary are planned).
-- **Trendyol** in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany. Each storefront is a separate marketplace account, connected on its own with a Seller ID, API key and API secret (no IP allowlist).
+- **Trendyol** in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany. Each storefront is a separate marketplace account, connected on its own with a Seller ID, API key and API secret (no IP allowlist). Free, Starter and Pro include one account per marketplace; Scale up to six (every Trendyol country).
 - **Oblio** for invoicing.
+
+In your own client, the live `tools/list` ends each description with **Works on:** instead, listing only the accounts **you** have connected (for example `Works on: eMAG Romania, Trendyol Bulgaria.`). So the text you see depends on your workspace; the marketplaces a tool supports are the ones listed here.
 
 Quick map:
 
 - **eMAG and Trendyol:** offers (list, details, summary, rejected offers, category rules), price, stock and status changes, orders (list, details, count, acknowledge, attach invoice), returns list, and the analysis tools (catalog audit, buy-button check, unshipped orders report, price parity).
 - **Trendyol only:** product page content (read and change), new products, deleting archived variants, splitting orders, cancelling order items, return decisions, customer questions, finance transactions.
-- **eMAG only:** shipping labels (AWB) and AWB lookup, courier accounts, campaigns, VAT and handling-time lists. Trendyol offers neither AWBs nor campaigns to integrators.
+- **eMAG only:** shipping labels (AWB) and AWB lookup, courier accounts, campaigns, VAT and handling-time lists. AWBs and campaigns are not available on Trendyol through Vendwiser, in any country.
 - **Oblio:** invoices. Invoices from a marketplace order work for orders in RON only (eMAG Romania, Trendyol Romania).
 
 Prices follow each marketplace's convention: **eMAG prices exclude VAT, Trendyol prices include VAT.** `price_parity_check` does not convert currencies or normalise VAT.
@@ -183,7 +185,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List offers** · 📖 Read
 
-Each row already carries price, stock, status, buy-button rank and handling time, 100 offers per page: for a question about many offers, page through this list (or use catalog_health_audit) and never call offers_get once per offer. List the seller's offers with price, stock, status, validation state and buy-button position. On eMAG prices are WITHOUT VAT (the shopper sees price plus VAT; use vat_list for the rate). On Trendyol prices INCLUDE VAT (price_includes_vat is true). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Each row already carries price, stock, status, buy-button rank and handling time, 100 offers per page: for a question about many offers, page through this list (or use catalog_health_audit) and never call offers_get once per offer. List the seller's offers with price, stock, status, validation state and buy-button position. On eMAG prices are WITHOUT VAT (the shopper sees price plus VAT; use vat_list for the rate). On Trendyol prices INCLUDE VAT (price_includes_vat is true). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -199,7 +201,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Offers summary** · 📖 Read
 
-Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. Use this first on large catalogs. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -211,7 +213,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Get an offer** · 📖 Read
 
-Full details of one offer, including every validation message. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Full details of one offer, including every validation message. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -224,7 +226,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List rejected offers** · 📖 Read
 
-Offers the marketplace rejected or blocked, each with the reasons given. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Offers the marketplace rejected or blocked, each with the reasons given. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -237,7 +239,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Get a category** · 📖 Read
 
-A category's rules: mandatory characteristics, allowed values, whether an EAN is required. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+A category's rules: mandatory characteristics, allowed values, whether an EAN is required. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -250,7 +252,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List VAT rates** · 📖 Read
 
-VAT rates available on this account, with their ids. Works on: eMAG Romania.
+VAT rates available on this account, with their ids. Supports: eMAG Romania.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -262,7 +264,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List handling times** · 📖 Read
 
-Handling-time values the marketplace accepts. Works on: eMAG Romania.
+Handling-time values the marketplace accepts. Supports: eMAG Romania.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -274,7 +276,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose price changes** · ✍️ Propose
 
-Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list: on eMAG WITHOUT VAT (convert a shelf price to a price without VAT first), on Trendyol WITH VAT. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose new sale prices. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Prices follow the marketplace convention shown by offers_list: on eMAG WITHOUT VAT (convert a shelf price to a price without VAT first), on Trendyol WITH VAT. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -289,7 +291,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose stock changes** · ✍️ Propose
 
-Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose new stock values. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -304,7 +306,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose turning offers on or off** · ✍️ Propose
 
-Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose activating or deactivating offers. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -319,7 +321,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Get a product page** · 📖 Read
 
-The content of one product page: title, description, images, attributes with their values, which attributes are not filled in, delivery days, and the verdict on recent content changes. Use it before proposing a content change. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+The content of one product page: title, description, images, attributes with their values, which attributes are not filled in, delivery days, and the verdict on recent content changes. Use it before proposing a content change. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -333,7 +335,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose product page changes** · ✍️ Propose
 
-Propose changes to product pages: title, description (whole, or find-and-replace inside the current one), attributes (by name and value, as offers_content_get shows them) and delivery days. Simulated first; nothing changes until the seller approves. The marketplace reviews content changes before showing them. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose changes to product pages: title, description (whole, or find-and-replace inside the current one), attributes (by name and value, as offers_content_get shows them) and delivery days. Simulated first; nothing changes until the seller approves. The marketplace reviews content changes before showing them. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -357,7 +359,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose new products** · ✍️ Propose
 
-Propose new products. Simulated first; nothing is sent until the seller approves, and the marketplace reviews each product before it goes on sale. Variants (sizes) of one product are separate items with the same product_main_id. categories_get shows which attributes a category requires and their accepted values. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose new products. Simulated first; nothing is sent until the seller approves, and the marketplace reviews each product before it goes on sale. Variants (sizes) of one product are separate items with the same product_main_id. categories_get shows which attributes a category requires and their accepted values. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -387,7 +389,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose deleting archived variants** · ✍️ Propose
 
-Propose deleting variants from the marketplace for good. Cannot be undone. Only variants archived for more than a day can be deleted (archive with offers_update_status first). Simulated first; nothing is deleted until the seller approves. Before deleting a variant that will be created again elsewhere, read and keep its content with offers_content_get and offers_get. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose deleting variants from the marketplace for good. Cannot be undone. Only variants archived for more than a day can be deleted (archive with offers_update_status first). Simulated first; nothing is deleted until the seller approves. Before deleting a variant that will be created again elsewhere, read and keep its content with offers_content_get and offers_get. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -402,7 +404,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **List orders** · 📖 Read
 
-List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+List orders in a date window (default: last 7 days, at most 31 days). Customer details are reduced to name and city. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -419,7 +421,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Get an order** · 📖 Read
 
-One order with its lines, AWB and invoice state. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+One order with its lines, AWB and invoice state. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -432,7 +434,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Count orders** · 📖 Read
 
-Number of orders, optionally in one status. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Number of orders, optionally in one status. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -445,7 +447,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List courier accounts** · 📖 Read
 
-Courier accounts configured on the seller account. Works on: eMAG Romania.
+Courier accounts configured on the seller account. Supports: eMAG Romania.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -457,7 +459,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Get an AWB issued through Vendwiser** · 📖 Read
 
-One AWB by its reservation id (returned when the AWB was issued through Vendwiser): courier, AWB numbers, status, cash on delivery. AWBs made in Seller Center or in another system cannot be read by the marketplace API. Works on: eMAG Romania.
+One AWB by its reservation id (returned when the AWB was issued through Vendwiser): courier, AWB numbers, status, cash on delivery. AWBs made in Seller Center or in another system cannot be read by the marketplace API. Supports: eMAG Romania.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -470,7 +472,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose acknowledging orders** · ✍️ Propose
 
-Propose acknowledging new orders (moves them to "in progress"). Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose acknowledging new orders (moves them to "in progress"). Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -483,7 +485,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose attaching an invoice** · ✍️ Propose
 
-Propose attaching an invoice PDF (by public URL) to an order. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose attaching an invoice PDF (by public URL) to an order. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -498,7 +500,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose an AWB for an order** · ✍️ Propose
 
-Propose an AWB (shipping label) for one order through the marketplace's courier accounts. The receiver, the cash on delivery amount (0 when the order was paid online) and the pickup address come from the order and the seller account. Weight, dimensions and number of parcels are proposed from the product data the marketplace holds, or from what the seller said last time; show them to the seller for confirmation. If something is still missing the tool answers needs_input: ask the seller in plain words, then call again. Answers are remembered per product. Simulated first; the AWB is issued, and the courier asked to pick up, only after the seller approves. Works on: eMAG Romania.
+Propose an AWB (shipping label) for one order through the marketplace's courier accounts. The receiver, the cash on delivery amount (0 when the order was paid online) and the pickup address come from the order and the seller account. Weight, dimensions and number of parcels are proposed from the product data the marketplace holds, or from what the seller said last time; show them to the seller for confirmation. If something is still missing the tool answers needs_input: ask the seller in plain words, then call again. Answers are remembered per product. Simulated first; the AWB is issued, and the courier asked to pick up, only after the seller approves. Supports: eMAG Romania.
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -524,7 +526,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose splitting an order into packages** · ✍️ Propose
 
-Propose sending part of an order in separate packages. Simulated first; nothing happens until the seller approves. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose sending part of an order in separate packages. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -540,7 +542,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose cancelling order items** · ✍️ Propose
 
-Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. Simulated first; nothing happens until the seller approves. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose cancelling products of an order that cannot be supplied. Cannot be undone, and the marketplace counts it against the shop. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -559,7 +561,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **List returns** · 📖 Read
 
-Return requests, newest first. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Return requests, newest first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -573,7 +575,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose a return decision** · ✍️ Propose
 
-Propose accepting or refusing a return (id from returns_list). Accepting refunds the customer. Refusing needs one of the marketplace's reasons and an explanation; called without them, the tool lists the reasons. Simulated first; nothing happens until the seller approves. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose accepting or refusing a return (id from returns_list). Accepting refunds the customer. Refusing needs one of the marketplace's reasons and an explanation; called without them, the tool lists the reasons. Simulated first; nothing happens until the seller approves. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -592,7 +594,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **List customer questions** · 📖 Read
 
-Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. Use the id with questions_answer. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. Use the id with questions_answer. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -606,7 +608,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose an answer to a customer question** · ✍️ Propose
 
-Propose a public answer to one customer question. Simulated first; nothing is sent until the seller approves the exact text (asked in the conversation, confirmed with manage_action). Write in the language of the question, state only facts the seller or the product data gave you, never guess sizes, firmness, stock or delivery dates. The marketplace reviews the answer before showing it. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Propose a public answer to one customer question. Simulated first; nothing is sent until the seller approves the exact text (asked in the conversation, confirmed with manage_action). Write in the language of the question, state only facts the seller or the product data gave you, never guess sizes, firmness, stock or delivery dates. The marketplace reviews the answer before showing it. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -622,7 +624,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **List finance transactions** · 📖 Read
 
-Money movements as the marketplace books them: sales, returns, discounts and coupons per order line (with commission and what the seller receives), payouts made to the seller, and the invoices the marketplace deducted (commission, shipping). At most 15 days per call. Amounts are exactly what the marketplace reports. Works on: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Money movements as the marketplace books them: sales, returns, discounts and coupons per order line (with commission and what the seller receives), payouts made to the seller, and the invoices the marketplace deducted (commission, shipping). At most 15 days per call. Amounts are exactly what the marketplace reports. Supports: Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -640,7 +642,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List campaigns** · 📖 Read
 
-Marketplace campaigns the seller can join, with dates, type and participation rules. Use the id with campaigns_propose. Works on: eMAG Romania.
+Marketplace campaigns the seller can join, with dates, type and participation rules. Use the id with campaigns_propose. Supports: eMAG Romania.
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -654,7 +656,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose products for a campaign** · ✍️ Propose
 
-Propose products for a marketplace campaign. Simulated first; nothing is submitted until the seller approves (asked in the conversation, confirmed with manage_action). Works on: eMAG Romania.
+Propose products for a marketplace campaign. Simulated first; nothing is submitted until the seller approves (asked in the conversation, confirmed with manage_action). Supports: eMAG Romania.
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -675,7 +677,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **List invoice series and VAT rates** · 📖 Read
 
-Document series and VAT rates set up in the invoicing account, and which series is used by default. Works on: Oblio (invoicing).
+Document series and VAT rates set up in the invoicing account, and which series is used by default. Supports: Oblio (invoicing).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -687,7 +689,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **List invoices** · 📖 Read
 
-Invoices (or proformas, with doc_type) issued from the invoicing account, newest first, with client, total, state (cancelled, collected, storno), e-Factura state and the link to the PDF. A state of null means the invoicing service did not report it. Works on: Oblio (invoicing).
+Invoices (or proformas, with doc_type) issued from the invoicing account, newest first, with client, total, state (cancelled, collected, storno), e-Factura state and the link to the PDF. A state of null means the invoicing service did not report it. Supports: Oblio (invoicing).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -709,7 +711,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Get an invoice or proforma** · 📖 Read
 
-One invoice or proforma by series and number, with its current state (cancelled, collected), client, total and PDF link. Use it to check a document after issuing or cancelling it. Works on: Oblio (invoicing).
+One invoice or proforma by series and number, with its current state (cancelled, collected), client, total and PDF link. Use it to check a document after issuing or cancelling it. Supports: Oblio (invoicing).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -724,7 +726,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Propose issuing an invoice** · ✍️ Propose
 
-Propose issuing an invoice (or a proforma). Simulated first; nothing is issued until the seller approves (asked in the conversation, confirmed with manage_action). After approval, get_action returns the series, number and the PDF link, which can be passed to orders_attach_invoice. Prices are WITH VAT unless vat_included is false. Vendwiser does not send it to SPV (e-Factura) and does not read or change the seller's e-Factura setting in Oblio. Works on: Oblio (invoicing).
+Propose issuing an invoice (or a proforma). Simulated first; nothing is issued until the seller approves (asked in the conversation, confirmed with manage_action). After approval, get_action returns the series, number and the PDF link, which can be passed to orders_attach_invoice. Prices are WITH VAT unless vat_included is false. Vendwiser does not send it to SPV (e-Factura) and does not read or change the seller's e-Factura setting in Oblio. Supports: Oblio (invoicing).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -765,7 +767,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose an invoice for a marketplace order** · ✍️ Propose
 
-Propose the invoice for one marketplace order: the buyer, the products, shipping and vouchers are taken from the order itself, so do not retype them. Simulated first; after the seller approves, the invoice is issued and its PDF is attached to the order on the marketplace. Refused if the order is already invoiced (on the marketplace or in the invoicing account). Orders in RON only (eMAG Romania, Trendyol Romania). Works on: Oblio (invoicing).
+Propose the invoice for one marketplace order: the buyer, the products, shipping and vouchers are taken from the order itself, so do not retype them. Simulated first; after the seller approves, the invoice is issued and its PDF is attached to the order on the marketplace. Refused if the order is already invoiced (on the marketplace or in the invoicing account). Orders in RON only (eMAG Romania, Trendyol Romania). Supports: Oblio (invoicing).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -782,7 +784,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Propose cancelling an invoice** · ✍️ Propose
 
-Propose cancelling an issued invoice or proforma. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Works on: Oblio (invoicing).
+Propose cancelling an issued invoice or proforma. Simulated first; nothing changes until the seller approves (asked in the conversation, confirmed with manage_action). Supports: Oblio (invoicing).
 
 Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentHint` `false` · `openWorldHint` `false`
 
@@ -799,7 +801,7 @@ Annotations: `readOnlyHint` `false` · `destructiveHint` `false` · `idempotentH
 
 **Audit catalog health** · 📖 Read
 
-One pass over the whole catalog (pages of 100 offers, not one call per offer): how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each, and which handling time (days until handover to the courier) the active offers carry, with the offers that differ from the usual value. Use this for any question about the whole catalog instead of reading offers one by one. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+One pass over the whole catalog (pages of 100 offers, not one call per offer): how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each, and which handling time (days until handover to the courier) the active offers carry, with the offers that differ from the usual value. Use this for any question about the whole catalog instead of reading offers one by one. On Trendyol the count of rejected updates is always empty, because Trendyol does not report it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -812,7 +814,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Check the buy button** · 📖 Read
 
-Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -825,7 +827,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Compare prices across accounts** · 📖 Read
 
-Compare prices of the same SKUs between two accounts, across marketplaces and countries (for example two Trendyol countries, or eMAG and Trendyol). Currencies are not converted and VAT is not normalised (eMAG prices exclude VAT, Trendyol prices include it): the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Compare prices of the same SKUs between two accounts, across marketplaces and countries (for example two Trendyol countries, or eMAG and Trendyol). Currencies are not converted and VAT is not normalised (eMAG prices exclude VAT, Trendyol prices include it): the tool finds SKUs whose price ratio differs from the typical ratio between the two accounts. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 
@@ -840,7 +842,7 @@ Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHi
 
 **Report unshipped orders** · 📖 Read
 
-Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it. Works on: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
+Orders that are still new or in progress and older than a number of hours, with how far each one is past the handover deadline. AWB state is included only where the marketplace reports it. Supports: eMAG Romania, Trendyol (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany).
 
 Annotations: `readOnlyHint` `true` · `destructiveHint` `false` · `idempotentHint` `true` · `openWorldHint` `false`
 

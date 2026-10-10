@@ -46,7 +46,7 @@ Vendwiser îți conectează conturile de vânzător **eMAG** și **Trendyol** ș
 - **Operatorii de magazin și echipele mici** care facturează comenzile eMAG în **Oblio** și vor facturi și AWB-uri pregătite direct din comandă.
 - **Agențiile și integratorii** care administrează conturi de vânzător și au nevoie de o evidență a fiecărei schimbări făcute de un asistent AI.
 
-Ai nevoie de un cont Vendwiser (există un plan gratuit, vezi [vendwiser.ai](https://vendwiser.ai) pentru planuri) și de un cont de vânzător eMAG Marketplace România sau Trendyol cu acces API. Fiecare magazin Trendyol este un cont de marketplace separat: planurile Gratuit, Starter și Pro includ un cont per marketplace, Scale până la cinci. Oblio este opțional.
+Ai nevoie de un cont Vendwiser (există un plan gratuit, vezi [vendwiser.ai](https://vendwiser.ai) pentru planuri) și de un cont de vânzător eMAG Marketplace România sau Trendyol cu acces API. Fiecare magazin Trendyol este un cont de marketplace separat: planurile Gratuit, Starter și Pro includ un cont per marketplace, Scale până la șase, adică toate țările Trendyol. Oblio este opțional.
 
 ## Funcții
 
@@ -223,11 +223,11 @@ Pentru clienții care acceptă doar servere locale (stdio), puntea comunitară [
 
 ## Unelte
 
-Ultima coloană arată unde merge fiecare unealtă: **eMAG** (România), **Trendyol** (România, Bulgaria, Grecia, Cehia, Slovacia, Germania) sau **Oblio**. Legendă: 📖 **Citire** (`readOnlyHint: true`, întoarce date) · ✍️ **Propunere** (simulează o schimbare și așteaptă aprobarea ta) · 🔀 **Router** (rulează altă unealtă după nume și se comportă exact ca ea) · ⚠️ **Distructivă** (aplică sau respinge o schimbare pe care ai aprobat-o; `destructiveHint: true`). Toate uneltele au `openWorldHint: false`.
+Ultima coloană arată ce marketplace-uri acceptă fiecare unealtă (în clientul tău, rândul „Works on:” al fiecărei unelte arată doar conturile pe care le-ai conectat): **eMAG** (România), **Trendyol** (România, Bulgaria, Grecia, Cehia, Slovacia, Germania) sau **Oblio**. Legendă: 📖 **Citire** (`readOnlyHint: true`, întoarce date) · ✍️ **Propunere** (simulează o schimbare și așteaptă aprobarea ta) · 🔀 **Router** (rulează altă unealtă după nume și se comportă exact ca ea) · ⚠️ **Distructivă** (aplică sau respinge o schimbare pe care ai aprobat-o; `destructiveHint: true`). Toate uneltele au `openWorldHint: false`.
 
 ### Pornire și găsirea uneltelor
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`start_here`](docs/tools.md#start_here) | Ce poate face Vendwiser acum: conturi conectate, apeluri rămase, schimbări în așteptare. | 📖 Citire | Spațiu de lucru |
 | [`search_tools`](docs/tools.md#search_tools) | Găsește unealta potrivită pentru o sarcină descrisă în cuvinte simple. | 📖 Citire | Spațiu de lucru |
@@ -236,7 +236,7 @@ Ultima coloană arată unde merge fiecare unealtă: **eMAG** (România), **Trend
 
 ### Conturi și consum
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`list_accounts`](docs/tools.md#list_accounts) | Conturile de marketplace conectate și ce are voie asistentul pe fiecare. | 📖 Citire | Spațiu de lucru |
 | [`connection_health`](docs/tools.md#connection_health) | Verifică dacă fiecare cont conectat răspunde. | 📖 Citire | Spațiu de lucru |
@@ -244,7 +244,7 @@ Ultima coloană arată unde merge fiecare unealtă: **eMAG** (România), **Trend
 
 ### Aprobări și jurnal de activitate
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`list_pending_actions`](docs/tools.md#list_pending_actions) | Schimbările simulate care așteaptă aprobare. | 📖 Citire | Spațiu de lucru |
 | [`get_action`](docs/tools.md#get_action) | Starea și rezultatul unei schimbări propuse. | 📖 Citire | Spațiu de lucru |
@@ -253,7 +253,7 @@ Ultima coloană arată unde merge fiecare unealtă: **eMAG** (România), **Trend
 
 ### Catalog și oferte
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`offers_list`](docs/tools.md#offers_list) | Oferte cu preț, stoc, stare, validare și poziție la butonul de cumpărare. | 📖 Citire | eMAG, Trendyol |
 | [`offers_summary`](docs/tools.md#offers_summary) | Numărători exacte: total, active, inactive, respinse. | 📖 Citire | eMAG, Trendyol |
@@ -272,7 +272,7 @@ Ultima coloană arată unde merge fiecare unealtă: **eMAG** (România), **Trend
 
 ### Comenzi și livrare
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`orders_list`](docs/tools.md#orders_list) | Comenzi dintr-un interval (implicit ultimele 7 zile); cumpărătorul redus la nume și oraș. | 📖 Citire | eMAG, Trendyol |
 | [`orders_get`](docs/tools.md#orders_get) | O comandă cu produsele, AWB-ul și starea facturii. | 📖 Citire | eMAG, Trendyol |
@@ -287,34 +287,34 @@ Ultima coloană arată unde merge fiecare unealtă: **eMAG** (România), **Trend
 
 ### Retururi
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`returns_list`](docs/tools.md#returns_list) | Cererile de retur, cele mai noi primele. | 📖 Citire | eMAG, Trendyol |
 | [`returns_decide`](docs/tools.md#returns_decide) | Propune acceptarea (rambursează clientul) sau refuzul unui retur, cu unul dintre motivele marketplace-ului. | ✍️ Propunere | Trendyol |
 
 ### Întrebările clienților (Trendyol)
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`questions_list`](docs/tools.md#questions_list) | Întrebările clienților de pe paginile produselor, cele mai noi primele, și dacă mai așteaptă răspuns. | 📖 Citire | Trendyol |
 | [`questions_answer`](docs/tools.md#questions_answer) | Propune un răspuns public; se trimite doar după aprobare, iar Trendyol îl verifică înainte să-l afișeze. | ✍️ Propunere | Trendyol |
 
 ### Finanțe (Trendyol)
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`finance_transactions`](docs/tools.md#finance_transactions) | Vânzări, retururi, reduceri, cupoane, plăți și facturile de comision și transport reținute, cum le înregistrează Trendyol (maximum 15 zile pe apel). | 📖 Citire | Trendyol |
 
 ### Campanii (eMAG)
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`campaigns_list`](docs/tools.md#campaigns_list) | Campaniile la care se poate înscrie vânzătorul, cu date și reguli. | 📖 Citire | eMAG |
 | [`campaigns_propose`](docs/tools.md#campaigns_propose) | Propune produse pentru o campanie. | ✍️ Propunere | eMAG |
 
 ### Facturare (Oblio)
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`invoice_series_list`](docs/tools.md#invoice_series_list) | Seriile de documente și cotele de TVA din contul de facturare. | 📖 Citire | Oblio |
 | [`invoices_list`](docs/tools.md#invoices_list) | Facturi sau proforme, cu client, total, stare și link PDF. | 📖 Citire | Oblio |
@@ -325,7 +325,7 @@ Ultima coloană arată unde merge fiecare unealtă: **eMAG** (România), **Trend
 
 ### Analize și rapoarte
 
-| Unealtă | Ce face | Tip | Merge pe |
+| Unealtă | Ce face | Tip | Acceptă |
 |---|---|---|---|
 | [`catalog_health_audit`](docs/tools.md#catalog_health_audit) | Sănătatea catalogului: respinse, fără stoc, fără EAN, fără buton de cumpărare. | 📖 Citire | eMAG, Trendyol |
 | [`buy_button_check`](docs/tools.md#buy_button_check) | Ofertele active care nu dețin butonul de cumpărare, cu diferența de preț. | 📖 Citire | eMAG, Trendyol |
@@ -366,7 +366,7 @@ Nu. Fiecare schimbare este o propunere cu previzualizare. Se aplică doar după 
 Un cont Vendwiser; un cont eMAG Marketplace România (utilizator și parolă de API, plus IP-ul Vendwiser în lista albă eMAG) și/sau un cont de vânzător Trendyol (Seller ID, API key și API secret din Detalii cont > Informații de integrare; fără listă de IP-uri; câte o conexiune pentru fiecare magazin), conectate în panoul Vendwiser; opțional, un cont Oblio pentru facturi. Conturile le conectezi o singură dată în panoul de la [app.vendwiser.ai](https://app.vendwiser.ai); clientul AI nu vede niciodată datele de acces.
 
 **Ce marketplace-uri sunt acceptate?**
-eMAG Marketplace România și Trendyol în România, Bulgaria, Grecia, Cehia, Slovacia și Germania. Fiecare magazin Trendyol se conectează separat și contează ca un cont de marketplace (Gratuit, Starter și Pro: un cont per marketplace; Scale: până la cinci). AWB-urile și campaniile sunt doar pe eMAG, pentru că Trendyol nu le oferă integratorilor. eMAG Bulgaria și eMAG Ungaria sunt planificate.
+eMAG Marketplace România și Trendyol în România, Bulgaria, Grecia, Cehia, Slovacia și Germania. Fiecare magazin Trendyol se conectează separat și contează ca un cont de marketplace (Gratuit, Starter și Pro: un cont per marketplace; Scale: până la șase, adică toate țările Trendyol). AWB-urile și campaniile nu sunt disponibile pe Trendyol prin Vendwiser, în nicio țară; sunt doar pe eMAG. eMAG Bulgaria și eMAG Ungaria sunt planificate.
 
 **Prețurile sunt cu sau fără TVA?**
 Prețurile eMAG sunt **fără TVA**, așa cum le întoarce eMAG. Prețurile Trendyol **includ TVA**, așa cum le întoarce Trendyol. `price_parity_check` nu convertește moneda și nu ajustează TVA-ul. Liniile facturilor Oblio sunt **cu TVA**, dacă nu se precizează altfel. Descrierile uneltelor îi spun asistentului ce convenție se aplică.
@@ -390,6 +390,9 @@ Nu. Vendwiser este independent și folosește API-urile publice eMAG Marketplace
 
 - Site: <https://vendwiser.ai>
 - Documentație: <https://vendwiser.ai/docs/>
+- Trendyol în ChatGPT și Claude: <https://vendwiser.ai/trendyol-chatgpt/> ([English](https://vendwiser.ai/en/trendyol-chatgpt/))
+- eMAG în ChatGPT: <https://vendwiser.ai/emag-chatgpt/> · eMAG în Claude: <https://vendwiser.ai/emag-claude/>
+- Oblio în ChatGPT și Claude: <https://vendwiser.ai/oblio-chatgpt/> · Factură Oblio din comanda eMAG: <https://vendwiser.ai/facturi-emag-oblio/>
 - Politica de confidențialitate: <https://vendwiser.ai/privacy/>
 - Termeni și condiții: <https://vendwiser.ai/terms/>
 - Acordul de prelucrare a datelor: <https://vendwiser.ai/dpa/>

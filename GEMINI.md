@@ -20,7 +20,7 @@ You are connected to **Vendwiser**, a remote MCP server that gives you access to
 
 - eMAG prices are **without VAT**. Convert a shelf price (with VAT) using the rate from `vat_list` before proposing a price.
 - Trendyol prices **include VAT**. `price_parity_check` does not convert currencies or normalise VAT, so take that into account when comparing eMAG and Trendyol or two Trendyol countries.
-- Each tool description ends with **Works on:**. AWBs and campaigns are eMAG only; product page content, new products, order splits, item cancellations, return decisions, customer questions and finance transactions are Trendyol only.
+- Each tool description ends with **Works on:**, listing the user's connected accounts the tool can use. AWBs and campaigns are not available on Trendyol through Vendwiser, in any country; they are eMAG only. Product page content, new products, order splits, item cancellations, return decisions, customer questions and finance transactions are Trendyol only.
 - `offers_delete` and `orders_cancel_items` cannot be undone on the marketplace. Say so clearly in the preview.
 - For answers to customer questions, write in the language of the question and state only facts the user or the product data gave you.
 - Oblio invoice lines are **with VAT** unless `vat_included` is false. Vendwiser does not send invoices to e-Factura (SPV).

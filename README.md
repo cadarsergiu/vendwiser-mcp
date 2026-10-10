@@ -46,7 +46,7 @@ Ask which orders are past their handover deadline, why an offer was rejected, wh
 - **Shop operators and small teams** who invoice eMAG orders in **Oblio** and want invoices and AWBs prepared from the order itself.
 - **Agencies and integrators** who manage seller accounts and need an audit trail of every change an AI assistant makes.
 
-You need a Vendwiser account (a free plan is available, see [vendwiser.ai](https://vendwiser.ai) for plans) and an eMAG Marketplace Romania or Trendyol seller account with API access. Each Trendyol storefront is a separate marketplace account: the Free, Starter and Pro plans include one account per marketplace, Scale up to five. Oblio is optional.
+You need a Vendwiser account (a free plan is available, see [vendwiser.ai](https://vendwiser.ai) for plans) and an eMAG Marketplace Romania or Trendyol seller account with API access. Each Trendyol storefront is a separate marketplace account: the Free, Starter and Pro plans include one account per marketplace, Scale up to six, which covers every Trendyol country. Oblio is optional.
 
 ## Features
 
@@ -226,11 +226,11 @@ If you want to document this for clients without OAuth support, describe here wh
 
 ## Tools
 
-Each tool works on the accounts named in the last column: **eMAG** (Romania), **Trendyol** (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany) or **Oblio**. Legend: 📖 **Read** (`readOnlyHint: true`, returns data) · ✍️ **Propose** (simulates a change and waits for your approval) · 🔀 **Router** (runs another tool by name; behaves exactly like that tool) · ⚠️ **Destructive** (applies or rejects a change you approved; `destructiveHint: true`). All tools have `openWorldHint: false`.
+The last column shows which marketplaces each tool supports (in your client, each tool's "Works on:" line lists the accounts you have actually connected): **eMAG** (Romania), **Trendyol** (Romania, Bulgaria, Greece, Czechia, Slovakia, Germany) or **Oblio**. Legend: 📖 **Read** (`readOnlyHint: true`, returns data) · ✍️ **Propose** (simulates a change and waits for your approval) · 🔀 **Router** (runs another tool by name; behaves exactly like that tool) · ⚠️ **Destructive** (applies or rejects a change you approved; `destructiveHint: true`). All tools have `openWorldHint: false`.
 
 ### Getting started and tool discovery
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`start_here`](docs/tools.md#start_here) | Get started | What Vendwiser can do for this seller right now: connected accounts, remaining calls, changes waiting for approval and the available tools. | 📖 Read | Workspace |
 | [`search_tools`](docs/tools.md#search_tools) | Find a tool | Find the right Vendwiser tool for a task, described in plain words (for example "issue an invoice" or "orders not shipped"). | 📖 Read | Workspace |
@@ -239,7 +239,7 @@ Each tool works on the accounts named in the last column: **eMAG** (Romania), **
 
 ### Accounts and usage
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`list_accounts`](docs/tools.md#list_accounts) | List connected accounts | Marketplace accounts connected to this workspace, with what the assistant may do on each. | 📖 Read | Workspace |
 | [`connection_health`](docs/tools.md#connection_health) | Check connection health | Test that each connected marketplace account answers. | 📖 Read | Workspace |
@@ -247,7 +247,7 @@ Each tool works on the accounts named in the last column: **eMAG** (Romania), **
 
 ### Approvals and activity log
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`list_pending_actions`](docs/tools.md#list_pending_actions) | List changes waiting for approval | Changes that were simulated and are waiting for a person to approve or reject. | 📖 Read | Workspace |
 | [`get_action`](docs/tools.md#get_action) | Get a proposed change | Status and result of one proposed change, by its action_id. | 📖 Read | Workspace |
@@ -256,7 +256,7 @@ Each tool works on the accounts named in the last column: **eMAG** (Romania), **
 
 ### Catalog and offers
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`offers_list`](docs/tools.md#offers_list) | List offers | List the seller's offers with price, stock, status, validation state and buy-button position. | 📖 Read | eMAG, Trendyol |
 | [`offers_summary`](docs/tools.md#offers_summary) | Offers summary | Fast exact counts for the whole catalog: total, active, inactive, rejected, with a rejected update. | 📖 Read | eMAG, Trendyol |
@@ -275,7 +275,7 @@ Each tool works on the accounts named in the last column: **eMAG** (Romania), **
 
 ### Orders and shipping
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`orders_list`](docs/tools.md#orders_list) | List orders | List orders in a date window (default: last 7 days, at most 31 days). | 📖 Read | eMAG, Trendyol |
 | [`orders_get`](docs/tools.md#orders_get) | Get an order | One order with its lines, AWB and invoice state. | 📖 Read | eMAG, Trendyol |
@@ -290,34 +290,34 @@ Each tool works on the accounts named in the last column: **eMAG** (Romania), **
 
 ### Returns
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`returns_list`](docs/tools.md#returns_list) | List returns | Return requests, newest first. | 📖 Read | eMAG, Trendyol |
 | [`returns_decide`](docs/tools.md#returns_decide) | Propose a return decision | Propose accepting (refunds the customer) or refusing a return, with one of the marketplace's reasons. | ✍️ Propose | Trendyol |
 
 ### Customer questions (Trendyol)
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`questions_list`](docs/tools.md#questions_list) | List customer questions | Questions customers asked on product pages, newest first, with the product, the question text and whether it still waits for an answer. | 📖 Read | Trendyol |
 | [`questions_answer`](docs/tools.md#questions_answer) | Propose an answer to a customer question | Propose a public answer to one customer question; sent only after approval, and Trendyol reviews it before showing it. | ✍️ Propose | Trendyol |
 
 ### Finance (Trendyol)
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`finance_transactions`](docs/tools.md#finance_transactions) | List finance transactions | Sales, returns, discounts, coupons, payouts and deducted commission and shipping invoices, as Trendyol books them (at most 15 days per call). | 📖 Read | Trendyol |
 
 ### Campaigns (eMAG)
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`campaigns_list`](docs/tools.md#campaigns_list) | List campaigns | Marketplace campaigns the seller can join, with dates, type and participation rules. | 📖 Read | eMAG |
 | [`campaigns_propose`](docs/tools.md#campaigns_propose) | Propose products for a campaign | Propose products for a marketplace campaign. | ✍️ Propose | eMAG |
 
 ### Invoicing (Oblio)
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`invoice_series_list`](docs/tools.md#invoice_series_list) | List invoice series and VAT rates | Document series and VAT rates set up in the invoicing account, and which series is used by default. | 📖 Read | Oblio |
 | [`invoices_list`](docs/tools.md#invoices_list) | List invoices | Invoices (or proformas, with doc_type) issued from the invoicing account, newest first, with client, total, state (cancelled, collected, storno), e-Factura state and the link to the PDF. | 📖 Read | Oblio |
@@ -328,7 +328,7 @@ Each tool works on the accounts named in the last column: **eMAG** (Romania), **
 
 ### Analysis and reports
 
-| Tool | Title | What it does | Type | Works on |
+| Tool | Title | What it does | Type | Supports |
 |---|---|---|---|---|
 | [`catalog_health_audit`](docs/tools.md#catalog_health_audit) | Audit catalog health | One pass over the catalog: how many offers are active, rejected, out of stock, missing an EAN or not holding the buy button, with examples of each. | 📖 Read | eMAG, Trendyol |
 | [`buy_button_check`](docs/tools.md#buy_button_check) | Check the buy button | Active offers that do not hold the buy button, with the gap to the winning price, smallest gap first. | 📖 Read | eMAG, Trendyol |
@@ -367,7 +367,7 @@ No. Every change is a proposal with a preview. It is applied only after you repl
 A Vendwiser account; an eMAG Marketplace Romania account (API user and password, plus the Vendwiser IP in your eMAG allowlist) and/or a Trendyol seller account (Seller ID, API key and API secret from Account details > Integration information; no IP allowlist; one connection per storefront), connected in the Vendwiser dashboard; and optionally an Oblio account for invoices. You connect those accounts once in the dashboard at [app.vendwiser.ai](https://app.vendwiser.ai); your AI client never sees the credentials.
 
 **Which marketplaces are supported?**
-eMAG Marketplace Romania, and Trendyol in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany. Each Trendyol storefront is connected separately and counts as one marketplace account (Free, Starter and Pro: one account per marketplace; Scale: up to five). AWBs and campaigns are eMAG only, because Trendyol does not offer them to integrators. eMAG Bulgaria and Hungary are planned.
+eMAG Marketplace Romania, and Trendyol in Romania, Bulgaria, Greece, Czechia, Slovakia and Germany. Each Trendyol storefront is connected separately and counts as one marketplace account (Free, Starter and Pro: one account per marketplace; Scale: up to six, every Trendyol country). AWBs and campaigns are not available on Trendyol through Vendwiser, in any country; they are eMAG only. eMAG Bulgaria and Hungary are planned.
 
 **Are prices with or without VAT?**
 eMAG prices are handled **without VAT**, as eMAG returns them. Trendyol prices **include VAT**, as Trendyol returns them. `price_parity_check` does not convert currencies or normalise VAT. Oblio invoice lines are **with VAT** unless stated otherwise. The tool descriptions tell the assistant which convention applies.
@@ -391,6 +391,9 @@ Remove the connector in your AI client, and revoke access or disconnect your mar
 
 - Website: <https://vendwiser.ai>
 - Documentation: <https://vendwiser.ai/docs/>
+- Trendyol in ChatGPT and Claude: <https://vendwiser.ai/en/trendyol-chatgpt/> ([Romanian](https://vendwiser.ai/trendyol-chatgpt/))
+- eMAG in ChatGPT: <https://vendwiser.ai/en/emag-chatgpt/> · eMAG in Claude: <https://vendwiser.ai/en/emag-claude/>
+- Oblio in ChatGPT and Claude: <https://vendwiser.ai/en/oblio-chatgpt/> · Oblio invoice from an eMAG order: <https://vendwiser.ai/en/facturi-emag-oblio/>
 - Privacy policy: <https://vendwiser.ai/privacy/>
 - Terms of service: <https://vendwiser.ai/terms/>
 - Data processing agreement: <https://vendwiser.ai/dpa/>

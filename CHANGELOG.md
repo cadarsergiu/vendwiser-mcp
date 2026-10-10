@@ -2,6 +2,15 @@
 
 All notable changes to this documentation and configuration repository are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/). The version matches `server.json`, `gemini-extension.json`, `.cursor-plugin/plugin.json` and `lhm.plugin.json`; bump all four together and create a matching Git tag (for example `v1.0.0`).
 
+## [Unreleased]
+
+### Changed
+
+- Scale plan: up to six accounts per marketplace (every Trendyol country), was five.
+- "Works on" explained as per-workspace: the live `tools/list` lists the accounts the user has connected. `docs/tools.md`, the server card and `lhm.plugin.json` now say **Supports:** with the full list of marketplaces.
+- AWB and campaigns: "not available on Trendyol through Vendwiser, in any country".
+- README (EN/RO): links to the English and Romanian content pages on vendwiser.ai.
+
 ## [1.1.0] - 2026-10-10
 
 ### Added
