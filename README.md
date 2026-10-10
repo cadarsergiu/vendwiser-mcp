@@ -393,7 +393,7 @@ Remove the connector in your AI client, and revoke access or disconnect your mar
 - Documentation: <https://vendwiser.ai/docs/>
 - Trendyol in ChatGPT and Claude: <https://vendwiser.ai/en/trendyol-chatgpt/> ([Romanian](https://vendwiser.ai/trendyol-chatgpt/))
 - eMAG in ChatGPT: <https://vendwiser.ai/en/emag-chatgpt/> · eMAG in Claude: <https://vendwiser.ai/en/emag-claude/>
-- Oblio in ChatGPT and Claude: <https://vendwiser.ai/en/oblio-chatgpt/> · Oblio invoice from an eMAG order: <https://vendwiser.ai/en/facturi-emag-oblio/>
+- Oblio in ChatGPT and Claude: <https://vendwiser.ai/en/oblio-chatgpt/> · Oblio invoice from an eMAG order: <https://vendwiser.ai/en/oblio-invoice-from-emag-order/>
 - Privacy policy: <https://vendwiser.ai/privacy/>
 - Terms of service: <https://vendwiser.ai/terms/>
 - Data processing agreement: <https://vendwiser.ai/dpa/>
