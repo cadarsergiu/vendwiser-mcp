@@ -390,9 +390,14 @@ Nu. Vendwiser este independent și folosește API-urile publice eMAG Marketplace
 
 - Site: <https://vendwiser.ai>
 - Documentație: <https://vendwiser.ai/docs/>
-- Trendyol în ChatGPT și Claude: <https://vendwiser.ai/trendyol-chatgpt/> ([English](https://vendwiser.ai/en/trendyol-chatgpt/))
-- eMAG în ChatGPT: <https://vendwiser.ai/emag-chatgpt/> · eMAG în Claude: <https://vendwiser.ai/emag-claude/>
-- Oblio în ChatGPT și Claude: <https://vendwiser.ai/oblio-chatgpt/> · Factură Oblio din comanda eMAG: <https://vendwiser.ai/facturi-emag-oblio/>
+- Toate integrările: <https://vendwiser.ai/integrari/> ([English](https://vendwiser.ai/en/integrations/))
+- Vezi cum funcționează (conversații exemplu și clipuri scurte, date demo):
+  - eMAG: <https://vendwiser.ai/emag/> ([English](https://vendwiser.ai/en/emag/))
+  - Trendyol: <https://vendwiser.ai/trendyol/> ([English](https://vendwiser.ai/en/trendyol/))
+  - Oblio: <https://vendwiser.ai/oblio/> ([English](https://vendwiser.ai/en/oblio/))
+- Ghiduri de configurare: [eMAG în ChatGPT](https://vendwiser.ai/emag-chatgpt/) · [eMAG în Claude](https://vendwiser.ai/emag-claude/)
+- Factură Oblio din comanda eMAG: <https://vendwiser.ai/facturi-emag-oblio/> ([English](https://vendwiser.ai/en/oblio-invoice-from-emag-order/))
+- Text complet pentru LLM-uri: <https://vendwiser.ai/llms.txt> · <https://vendwiser.ai/llms-full.txt>
 - Politica de confidențialitate: <https://vendwiser.ai/privacy/>
 - Termeni și condiții: <https://vendwiser.ai/terms/>
 - Acordul de prelucrare a datelor: <https://vendwiser.ai/dpa/>

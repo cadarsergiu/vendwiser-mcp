@@ -31,4 +31,4 @@ You are connected to **Vendwiser**, a remote MCP server that gives you access to
 
 ## Help
 
-Documentation: https://vendwiser.ai/docs/ · Support: hello@vendwiser.ai
+Documentation: https://vendwiser.ai/docs/ · Integrations and example conversations: https://vendwiser.ai/en/integrations/ (eMAG, Trendyol, Oblio) · Support: hello@vendwiser.ai

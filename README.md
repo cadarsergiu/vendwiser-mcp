@@ -391,9 +391,14 @@ Remove the connector in your AI client, and revoke access or disconnect your mar
 
 - Website: <https://vendwiser.ai>
 - Documentation: <https://vendwiser.ai/docs/>
-- Trendyol in ChatGPT and Claude: <https://vendwiser.ai/en/trendyol-chatgpt/> ([Romanian](https://vendwiser.ai/trendyol-chatgpt/))
-- eMAG in ChatGPT: <https://vendwiser.ai/en/emag-chatgpt/> · eMAG in Claude: <https://vendwiser.ai/en/emag-claude/>
-- Oblio in ChatGPT and Claude: <https://vendwiser.ai/en/oblio-chatgpt/> · Oblio invoice from an eMAG order: <https://vendwiser.ai/en/oblio-invoice-from-emag-order/>
+- Integrations overview: <https://vendwiser.ai/en/integrations/> ([Romanian](https://vendwiser.ai/integrari/))
+- See it in action (example conversations and short videos, demo data):
+  - eMAG: <https://vendwiser.ai/en/emag/> ([Romanian](https://vendwiser.ai/emag/))
+  - Trendyol: <https://vendwiser.ai/en/trendyol/> ([Romanian](https://vendwiser.ai/trendyol/))
+  - Oblio: <https://vendwiser.ai/en/oblio/> ([Romanian](https://vendwiser.ai/oblio/))
+- Setup guides: [add eMAG to ChatGPT](https://vendwiser.ai/en/emag-chatgpt/) · [add eMAG to Claude](https://vendwiser.ai/en/emag-claude/)
+- Oblio invoice from an eMAG order: <https://vendwiser.ai/en/oblio-invoice-from-emag-order/> ([Romanian](https://vendwiser.ai/facturi-emag-oblio/))
+- Full text for LLMs: <https://vendwiser.ai/llms.txt> · <https://vendwiser.ai/llms-full.txt>
 - Privacy policy: <https://vendwiser.ai/privacy/>
 - Terms of service: <https://vendwiser.ai/terms/>
 - Data processing agreement: <https://vendwiser.ai/dpa/>

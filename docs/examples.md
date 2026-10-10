@@ -57,7 +57,7 @@ Reply with it to apply that one change. Say no, or ignore it, and nothing change
 
 ## Trendyol
 
-These work on a connected Trendyol storefront (Romania, Bulgaria, Greece, Czechia, Slovakia or Germany). The demo shop has no Trendyol account, so no sample results are shown.
+These work on a connected Trendyol storefront (Romania, Bulgaria, Greece, Czechia, Slovakia or Germany). The demo shop has no Trendyol account, so no sample results are shown here; illustrative example conversations are on <https://vendwiser.ai/en/trendyol/>.
 
 | Prompt | Tool(s) | What you get |
 |---|---|---|

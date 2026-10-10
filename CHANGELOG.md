@@ -10,6 +10,7 @@ All notable changes to this documentation and configuration repository are liste
 - "Works on" explained as per-workspace: the live `tools/list` lists the accounts the user has connected. `docs/tools.md`, the server card and `lhm.plugin.json` now say **Supports:** with the full list of marketplaces.
 - AWB and campaigns: "not available on Trendyol through Vendwiser, in any country".
 - README (EN/RO): links to the English and Romanian content pages on vendwiser.ai.
+- Links moved to the new site structure: integrations hub (`/integrari/`, `/en/integrations/`), showcase pages with example conversations and videos (`/emag/`, `/trendyol/`, `/oblio/` and `/en/…`), setup guides (`/emag-chatgpt/`, `/emag-claude/`) and `llms-full.txt`. The old `/trendyol-chatgpt/` and `/oblio-chatgpt/` pages now redirect.
 
 ## [1.1.0] - 2026-10-10
 

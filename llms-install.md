@@ -47,4 +47,4 @@ After sign-in, the server should list **52 tools**. Call `start_here` (read-only
 | Authentication or network error from eMAG or Trendyol | Call `connection_health`. |
 | Client only supports stdio | Use `npx -y mcp-remote https://app.vendwiser.ai/mcp` as the command. |
 
-Documentation: https://vendwiser.ai/docs/ · Support: hello@vendwiser.ai
+Documentation: https://vendwiser.ai/docs/ · Integrations and example conversations: https://vendwiser.ai/en/integrations/ (eMAG, Trendyol, Oblio) · Support: hello@vendwiser.ai
